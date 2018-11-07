@@ -1,18 +1,20 @@
 import * as React from "react";
 import { ProjectDetails } from "./ProjectDetail";
 import { Project } from "../Model";
+import "./technologyList.css";
 
 export function TechnologyList(props: TechnologyListProps) {
   return (
-    <ul>
+    <ul className="technology-list">
       {props.technologies.map(t => (
-        <li key={t.name}>
-          <h3>{t.name}</h3>
+        <li className="technology-list-item" key={t.name}>
+          <div className="bar" style={{width: t.experienceGross * 30 }}></div>
+          <a href="#" title="Details"><strong>{t.name}</strong></a>
           <div>
             {t.experienceGross} years experience in {t.projects.length} projects
             in {t.jobs.length} jobs.
           </div>
-          <div>
+          {/* <div>
             Projects:
             <ul>
               {t.projects.map(p => (
@@ -34,7 +36,7 @@ export function TechnologyList(props: TechnologyListProps) {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </li>
       ))}
     </ul>

@@ -125,11 +125,6 @@ interface TechnologiesViewState {
 const extractName = (tech: any) => tech.name.toLowerCase();
 const sortButtons = [
   {
-    label: "Used most recently",
-    name: "usedRecently",
-    comparer: combine((tech: any) => tech.yearEnd, descend, extractName, ascend)
-  },
-  {
     label: "Experience",
     name: "byExperience",
     comparer: combine(
@@ -138,6 +133,11 @@ const sortButtons = [
       extractName,
       ascend
     )
+  },
+  {
+    label: "Used most recently",
+    name: "usedRecently",
+    comparer: combine((tech: any) => tech.yearEnd, descend, extractName, ascend)
   },
   {
     label: "A...Z",
