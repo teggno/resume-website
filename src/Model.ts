@@ -7,5 +7,9 @@ export interface Project {
   tools: string[];
   products?: string[];
   teamSize: string;
-  achievements: string[]
+  achievements: string[];
+  technologies: {
+    name: string;
+    tasks?: string[];
+  }[]
 }

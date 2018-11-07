@@ -9,42 +9,8 @@ export default class Me {
   constructor(private source: any) {}
 
   technologies() {
-    const projects = R.values(this.source.projects).map(s => ({
-      period: new Period(
-        Month.parse(s.period.from),
-        s.period.to ? Month.parse(s.period.to) : undefined
-      ),
-      title: <string>s.title,
-      technologies: <string[]>s.technologies,
-      teamSize: <string>s.teamSize,
-      achievements: <string[]>s.achievements,
-      tasks: <string[]>s.tasks,
-      products: <string[]>s.products,
-      tools: <string[]>s.tools
-    }));
-    const jobs = R.values(this.source.jobs).map(j => ({
-      company: <string>j.company,
-      titles: R.mapAccum(
-        (to, titleItem) => [
-          Month.parse(titleItem.from ? titleItem.from : j.period.from).add(-1),
-          {
-            title: titleItem.title,
-            period: new Period(
-              Month.parse(titleItem.from ? titleItem.from : j.period.from),
-              to
-            )
-          }
-        ],
-        j.period.to ? Month.parse(j.period.to) : undefined,
-        R.sort(R.descend(<any>R.propOr("", "from")), <
-          { title: string; from?: string }[]
-        >j.titles)
-      )[1],
-      period: new Period(
-        Month.parse(j.period.from),
-        j.period.to ? Month.parse(j.period.to) : undefined
-      )
-    }));
+    const projects = this.getProjects();
+    const jobs = this.getJobs();
     const jobsAndTitles = R.flatten(
       jobs.map(j => j.titles.map(t => ({ job: j, title: t })))
     );
@@ -53,8 +19,8 @@ export default class Me {
         p.technologies.map(t => ({ project: p, technology: t }))
       )
     );
-    const grouped = R.groupBy(p => p.technology, pairs);
-    const technologies = Object.keys(grouped).map((name: string) => {
+    const grouped = R.groupBy(p => p.technology.name, pairs);
+    const technologies = Object.keys(grouped).map(name => {
       const pairs = grouped[name];
       const projectsWhereTechWasUsed = pairs.map(g => g.project);
       const minMonth = projectsWhereTechWasUsed
@@ -105,5 +71,53 @@ export default class Me {
     return technologies.sort((a, b) =>
       a.name === b.name ? 0 : a.name > b.name ? -1 : 1
     );
+  }
+  getProjects() {
+    return R.values(this.source.projects).map(s => ({
+      period: new Period(
+        Month.parse(s.period.from),
+        s.period.to ? Month.parse(s.period.to) : undefined
+      ),
+      title: <string>s.title,
+      technologies: <{ name: string; tasks?: string[] }[]>(
+        s.technologies.map((t: any) =>
+          typeof t === "string" ? { name: t } : { name: t.name, tasks: t.tasks }
+        )
+      ),
+      teamSize: <string>s.teamSize,
+      achievements: <string[]>s.achievements,
+      tasks: <string[]>s.tasks,
+      products: <string[]>s.products,
+      tools: <string[]>s.tools
+    }));
+  }
+
+  private getJobs() {
+    return R.values(this.source.jobs).map(j => ({
+      company: <string>j.company,
+      titles: R.mapAccum(
+        (to, titleItem) => [
+          Month.parse(titleItem.from ? titleItem.from : j.period.from).add(-1),
+          {
+            title: titleItem.title,
+            period: new Period(
+              Month.parse(titleItem.from ? titleItem.from : j.period.from),
+              to
+            )
+          }
+        ],
+        j.period.to ? Month.parse(j.period.to) : undefined,
+        R.sort(R.descend(<any>R.propOr("", "from")), <
+          {
+            title: string;
+            from?: string;
+          }[]
+        >j.titles)
+      )[1],
+      period: new Period(
+        Month.parse(j.period.from),
+        j.period.to ? Month.parse(j.period.to) : undefined
+      )
+    }));
   }
 }

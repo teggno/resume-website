@@ -9,9 +9,8 @@ export function TechnologyList(props: TechnologyListProps) {
         <li key={t.name}>
           <h3>{t.name}</h3>
           <div>
-            {t.projects.length} projects in {t.jobs.length} jobs over{" "}
-            {t.experienceGross} years ({`${t.yearStart}-${t.yearEnd}`}
-            ).
+            {t.experienceGross} years experience in {t.projects.length} projects
+            in {t.jobs.length} jobs.
           </div>
           <div>
             Projects:
@@ -75,7 +74,7 @@ export class Expandable extends React.Component<any, { isExpanded: boolean }> {
         >
           {this.state.isExpanded ? "Collapse" : "Expand"}
         </button>
-        {this.state.isExpanded ? this.props.children: null}
+        {this.state.isExpanded ? this.props.children : null}
       </React.Fragment>
     );
   }
