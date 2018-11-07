@@ -8,8 +8,8 @@ export function CheckboxList<T extends { name: string }>(
   return (
     <React.Fragment>
       {props.allItems.map(item => (
-        <React.Fragment>
-          <label className="checkbox-list-item" key={item.name}>
+        <React.Fragment key={item.name}>
+          <label className="checkbox-list-item">
             <input
               type="checkbox"
               checked={props.selectedItems.indexOf(item) !== -1}

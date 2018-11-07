@@ -20,7 +20,7 @@ export default class Month {
     if (month === null) throw new Error("month is null");
     return new Month(
       parseInt(month.substr(0, 4)),
-      parseInt(month.substr(6, 2))
+      parseInt(month.substr(5, 2))
     );
   }
 
@@ -41,7 +41,7 @@ export default class Month {
   }
 
   static duration(from: Month, to: Month) {
-    const diff = to.totalMonths() - from.totalMonths();
+    const diff = to.totalMonths() - from.totalMonths() + 1;
     return {
       years: Math.floor(diff / 12),
       months: diff % 12
