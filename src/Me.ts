@@ -15,7 +15,12 @@ export default class Me {
         s.period.to ? Month.parse(s.period.to) : undefined
       ),
       title: <string>s.title,
-      technologies: <string[]>s.technologies
+      technologies: <string[]>s.technologies,
+      teamSize: <string>s.teamSize,
+      achievements: <string[]>s.achievements,
+      tasks: <string[]>s.tasks,
+      products: <string[]>s.products,
+      tools: <string[]>s.tools
     }));
     const jobs = R.values(this.source.jobs).map(j => ({
       company: <string>j.company,
@@ -97,8 +102,8 @@ export default class Me {
       };
     });
 
-    return technologies.sort(
-      (a, b) => (a.name === b.name ? 0 : a.name > b.name ? -1 : 1)
+    return technologies.sort((a, b) =>
+      a.name === b.name ? 0 : a.name > b.name ? -1 : 1
     );
   }
 }

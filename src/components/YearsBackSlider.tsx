@@ -1,7 +1,8 @@
-import "rc-slider/assets/index.css";
+import "rheostat/initialize";
 import React from "react";
-import Slider from "rc-slider";
-import { fromPairs } from "ramda";
+import { fromPairs, range } from "ramda";
+import Rheostat from "rheostat";
+import "rheostat/css/rheostat.css";
 
 export default function YearsBackSlider(props: {
   yearFrom: number;
@@ -12,19 +13,23 @@ export default function YearsBackSlider(props: {
 }) {
   const yearDiff = props.yearTo - props.yearFrom;
   return (
-    <Slider
+    <Rheostat
       min={0}
       max={yearDiff}
-      marks={fromPairs([
-        ["0", "today"],
-        [`${yearDiff}`, `${yearDiff} years back`]
-      ])}
-      defaultValue={props.yearTo - props.year}
-      onChange={value => {
-        if (props.onChange) props.onChange(props.yearTo - value);
+      values={[props.yearTo - props.year]}
+      snap={true}
+      snapPoints={range(0, yearDiff + 1)}
+      // marks={fromPairs([
+      //   ["0", "today"],
+      //   [`${yearDiff}`, `${yearDiff} years back`]
+      // ])}
+      // defaultValue={props.yearTo - props.year}
+      onValuesUpdated={s => {
+        if (props.onChange) props.onChange(props.yearTo - s.values[0]);
       }}
-      onAfterChange={value => {
-        if (props.onAfterChange) props.onAfterChange(props.yearTo - value);
+      onChange={s => {
+        if (props.onAfterChange)
+          props.onAfterChange(props.yearTo - s.values[0]);
       }}
     />
   );

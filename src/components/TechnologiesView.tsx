@@ -5,7 +5,6 @@ import { ButtonList } from "./ButtonList";
 import Me from "../Me";
 import { descend, sort, ascend, sortBy } from "ramda";
 import YearsBackSlider from "./YearsBackSlider.1";
-
 const todaysYear = new Date().getFullYear();
 
 export class TechnologiesView extends React.Component<
@@ -31,7 +30,7 @@ export class TechnologiesView extends React.Component<
             yearFrom={getWorkYears(this.state.technologies).min}
             yearTo={todaysYear}
             year={this.state.yearFrom}
-            onAfterChange={this.periodSliderChanged.bind(this)}
+            onDragging={this.periodSliderChanged.bind(this)}
           />
         </div>
         <TechnologyFilter
@@ -45,6 +44,7 @@ export class TechnologiesView extends React.Component<
           selectionChanged={this.techSelectionChanged.bind(this)}
           isAllNoneButtonAll={false}
         />
+        <span>Sort by</span>
         <ButtonList
           buttons={sortButtons}
           value={this.state.sort}
@@ -125,7 +125,7 @@ interface TechnologiesViewState {
 const extractName = (tech: any) => tech.name.toLowerCase();
 const sortButtons = [
   {
-    label: "Used recently",
+    label: "Used most recently",
     name: "usedRecently",
     comparer: combine((tech: any) => tech.yearEnd, descend, extractName, ascend)
   },
@@ -140,7 +140,7 @@ const sortButtons = [
     )
   },
   {
-    label: "Alphabetical",
+    label: "A...Z",
     name: "alphabetical",
     comparer: ascend(extractName)
   }

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { ProjectDetails } from "./ProjectDetail";
+import { Project } from "../Model";
 
 export function TechnologyList(props: TechnologyListProps) {
   return (
@@ -15,7 +17,12 @@ export function TechnologyList(props: TechnologyListProps) {
             Projects:
             <ul>
               {t.projects.map(p => (
-                <li key={p.title}>{p.title}</li>
+                <li key={p.title}>
+                  {p.title}
+                  <Expandable>
+                    <ProjectDetails project={p} />
+                  </Expandable>
+                </li>
               ))}
             </ul>
           </div>
@@ -41,10 +48,35 @@ export interface TechnologyListProps {
 
 export interface Technology {
   name: string;
-  projects: { title: string }[];
+  projects: Project[];
   jobs: { company: string; title: string }[];
   experienceNet: number;
   experienceGross: number;
   yearStart: number;
   yearEnd: number;
+}
+
+export class Expandable extends React.Component<any, { isExpanded: boolean }> {
+  constructor(props: { children: any; isExpanded?: boolean }) {
+    super(props);
+
+    this.state = {
+      isExpanded: !!props.isExpanded
+    };
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <button
+          type="button"
+          onClick={(() => {
+            this.setState({ isExpanded: !this.state.isExpanded });
+          }).bind(this)}
+        >
+          {this.state.isExpanded ? "Collapse" : "Expand"}
+        </button>
+        {this.state.isExpanded ? this.props.children: null}
+      </React.Fragment>
+    );
+  }
 }
