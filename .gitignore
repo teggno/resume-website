@@ -1,0 +1,8 @@
+.settings/
+
+node_modules
+dist/bundle.js
+*.js.map
+
+TESTS-*.xml
+me.json
