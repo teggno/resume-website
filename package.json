@@ -17,7 +17,8 @@
     "ramda": "^0.25.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "rheostat": "^3.0.1"
+    "rheostat": "^3.0.1",
+    "smoothscroll-polyfill": "^0.4.3"
   },
   "devDependencies": {
     "@types/d3": "^5.0.1",

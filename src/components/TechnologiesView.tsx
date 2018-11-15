@@ -1,10 +1,14 @@
 import React from "react";
 import { TechnologyFilter } from "./TechnologyFilter";
-import { TechnologyList, Technology } from "./TechnologyList";
+import { TechnologyList } from "./TechnologyList";
 import { ButtonList } from "./ButtonList";
 import Me from "../Me";
 import { descend, sort, ascend, sortBy } from "ramda";
 import YearsBackSlider from "./YearsBackSlider.1";
+import { Technology } from "../Model";
+import TechnologyDetails from "./TechnologyDetails";
+import "./technologiesView.css";
+
 const todaysYear = new Date().getFullYear();
 
 export class TechnologiesView extends React.Component<
@@ -18,8 +22,34 @@ export class TechnologiesView extends React.Component<
       technologies: technologies,
       selectedTechnologies: technologies,
       sort: sortButtons[0].name,
-      yearFrom: getWorkYears(technologies).min
+      yearFrom: getWorkYears(technologies).min,
+      selectedTechnology: this.selectedTechnologyFromHash(technologies)
     };
+    this.technologyDetailsRef = React.createRef();
+  }
+
+  componentDidMount() {
+    window.addEventListener("hashchange", this.hashChanged);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.hashChanged);
+  }
+
+  hashChanged = () => {
+    const tech = this.selectedTechnologyFromHash(this.state.technologies);
+    this.setState({
+      selectedTechnology: tech
+    });
+    if (tech) {
+      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  selectedTechnologyFromHash(technologies: Technology[]) {
+    return technologies.filter(
+      t => t.name === this.technologyNameFromHash()
+    )[0];
   }
 
   render() {
@@ -44,20 +74,44 @@ export class TechnologiesView extends React.Component<
           selectionChanged={this.techSelectionChanged.bind(this)}
           isAllNoneButtonAll={false}
         />
-        <span>Sort by</span>
-        <ButtonList
-          buttons={sortButtons}
-          value={this.state.sort}
-          changed={this.sortChanged.bind(this)}
-        />
-        <TechnologyList
-          technologies={sortTechnologies(
-            this.filterTechnologiesByYear(this.state.selectedTechnologies),
-            this.state.sort
-          )}
-        />
+        <div className="master-detail">
+          <div className={!!this.state.selectedTechnology ? "master tiny": "master"}>
+            <span>Sort by</span>
+            <ButtonList
+              buttons={sortButtons}
+              value={this.state.sort}
+              changed={this.sortChanged.bind(this)}
+            />
+            <TechnologyList
+              technologies={sortTechnologies(
+                this.filterTechnologiesByYear(this.state.selectedTechnologies),
+                this.state.sort
+              )}
+            />
+          </div>
+          <div ref={this.technologyDetailsRef} >
+            {this.state.selectedTechnology ? (
+              <div className="detail">
+                <button
+                  onClick={function() {
+                    window.location.hash = "";
+                  }}
+                >
+                  Back to list
+                </button>
+                <TechnologyDetails technology={this.state.selectedTechnology} />
+              </div>
+            ) : null}
+          </div>
+        </div>
       </React.Fragment>
     );
+  }
+
+  technologyDetailsRef: any = null;
+
+  technologyNameFromHash() {
+    return window.location.hash.replace("technologies/", "").replace("#", "");
   }
 
   filterTechnologiesByYear(technologies: Technology[]) {
@@ -120,6 +174,7 @@ interface TechnologiesViewState {
   selectedTechnologies: Technology[];
   sort: string;
   yearFrom: number;
+  selectedTechnology: Technology | null;
 }
 
 const extractName = (tech: any) => tech.name.toLowerCase();

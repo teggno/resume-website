@@ -13,3 +13,13 @@ export interface Project {
     tasks?: string[];
   }[]
 }
+
+export interface Technology {
+  name: string;
+  projects: Project[];
+  jobs: { company: string; title: string }[];
+  experienceNet: number;
+  experienceGross: number;
+  yearStart: number;
+  yearEnd: number;
+}

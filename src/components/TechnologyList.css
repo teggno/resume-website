@@ -7,7 +7,6 @@
 .technology-list-item{
   position: relative;
   padding: 5px;
-  /* border: 1px solid black; */
 }
 
 .bar{
@@ -20,6 +19,3 @@
   opacity: 0.2;
 }
 
-.technology-list-item+.technology-list-item{
-  /* margin-top: 5px; */
-}
