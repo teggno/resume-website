@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import "./base.css";
 
 import { TechnologiesView } from "./components/TechnologiesView";
 

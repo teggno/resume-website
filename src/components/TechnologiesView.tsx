@@ -8,6 +8,7 @@ import YearsBackSlider from "./YearsBackSlider.1";
 import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
 import "./technologiesView.css";
+import { technologyRoute } from "../Routes";
 
 const todaysYear = new Date().getFullYear();
 
@@ -48,35 +49,41 @@ export class TechnologiesView extends React.Component<
 
   selectedTechnologyFromHash(technologies: Technology[]) {
     return technologies.filter(
-      t => t.name === this.technologyNameFromHash()
+      t => t.name === technologyRoute.nameFromHash(window.location.hash)
     )[0];
   }
 
   render() {
     return (
       <React.Fragment>
-        <div style={{ padding: "30px" }}>
-          <YearsBackSlider
-            yearFrom={getWorkYears(this.state.technologies).min}
-            yearTo={todaysYear}
-            year={this.state.yearFrom}
-            onDragging={this.periodSliderChanged.bind(this)}
+        <div className="header">
+          <div style={{ padding: "30px" }}>
+            <YearsBackSlider
+              yearFrom={getWorkYears(this.state.technologies).min}
+              yearTo={todaysYear}
+              year={this.state.yearFrom}
+              onDragging={this.periodSliderChanged.bind(this)}
+            />
+          </div>
+          <TechnologyFilter
+            allItems={sortBy(
+              t => t.name.toLowerCase(),
+              this.filterTechnologiesByYear(this.state.technologies)
+            )}
+            selectedItems={this.filterTechnologiesByYear(
+              this.state.selectedTechnologies
+            )}
+            selectionChanged={this.techSelectionChanged.bind(this)}
+            isAllNoneButtonAll={false}
           />
         </div>
-        <TechnologyFilter
-          allItems={sortBy(
-            t => t.name.toLowerCase(),
-            this.filterTechnologiesByYear(this.state.technologies)
-          )}
-          selectedItems={this.filterTechnologiesByYear(
-            this.state.selectedTechnologies
-          )}
-          selectionChanged={this.techSelectionChanged.bind(this)}
-          isAllNoneButtonAll={false}
-        />
-        <div className="master-detail">
-          <div className={!!this.state.selectedTechnology ? "master tiny": "master"}>
-            <span>Sort by</span>
+        <div className="flex">
+          <div
+            className={
+              !!this.state.selectedTechnology ? "master tiny w-30" : "master"
+            }
+          >
+            {/* <span>Sort by</span> */}
             <ButtonList
               buttons={sortButtons}
               value={this.state.sort}
@@ -89,16 +96,16 @@ export class TechnologiesView extends React.Component<
               )}
             />
           </div>
-          <div ref={this.technologyDetailsRef} >
+          <div ref={this.technologyDetailsRef} className="w-70">
             {this.state.selectedTechnology ? (
               <div className="detail">
-                <button
+                {/* <button
                   onClick={function() {
                     window.location.hash = "";
                   }}
                 >
                   Back to list
-                </button>
+                </button> */}
                 <TechnologyDetails technology={this.state.selectedTechnology} />
               </div>
             ) : null}
@@ -109,10 +116,6 @@ export class TechnologiesView extends React.Component<
   }
 
   technologyDetailsRef: any = null;
-
-  technologyNameFromHash() {
-    return window.location.hash.replace("technologies/", "").replace("#", "");
-  }
 
   filterTechnologiesByYear(technologies: Technology[]) {
     return technologies.filter(t => t.yearEnd >= this.state.yearFrom);

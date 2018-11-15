@@ -2,6 +2,7 @@ import Period from "./Period";
 
 export interface Project {
   title: string;
+  description: string;
   period: Period;
   tasks: string[];
   tools: string[];

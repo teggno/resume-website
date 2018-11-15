@@ -72,7 +72,7 @@ export default class Me {
       a.name === b.name ? 0 : a.name > b.name ? -1 : 1
     );
   }
-  getProjects() {
+  private getProjects() {
     return R.values(this.source.projects).map(s => ({
       period: new Period(
         Month.parse(s.period.from),
@@ -84,6 +84,7 @@ export default class Me {
           typeof t === "string" ? { name: t } : { name: t.name, tasks: t.tasks }
         )
       ),
+      description: <string>s.description,
       teamSize: <string>s.teamSize,
       achievements: <string[]>s.achievements,
       tasks: <string[]>s.tasks,

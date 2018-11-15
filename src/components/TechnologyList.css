@@ -1,21 +1,19 @@
-.technology-list{
+/* .technology-list{
   list-style: none;
   margin: 0;
   padding: 0;
-}
+} */
 
-.technology-list-item{
+/* .technology-list-item{
   position: relative;
-  padding: 5px;
-}
+} */
 
-.bar{
-  height: calc(100% - 7px);
-  position: absolute;
+/* .bar{
+  height: 7px;
   left: 0;
-  top: 5px;
+  top: 0;
   background-color: green;
   z-index: -1;
   opacity: 0.2;
 }
-
+ */
