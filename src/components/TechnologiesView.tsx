@@ -7,8 +7,8 @@ import { descend, sort, ascend, sortBy } from "ramda";
 import YearsBackSlider from "./YearsBackSlider.1";
 import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
-import "./technologiesView.css";
 import { technologyRoute } from "../Routes";
+import { componentSpacingVertical } from "../css";
 
 const todaysYear = new Date().getFullYear();
 
@@ -62,7 +62,7 @@ export class TechnologiesView extends React.Component<
           />
         </div> */}
         <div className="flex">
-          <div>
+          <div className={componentSpacingVertical}>
             {/* <span>Sort by</span> */}
             <ButtonList
               buttons={sortButtons}

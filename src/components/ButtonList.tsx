@@ -1,28 +1,24 @@
 import * as React from "react";
 import { normalButton, clickedButton } from "../css";
+import ToggleButton from "./ToggleButton";
 
-export function ButtonList(props: ToggleMenuProps) {
+export function ButtonList(props: ButtonListProps) {
   return (
     <div>
       {props.buttons.map((b, i) => (
-        <a
-          type="button"
+        <ToggleButton
           key={i}
-          onClick={e => {
-            props.changed(b.name);
-            e.preventDefault();
-          }}
-          href="#"
-          className={b.name === props.value ? clickedButton : normalButton}
+          isOn={b.name === props.value}
+          onChange={() => props.changed(b.name)}
         >
           {b.label}
-        </a>
+        </ToggleButton>
       ))}
     </div>
   );
 }
 
-export interface ToggleMenuProps {
+export interface ButtonListProps {
   value?: string;
   buttons: {
     label: string;

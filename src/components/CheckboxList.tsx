@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as R from "ramda";
-import "./CheckboxList.css";
 import { checkboxListItem } from "../css";
 
 export function CheckboxList<T extends { name: string }>(

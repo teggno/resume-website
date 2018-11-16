@@ -11,14 +11,13 @@ import {
 } from "../css";
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
-import "./technologyList.css";
 
 const listWidthPx = 270;
 const getGraphNumber = (t: Technology) => t.experienceGross;
 export function TechnologyList(props: TechnologyListProps) {
   const maxNumber = reduce(max, 0, props.technologies.map(getGraphNumber));
   return (
-    <ul className={list + " " + componentSpacingVertical}>
+    <ul className={list}>
       {props.technologies.map(t => (
         <li className={skillList} key={t.name}>
           <div
