@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as R from "ramda";
 import "./CheckboxList.css";
+import { checkboxListItem } from "../css";
 
 export function CheckboxList<T extends { name: string }>(
   props: CheckboxListProps<T>
@@ -9,7 +10,7 @@ export function CheckboxList<T extends { name: string }>(
     <React.Fragment>
       {props.allItems.map(item => (
         <React.Fragment key={item.name}>
-          <label className="checkbox-list-item">
+          <label className={checkboxListItem}>
             <input
               type="checkbox"
               checked={props.selectedItems.indexOf(item) !== -1}

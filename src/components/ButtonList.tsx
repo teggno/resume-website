@@ -1,4 +1,5 @@
 import * as React from "react";
+import { normalButton, clickedButton } from "../css";
 
 export function ButtonList(props: ToggleMenuProps) {
   return (
@@ -11,13 +12,8 @@ export function ButtonList(props: ToggleMenuProps) {
             props.changed(b.name);
             e.preventDefault();
           }}
-          // disabled={b.name === props.value}
           href="#"
-          className={
-            b.name === props.value
-              ? "f6 link br1 ph3 pv2 mb2 dib white bg-light-blue mh2"
-              : "f6 link br1 ph3 pv2 mb2 dib white bg-blue mh2"
-          }
+          className={b.name === props.value ? clickedButton : normalButton}
         >
           {b.label}
         </a>

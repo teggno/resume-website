@@ -37,26 +37,10 @@ export class TechnologiesView extends React.Component<
     window.removeEventListener("hashchange", this.hashChanged);
   }
 
-  hashChanged = () => {
-    const tech = this.selectedTechnologyFromHash(this.state.technologies);
-    this.setState({
-      selectedTechnology: tech
-    });
-    if (tech) {
-      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  selectedTechnologyFromHash(technologies: Technology[]) {
-    return technologies.filter(
-      t => t.name === technologyRoute.nameFromHash(window.location.hash)
-    )[0];
-  }
-
   render() {
     return (
       <React.Fragment>
-        <div className="header">
+        {/* <div>
           <div style={{ padding: "30px" }}>
             <YearsBackSlider
               yearFrom={getWorkYears(this.state.technologies).min}
@@ -76,13 +60,9 @@ export class TechnologiesView extends React.Component<
             selectionChanged={this.techSelectionChanged.bind(this)}
             isAllNoneButtonAll={false}
           />
-        </div>
+        </div> */}
         <div className="flex">
-          <div
-            className={
-              !!this.state.selectedTechnology ? "master tiny w-30" : "master"
-            }
-          >
+          <div>
             {/* <span>Sort by</span> */}
             <ButtonList
               buttons={sortButtons}
@@ -98,14 +78,7 @@ export class TechnologiesView extends React.Component<
           </div>
           <div ref={this.technologyDetailsRef} className="w-70">
             {this.state.selectedTechnology ? (
-              <div className="detail">
-                {/* <button
-                  onClick={function() {
-                    window.location.hash = "";
-                  }}
-                >
-                  Back to list
-                </button> */}
+              <div>
                 <TechnologyDetails technology={this.state.selectedTechnology} />
               </div>
             ) : null}
@@ -115,35 +88,42 @@ export class TechnologiesView extends React.Component<
     );
   }
 
-  technologyDetailsRef: any = null;
+  private hashChanged = () => {
+    const tech = this.selectedTechnologyFromHash(this.state.technologies);
+    this.setState({
+      selectedTechnology: tech
+    });
+    if (tech) {
+      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-  filterTechnologiesByYear(technologies: Technology[]) {
+  private selectedTechnologyFromHash(technologies: Technology[]) {
+    return technologies.filter(
+      t => t.name === technologyRoute.nameFromHash(window.location.hash)
+    )[0];
+  }
+
+  private technologyDetailsRef: any = null;
+
+  private filterTechnologiesByYear(technologies: Technology[]) {
     return technologies.filter(t => t.yearEnd >= this.state.yearFrom);
   }
 
-  techSelectionChanged(newSelection: Technology[]) {
+  private techSelectionChanged(newSelection: Technology[]) {
     this.setState({
-      technologies: this.state.technologies,
-      selectedTechnologies: newSelection,
-      sort: this.state.sort,
-      yearFrom: this.state.yearFrom
+      selectedTechnologies: newSelection
     });
   }
 
-  sortChanged(name: string) {
+  private sortChanged(name: string) {
     this.setState({
-      technologies: this.state.technologies,
-      selectedTechnologies: this.state.selectedTechnologies,
-      sort: name,
-      yearFrom: this.state.yearFrom
+      sort: name
     });
   }
 
-  periodSliderChanged(year: number) {
+  private periodSliderChanged(year: number) {
     this.setState({
-      technologies: this.state.technologies,
-      selectedTechnologies: this.state.selectedTechnologies,
-      sort: this.state.sort,
       yearFrom: year
     });
   }

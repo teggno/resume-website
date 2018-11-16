@@ -3,6 +3,7 @@ import Month from "../Month";
 import { Project } from "../Model";
 import Conditional from "./Conditional";
 import { chain } from "ramda";
+import { stripedStringList, textParagraph, dt, dd, list, cardContent } from "../css";
 
 export function ProjectDetails(props: ProjectDetailsProps) {
   const { project, technologyName } = props,
@@ -14,17 +15,17 @@ export function ProjectDetails(props: ProjectDetailsProps) {
       t => !technologyName || t.name === technologyName
     );
   return (
-    <div className="pa3 bt b--black-10">
-      <p className="f6 f5-ns lh-copy measure">{project.description}</p>
+    <div className={cardContent}>
+      <p className={textParagraph}>{project.description}</p>
       <dl>
-        <dt className="fw6">Duration</dt>
-        <dd className="ma0 mb2">
+        <dt className={dt}>Duration</dt>
+        <dd className={dd}>
           {duration.years ? `${duration.years} years`: ""}
           {duration.years && duration.months ? ", " : ""}
           {duration.months ? `${duration.months} months`: ""}
         </dd>
-        <dt className="fw6">Team Size</dt>
-        <dd className="ma0 mb2">{project.teamSize}</dd>
+        <dt className={dt}>Team Size</dt>
+        <dd className={dd}>{project.teamSize}</dd>
         {/* <Conditional test={() => !!project.tasks.length}>
           <React.Fragment>
             <dt>Tasks</dt>
@@ -43,8 +44,8 @@ export function ProjectDetails(props: ProjectDetailsProps) {
         </Conditional>{" "} */}
         <Conditional test={() => !!technologies.length && technologies.some(t => !!t.tasks)}>
           <React.Fragment>
-            <dt className="fw6">Work I did with {technologies[0].name}</dt>
-            <dd className="ma0">
+            <dt className={dt}>Work I did with {technologies[0].name}</dt>
+            <dd className={dd}>
               <UnorderedListOfStrings
                 items={chain(
                   t => (t.tasks ? t.tasks.map(tt => tt) : []),
@@ -61,9 +62,9 @@ export function ProjectDetails(props: ProjectDetailsProps) {
 
 function UnorderedListOfStrings(props: { items: string[] }) {
   return (
-    <ul className="list pa0">
+    <ul className={list}>
       {props.items.map((x, i) => (
-        <li className="lh-copy striped--near-white pa2" key={i}>{x}</li>
+        <li className={stripedStringList} key={i}>{x}</li>
       ))}
     </ul>
   );

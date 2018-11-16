@@ -1,6 +1,7 @@
 import React from "react";
 import { Technology } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
+import { wrappingList, wrappingListItem, card, cardTitle } from "../css";
 
 export default (props: { technology: Technology }) => {
   const { technology: t } = props;
@@ -12,13 +13,11 @@ export default (props: { technology: Technology }) => {
       </div>
       <div>
         <h3>Projects:</h3>
-        <ul className="list pl0 ml0 cf">
+        <ul className={wrappingList}>
           {t.projects.map(p => (
-            <li key={p.title} className="fl mr4 mb4 w-100 w-40-l">
-              <div className="br3 hidden ba b--light-silver">
-                <h4 className="f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3">
-                  {p.title}
-                </h4>
+            <li key={p.title} className={wrappingListItem}>
+              <div className={card}>
+                <h4 className={cardTitle}>{p.title}</h4>
                 <ProjectDetails project={p} technologyName={t.name} />
               </div>
             </li>

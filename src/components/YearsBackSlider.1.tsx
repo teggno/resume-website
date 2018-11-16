@@ -9,7 +9,7 @@ export default function YearsBackSlider(props: {
   yearTo: number;
   year: number;
   onDragging?: (year: number) => void;
-  // no implementation of onDraged because this would map to input[@type="range"].onChange but this behaves like onInput in some browsers.
+  // no implementation of onDragged because this would map to input[@type="range"].onChange but this behaves like onInput in some browsers.
 }) {
   const yearDiff = props.yearTo - props.yearFrom;
   return (

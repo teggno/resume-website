@@ -1,28 +1,40 @@
-import React from "react";
-import { Technology } from "../Model";
-import "./technologyList.css";
 import { max, reduce } from "ramda";
+import React from "react";
+import {
+  componentSpacingVertical,
+  link,
+  list,
+  skillLinkSub,
+  skillLinkTitle,
+  skillList,
+  skillListBar
+} from "../css";
+import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
+import "./technologyList.css";
 
 const listWidthPx = 270;
 const getGraphNumber = (t: Technology) => t.experienceGross;
 export function TechnologyList(props: TechnologyListProps) {
   const maxNumber = reduce(max, 0, props.technologies.map(getGraphNumber));
   return (
-    <ul className="list pa0 ma0 mr4">
+    <ul className={list + " " + componentSpacingVertical}>
       {props.technologies.map(t => (
-        <li className="relative bt b--light-silver pa2" key={t.name}>
+        <li className={skillList} key={t.name}>
           <div
-            className="absolute top-0 left-0 bg-lightest-blue"
-            style={{ width: (getGraphNumber(t) * listWidthPx) / maxNumber, height: 7 }}
+            className={skillListBar}
+            style={{
+              width: (getGraphNumber(t) * listWidthPx) / maxNumber,
+              height: 7
+            }}
           />
           <a
             href={technologyRoute.hashFromName(t.name)}
             title="Details"
-            className="black link hover-blue"
+            className={link}
           >
-            <div className="f4 fw6">{t.name}</div>
-            <div className="f6 ">
+            <div className={skillLinkTitle}>{t.name}</div>
+            <div className={skillLinkSub}>
               {t.experienceGross} years experience in {t.projects.length}{" "}
               projects in {t.jobs.length} jobs
             </div>
