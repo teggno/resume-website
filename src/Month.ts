@@ -1,5 +1,3 @@
-import { type } from "ramda";
-
 export default class Month {
   /**
    *
@@ -40,6 +38,15 @@ export default class Month {
     return Month.duration(this, to);
   }
 
+  startTime() {
+    return new Date(this.year, this.month - 1);
+  }
+
+  endTime() {
+    const next = this.add(1);
+    return new Date(new Date(next.year, next.month - 1).valueOf() - 1);
+  }
+
   static duration(from: Month, to: Month) {
     const diff = to.totalMonths() - from.totalMonths() + 1;
     return {
@@ -60,6 +67,6 @@ export default class Month {
   }
 
   static totalMonths(month: Month) {
-    return (month.year - 1) * 12 + month.month;
+    return month.year * 12 + month.month;
   }
 }

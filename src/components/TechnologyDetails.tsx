@@ -2,6 +2,10 @@ import React from "react";
 import { Technology } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
 import { wrappingList, wrappingListItem, card, cardTitle } from "../css";
+import Timeline from "./Timeline";
+import Period from "../Period";
+
+const now = new Date();
 
 export default (props: { technology: Technology }) => {
   const { technology: t } = props;
@@ -9,7 +13,21 @@ export default (props: { technology: Technology }) => {
     <React.Fragment>
       <h2>My experience with {t.name}</h2>
       <div>
-        Maybe put a chart here showing the timeline of my usage of the tech
+        <Timeline
+          events={t.projects.map(p => {
+            const from = p.period.from.startTime(),
+              to = p.period.to ? p.period.to.endTime() : now;
+            return {
+              from: from,
+              to: to,
+              label: `${p.title}, ${formatDateAsYearMonth(
+                from
+              )} - ${formatDateAsYearMonth(to)}`
+            };
+          })}
+          to={new Date()}
+          formatAxisLabel={formatDateAsYearMonth}
+        />
       </div>
       <div>
         <h3>Projects:</h3>
@@ -37,6 +55,10 @@ export default (props: { technology: Technology }) => {
     </React.Fragment>
   );
 };
+
+function formatDateAsYearMonth(d: Date) {
+  return `${d.getFullYear()}/${d.getMonth() + 1}`;
+}
 
 export class Expandable extends React.Component<any, { isExpanded: boolean }> {
   constructor(props: { children: any; isExpanded?: boolean }) {

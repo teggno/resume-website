@@ -45,4 +45,6 @@ export const skillLinkSub = `${normalFontSize}`;
 export const wrappingList = `${list} cf`;
 export const wrappingListItem = "fl mr4 mb4 w-100 w-40-l";
 
+export const chartBackground = nearWhiteBackground;
+
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;

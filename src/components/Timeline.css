@@ -1,0 +1,11 @@
+.bar {
+  opacity: .6;
+  transition: all .4s;
+  border: 0 none;
+}
+.bar:hover{
+  opacity: 1;
+  height: 25px;
+  border: solid 1px silver;
+  transform: translateY(-4px);
+}
