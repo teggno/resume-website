@@ -5,6 +5,7 @@ import { wrappingList, wrappingListItem, card, cardTitle } from "../css";
 import Timeline from "./Timeline";
 import nthColor from "../Colors";
 import { isElementInViewport } from "../DomHelpers";
+import "./TechnologyDetails.css";
 
 const now = new Date();
 
@@ -36,6 +37,11 @@ export default (props: { technology: Technology }) => {
             if (!card) return;
             if (!isElementInViewport(card))
               card.scrollIntoView({ behavior: "smooth" });
+            const oldClassName = card.className;
+            card.className += " flashing";
+            setTimeout(() => {
+              card.className = oldClassName;
+            }, 600);
           }}
         />
       </div>
@@ -44,7 +50,7 @@ export default (props: { technology: Technology }) => {
         <ul className={wrappingList}>
           {t.projects.map((prj, i) =>
             findableCard(i).makeFindable(
-              <li key={prj.title} className={wrappingListItem}>
+              <li key={prj.title} className={wrappingListItem + " flashing-card"}>
                 <div className={card}>
                   <h4 className={cardTitle}>{prj.title}</h4>
                   <ProjectDetails project={prj} technologyName={t.name} />
