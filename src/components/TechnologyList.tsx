@@ -6,7 +6,7 @@ import {
   list,
   skillLinkSub,
   skillLinkTitle,
-  skillList,
+  skillListItem,
   skillListBar
 } from "../css";
 import { Technology } from "../Model";
@@ -19,19 +19,19 @@ export function TechnologyList(props: TechnologyListProps) {
   return (
     <ul className={list}>
       {props.technologies.map(t => (
-        <li className={skillList} key={t.name}>
-          <div
-            className={skillListBar}
-            style={{
-              width: (getGraphNumber(t) * listWidthPx) / maxNumber,
-              height: 7
-            }}
-          />
+        <li className={skillListItem} key={t.name}>
           <a
             href={technologyRoute.hashFromName(t.name)}
             title="Details"
             className={link}
           >
+            <div
+              className={skillListBar}
+              style={{
+                width: (getGraphNumber(t) * listWidthPx) / maxNumber,
+                height: 7
+              }}
+            />
             <div className={skillLinkTitle}>{t.name}</div>
             <div className={skillLinkSub}>
               {t.experienceGross} years experience in {t.projects.length}{" "}
