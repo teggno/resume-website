@@ -15,11 +15,10 @@
     <div id="reactContainer"></div>
 
     <!-- Dependencies -->
-    <script src="./node_modules/react/umd/react.development.js"></script>
-    <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
-    <script src="./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js"></script>
+    <script src="<%= scripts.react %>"></script>
+    <script src="<%= scripts.reactDom %>"></script>
+    <script src="<%= scripts.smoothScroll %>"></script>
 
-    <!-- Main -->
-    <script src="./dist/bundle.js"></script>
+    <!-- Webpack will add script tag referencing bundle.js here -->
   </body>
 </html>
