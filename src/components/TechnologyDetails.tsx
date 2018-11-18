@@ -3,7 +3,8 @@ import { Technology } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
 import { wrappingList, wrappingListItem, card, cardTitle } from "../css";
 import Timeline from "./Timeline";
-import Period from "../Period";
+import nthColor from "../Colors";
+import { isElementInViewport } from "../DomHelpers";
 
 const now = new Date();
 
@@ -14,32 +15,43 @@ export default (props: { technology: Technology }) => {
       <h2>My experience with {t.name}</h2>
       <div>
         <Timeline
-          events={t.projects.map(p => {
-            const from = p.period.from.startTime(),
-              to = p.period.to ? p.period.to.endTime() : now;
+          events={t.projects.map((prj, i) => {
+            const { period, title } = prj,
+              from = period.from.startTime(),
+              to = period.to ? period.to.endTime() : now;
             return {
               from: from,
               to: to,
-              label: `${p.title}, ${formatDateAsYearMonth(
+              label: `${title}, ${formatDateAsYearMonth(
                 from
-              )} - ${formatDateAsYearMonth(to)}`
+              )} - ${formatDateAsYearMonth(to)}`,
+              color: nthColor(i),
+              projectIndex: i
             };
           })}
-          to={new Date()}
+          to={now}
           formatAxisLabel={formatDateAsYearMonth}
+          onEventClicked={e => {
+            const card = findableCard((e as any).projectIndex).find();
+            if (!card) return;
+            if (!isElementInViewport(card))
+              card.scrollIntoView({ behavior: "smooth" });
+          }}
         />
       </div>
       <div>
         <h3>Projects:</h3>
         <ul className={wrappingList}>
-          {t.projects.map(p => (
-            <li key={p.title} className={wrappingListItem}>
-              <div className={card}>
-                <h4 className={cardTitle}>{p.title}</h4>
-                <ProjectDetails project={p} technologyName={t.name} />
-              </div>
-            </li>
-          ))}
+          {t.projects.map((prj, i) =>
+            findableCard(i).makeFindable(
+              <li key={prj.title} className={wrappingListItem}>
+                <div className={card}>
+                  <h4 className={cardTitle}>{prj.title}</h4>
+                  <ProjectDetails project={prj} technologyName={t.name} />
+                </div>
+              </li>
+            )
+          )}
         </ul>
       </div>
       <div>
@@ -58,6 +70,16 @@ export default (props: { technology: Technology }) => {
 
 function formatDateAsYearMonth(d: Date) {
   return `${d.getFullYear()}/${d.getMonth() + 1}`;
+}
+
+// The idea behind this function is to keep adding the data-project-item
+// attribute together with retrieving the card using the same attribute.
+function findableCard(index: number) {
+  return {
+    makeFindable: (card: any) =>
+      React.cloneElement(card, { "data-project-index": index }),
+    find: () => document.querySelector(`[data-project-index='${index}']`)
+  };
 }
 
 export class Expandable extends React.Component<any, { isExpanded: boolean }> {

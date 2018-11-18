@@ -15,7 +15,7 @@ export default function Timeline(props: TimelineProps) {
   return (
     <div className={"pa2 " + chartBackground}>
       <div className="pa2">
-        <div className="relative h2 w-100">
+        <div className="relative h1 w-100">
           <div className="absolute ba b--light-silver left-0 right-0 h1" />
           {eventsSorted.map((e, i) => (
             <div
@@ -26,7 +26,10 @@ export default function Timeline(props: TimelineProps) {
                 left: dateToFraction(min, max, e.from) * 100 + "%",
                 right:
                   (1 - dateToFraction(min, max, e.to || props.to)) * 100 + "%",
-                backgroundColor: e.backgroundColor || nthColor(i),
+                backgroundColor: e.backgroundColor || nthColor(i)
+              }}
+              onClick={() => {
+                if (props.onEventClicked) props.onEventClicked(e);
               }}
             />
           ))}
@@ -40,7 +43,7 @@ export default function Timeline(props: TimelineProps) {
   );
 }
 
-function extractMinMax(events: TimeSpan[], defaultTo: Date) {
+function extractMinMax(events: Event[], defaultTo: Date) {
   const [min, max] = events.reduce(
     (prev, current) => {
       const { from, to } = current;
@@ -64,15 +67,15 @@ function dateToFraction(min: Date, max: Date, date: Date) {
 }
 
 interface TimelineProps {
-  events: TimeSpan[];
+  events: Event[];
   to: Date;
   formatAxisLabel?: (date: Date) => string;
+  onEventClicked?: (e: Event) => void;
 }
 
-interface TimeSpan {
+interface Event {
   from: Date;
   to?: Date;
   label?: string;
   backgroundColor?: string;
 }
-
