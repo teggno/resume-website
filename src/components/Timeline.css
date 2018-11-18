@@ -1,6 +1,6 @@
 .bar {
   opacity: .6;
-  transition: all .4s;
+  transition: all .3s;
   border: 0 none;
 }
 .bar:hover{
@@ -8,4 +8,5 @@
   height: 25px;
   border: solid 1px silver;
   transform: translateY(-4px);
+  z-index: 6;
 }
