@@ -1,0 +1,18 @@
+.offc {
+  transition: margin-left 0.25s;
+}
+
+.offc.off {
+  margin-left: -100%;
+}
+.offc:not(.off) {
+  margin-right: -100%;
+}
+
+/* NOTE: the query below is the same as tachyon's -ns module's */
+@media screen and (min-width: 30em) {
+  .offc.on-ns {
+    margin-left: unset;
+    margin-right: unset;
+  }
+}

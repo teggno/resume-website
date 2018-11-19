@@ -12,10 +12,10 @@ import {
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
 
-const listWidthPx = 270;
-const getGraphNumber = (t: Technology) => t.experienceGross;
+const listWidthPx = 1;
+const getGraphKPI = (t: Technology) => t.experienceGross;
 export function TechnologyList(props: TechnologyListProps) {
-  const maxNumber = reduce(max, 0, props.technologies.map(getGraphNumber));
+  const maxNumber = reduce(max, 0, props.technologies.map(getGraphKPI));
   return (
     <ul className={list}>
       {props.technologies.map(t => (
@@ -23,12 +23,13 @@ export function TechnologyList(props: TechnologyListProps) {
           <a
             href={technologyRoute.hashFromName(t.name)}
             title="Details"
+            onClick={props.onClick}
             className={link}
           >
             <div
               className={skillListBar}
               style={{
-                width: (getGraphNumber(t) * listWidthPx) / maxNumber,
+                width: (getGraphKPI(t) * listWidthPx / maxNumber * 100) + "%",
                 height: 7
               }}
             />
@@ -46,4 +47,5 @@ export function TechnologyList(props: TechnologyListProps) {
 
 export interface TechnologyListProps {
   technologies: Technology[];
+  onClick?: () => void;
 }

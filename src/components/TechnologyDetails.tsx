@@ -13,7 +13,7 @@ export default (props: { technology: Technology }) => {
   const { technology: t } = props;
   return (
     <React.Fragment>
-      <h2>My experience with {t.name}</h2>
+      <h2>My {t.name} experience</h2>
       <div>
         <Timeline
           events={t.projects.map((prj, i) => {

@@ -19,7 +19,7 @@ const blue = "blue";
 const blueBackground = `bg-${blue}`;
 
 
-export const componentSpacingVertical = "mr4";
+export const componentSpacingVertical = "ml4-ns";
 export const link = `${fontColor} link hover-blue`;
 export const dt = "fw6";
 export const dd = "ma0 mb2";
@@ -30,7 +30,7 @@ export const clickedButton = `${button} ${lightBlueBackground}`;
 
 export const checkboxListItem = "nowrap";
 
-export const textParagraph = `${normalFontSize} lh-copy measure`;
+export const textParagraph = `${normalFontSize} lh-copy`;
 export const list = "list pa0";
 export const stripedStringList = `lh-copy pa2 ${stripedBackground}`;
 export const card = `br3 hidden ba ${lightSilverBorder}`;

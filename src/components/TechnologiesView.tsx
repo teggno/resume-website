@@ -9,6 +9,7 @@ import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
 import { technologyRoute } from "../Routes";
 import { componentSpacingVertical } from "../css";
+import "./TechnologiesView.css";
 
 const todaysYear = new Date().getFullYear();
 
@@ -61,27 +62,38 @@ export class TechnologiesView extends React.Component<
             isAllNoneButtonAll={false}
           />
         </div> */}
-        <div className="flex">
-          <div className={componentSpacingVertical}>
-            {/* <span>Sort by</span> */}
-            <ButtonList
-              buttons={sortButtons}
-              value={this.state.sort}
-              changed={this.sortChanged.bind(this)}
-            />
-            <TechnologyList
-              technologies={sortTechnologies(
-                this.filterTechnologiesByYear(this.state.selectedTechnologies),
-                this.state.sort
-              )}
-            />
-          </div>
-          <div ref={this.technologyDetailsRef} className="w-70">
-            {this.state.selectedTechnology ? (
-              <div>
-                <TechnologyDetails technology={this.state.selectedTechnology} />
-              </div>
-            ) : null}
+        {/* overflow-hidden because the way off canvas of the list is done would otherwise cause horizontal scrollbars */}
+        <div className="overflow-hidden">
+          <div
+            className={
+              "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
+            }
+          >
+            <div className="w-50 w-30-ns">
+              <ButtonList
+                buttons={sortButtons}
+                value={this.state.sort}
+                changed={this.sortChanged.bind(this)}
+              />
+              <TechnologyList
+                technologies={sortTechnologies(
+                  this.filterTechnologiesByYear(
+                    this.state.selectedTechnologies
+                  ),
+                  this.state.sort
+                )}
+              />
+            </div>
+            <div className={"w-50 w-70-ns " + componentSpacingVertical} ref={this.technologyDetailsRef}>
+              {this.state.selectedTechnology ? (
+                <div>
+                  <a className="dn-ns" href="#">Back to list</a>
+                  <TechnologyDetails
+                    technology={this.state.selectedTechnology}
+                  />
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
       </React.Fragment>
