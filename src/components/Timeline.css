@@ -1,6 +1,6 @@
 .bar {
   opacity: .6;
-  transition: all .3s;
+  transition: all .25s;
   border: 0 none;
 }
 .bar:hover{

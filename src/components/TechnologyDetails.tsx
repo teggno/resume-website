@@ -41,7 +41,7 @@ export default (props: { technology: Technology }) => {
             card.className += " flashing";
             setTimeout(() => {
               card.className = oldClassName;
-            }, 600);
+            }, 250);
           }}
         />
       </div>

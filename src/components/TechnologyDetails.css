@@ -1,8 +1,8 @@
 .flashing-card.flashing{
   transform: scale(1.05);
-  transition: all .4s;
+  transition: all .25s;
 }
 .flashing-card:not(.flashing){
   transform: scale(1);
-  transition: all .4s;
+  transition: all .7s;
 }
