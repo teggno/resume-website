@@ -3,7 +3,7 @@ import { TechnologyFilter } from "./TechnologyFilter";
 import { TechnologyList } from "./TechnologyList";
 import { ButtonList } from "./ButtonList";
 import Me from "../Me";
-import { descend, sort, ascend, sortBy } from "ramda";
+import { descend, sort, ascend, sortBy, min } from "ramda";
 import YearsBackSlider from "./YearsBackSlider.1";
 import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
@@ -39,6 +39,11 @@ export class TechnologiesView extends React.Component<
   }
 
   render() {
+    const sortButton = findSortButton(this.state.sort),
+      minNumber = sortButton.chartMin
+        ? (sortButton.chartMin as any)(this.state.selectedTechnologies)
+        : undefined,
+      chartMin = minNumber ? () => minNumber : undefined;
     return (
       <React.Fragment>
         {/* <div>
@@ -82,12 +87,20 @@ export class TechnologiesView extends React.Component<
                   ),
                   this.state.sort
                 )}
+                barTo={sortButton.barTo}
+                barFrom={sortButton.barFrom}
+                chartMin={chartMin}
               />
             </div>
-            <div className={"w-50 w-70-ns " + componentSpacingVertical} ref={this.technologyDetailsRef}>
+            <div
+              className={"w-50 w-70-ns ph1 ph4-ns"}
+              ref={this.technologyDetailsRef}
+            >
               {this.state.selectedTechnology ? (
                 <div>
-                  <a className="dn-ns" href="#">Back to list</a>
+                  <a className="dn-ns" href="#">
+                    Back to list
+                  </a>
                   <TechnologyDetails
                     technology={this.state.selectedTechnology}
                   />
@@ -106,7 +119,7 @@ export class TechnologiesView extends React.Component<
       selectedTechnology: tech
     });
     if (tech) {
-      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth" });
+      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -142,10 +155,11 @@ export class TechnologiesView extends React.Component<
 }
 
 function sortTechnologies(technologies: Technology[], name: string) {
-  return sort(
-    sortButtons.filter(b => b.name === name)[0].comparer,
-    technologies
-  );
+  return sort(findSortButton(name).comparer, technologies);
+}
+
+function findSortButton(name: string) {
+  return sortButtons.filter(b => b.name === name)[0];
 }
 
 function getWorkYears(technologies: Technology[]) {
@@ -182,12 +196,22 @@ const sortButtons = [
       descend,
       extractName,
       ascend
-    )
+    ),
+    barTo: (t: Technology) => t.experienceGross
   },
   {
     label: "Used most recently",
     name: "usedRecently",
-    comparer: combine((tech: any) => tech.yearEnd, descend, extractName, ascend)
+    comparer: combine(
+      (tech: any) => tech.yearEnd,
+      descend,
+      (tech: any) => tech.experienceGross,
+      descend
+    ),
+    barTo: (t: Technology) => t.yearEnd,
+    barFrom: (t: Technology) => t.yearStart,
+    chartMin: (t: Technology[]) =>
+      t.map(t => t.yearStart).reduce(min, Number.MAX_VALUE)
   },
   {
     label: "A...Z",

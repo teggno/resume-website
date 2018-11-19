@@ -1,7 +1,6 @@
 import { max, reduce } from "ramda";
 import React from "react";
 import {
-  componentSpacingVertical,
   link,
   list,
   skillLinkSub,
@@ -11,11 +10,17 @@ import {
 } from "../css";
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
+import "./TechnologiesList.css";
 
-const listWidthPx = 1;
-const getGraphKPI = (t: Technology) => t.experienceGross;
 export function TechnologyList(props: TechnologyListProps) {
-  const maxNumber = reduce(max, 0, props.technologies.map(getGraphKPI));
+  const { barTo, barFrom: bf, chartMin: cMin } = props,
+    barFrom = bf || (() => 0),
+    chartMin = cMin || (() => 0);
+
+  const maxNumber = barTo
+    ? reduce(max, 0, props.technologies.map(barTo))
+    : null;
+
   return (
     <ul className={list}>
       {props.technologies.map(t => (
@@ -26,13 +31,19 @@ export function TechnologyList(props: TechnologyListProps) {
             onClick={props.onClick}
             className={link}
           >
-            <div
-              className={skillListBar}
-              style={{
-                width: (getGraphKPI(t) * listWidthPx / maxNumber * 100) + "%",
-                height: 7
-              }}
-            />
+            {barTo && maxNumber !== null ? (
+              <div
+                className={skillListBar + " sparkline"}
+                style={{
+                  left: ((barFrom(t) - chartMin(t)) / (maxNumber - chartMin(t))) * 100 + "%",
+                  width:
+                    ((barTo(t) - barFrom(t)) / (maxNumber - chartMin(t))) *
+                      100 +
+                    "%",
+                  height: 7
+                }}
+              />
+            ) : null}
             <div className={skillLinkTitle}>{t.name}</div>
             <div className={skillLinkSub}>
               {t.experienceGross} years experience in {t.projects.length}{" "}
@@ -48,4 +59,7 @@ export function TechnologyList(props: TechnologyListProps) {
 export interface TechnologyListProps {
   technologies: Technology[];
   onClick?: () => void;
+  barTo?: (t: Technology) => number;
+  barFrom?: (t: Technology) => number;
+  chartMin?: (t: Technology) => number;
 }

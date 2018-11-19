@@ -1,5 +1,5 @@
 export const technologyRoute = {
-  hashFromName: (name: string) => `#technologies/${name}`,
+  hashFromName: (name: string) => `#technologies/${encodeURIComponent(name)}`,
   nameFromHash: (hash: string) =>
-    hash.replace("technologies/", "").replace("#", "")
+    decodeURIComponent(hash.replace("technologies/", "").replace("#", ""))
 };

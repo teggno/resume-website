@@ -1,0 +1,8 @@
+.sparkline {
+  animation: sparkline .6s;
+}
+
+@keyframes sparkline{
+  from {width: 0;}
+  to {width: unset;}
+}

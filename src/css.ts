@@ -38,8 +38,8 @@ export const cardTitle = `${nearWhiteBackground} f4 br3 br--top mv0 pv2 ph3`;
 /** Container for the content of the card below the title bar. */
 export const cardContent = "pa3 bt b--black-10";
 
-export const skillListItem = `relative bt pa2 ${lightSilverBorder}`;
-export const skillListBar = `absolute top-0 left-0 ${lightestBlueBackground}`;
+export const skillListItem = `relative bb pa2 ${lightSilverBorder}`;
+export const skillListBar = `absolute bottom-0 left-0 ${lightestBlueBackground}`;
 export const skillLinkTitle = "f4 fw6";
 export const skillLinkSub = `${normalFontSize}`;
 
