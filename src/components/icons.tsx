@@ -15,9 +15,9 @@ export function ArrowDown(props: IconProps) {
       <g>
         <path
           d="m10,15l10,10l10,-10"
-          stroke-width="4"
-          stroke-linejoin="round"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinejoin="round"
+          strokeLinecap="round"
           stroke={props.color || "#000"}
           fill="none"
         />
@@ -40,9 +40,9 @@ export function ArrowUp(props: IconProps) {
       <g>
         <path
           d="m10,25l10,-10l10,10"
-          stroke-width="4"
-          stroke-linejoin="round"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinejoin="round"
+          strokeLinecap="round"
           stroke={props.color || "#000"}
           fill="none"
         />

@@ -11,7 +11,7 @@ import {
   list,
   cardContent
 } from "../css";
-import { Expandable } from "./Expandable";
+import { Expander } from "./Expandable";
 
 export function ProjectDetails(props: ProjectDetailsProps) {
   const { project, technologyName } = props,
@@ -39,7 +39,7 @@ export function ProjectDetails(props: ProjectDetailsProps) {
           </dd>
         </React.Fragment>
       </Conditional>
-      <Expandable>
+      <Expander>
         <dl>
           <dt className={dt}>Project description</dt>
           <dd className={dd}>
@@ -70,7 +70,7 @@ export function ProjectDetails(props: ProjectDetailsProps) {
           </React.Fragment>
         </Conditional>{" "} */}
         </dl>
-      </Expandable>
+      </Expander>
     </div>
   );
 }
