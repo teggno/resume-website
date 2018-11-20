@@ -74,7 +74,7 @@ export class TechnologiesView extends React.Component<
               "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
             }
           >
-            <div className="w-50 w-30-ns">
+            <div className="w-50 w-30-l">
               <ButtonList
                 buttons={sortButtons}
                 value={this.state.sort}
@@ -93,7 +93,7 @@ export class TechnologiesView extends React.Component<
               />
             </div>
             <div
-              className={"w-50 w-70-ns ph1 ph4-ns"}
+              className={"w-50 w-70-l ph1 ph4-ns"}
               ref={this.technologyDetailsRef}
             >
               {this.state.selectedTechnology ? (
