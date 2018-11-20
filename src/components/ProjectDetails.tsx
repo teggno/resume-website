@@ -39,9 +39,12 @@ export function ProjectDetails(props: ProjectDetailsProps) {
           </dd>
         </React.Fragment>
       </Conditional>
-      More project information <Expandable>
-        <p className={textParagraph}>{project.description}</p>
+      <Expandable>
         <dl>
+          <dt className={dt}>Project description</dt>
+          <dd className={dd}>
+            <p className={textParagraph}>{project.description}</p>
+          </dd>
           <dt className={dt}>Duration</dt>
           <dd className={dd}>
             {duration.years ? `${duration.years} years` : ""}

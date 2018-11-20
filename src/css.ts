@@ -1,3 +1,5 @@
+import "./components/icons.css";
+
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
 const normalFontSize = "f6 f5-ns"
@@ -39,7 +41,8 @@ export const cardTitle = `${nearWhiteBackground} f4 br3 br--top mv0 pv2 ph3`;
 export const cardContent = "pa3 bt b--black-10";
 
 export const skillListItem = `relative bb pa2 ${lightSilverBorder}`;
-export const skillListBar = `absolute bottom-0 left-0 ${lightestBlueBackground}`;
+export const skillListBarContainer = `relative pv1`;
+export const skillListBar = `absolute top-0 ${lightestBlueBackground}`;
 export const skillLinkTitle = "f4 fw6";
 export const skillLinkSub = `${normalFontSize}`;
 
@@ -47,5 +50,7 @@ export const wrappingList = `${list} cf`;
 export const wrappingListItem = "fl mr4 mb4 w-100 w-40-l";
 
 export const chartBackground = nearWhiteBackground;
+
+export const icon = "w1 h1 v-mid-i";
 
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;
