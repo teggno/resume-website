@@ -1,0 +1,11 @@
+.grow-width {
+  transition: width .6s;
+}
+
+.move-h {
+  transition: left .6s;
+}
+
+.grow-width.move-h{
+  transition: left .6s, width .6s;
+}

@@ -6,13 +6,13 @@ import {
   skillLinkSub,
   skillLinkTitle,
   skillListItem,
-  skillListBar,
+  sparkline,
   skillListBarContainer
 } from "../css";
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
-import "./TechnologyList.css";
 import { Transition } from "react-transition-group";
+import { TransitionStatus } from "react-transition-group/Transition";
 
 export function TechnologyList(props: TechnologyListProps) {
   const { barTo, barFrom: bf, chartMin: cMin } = props,
@@ -25,50 +25,34 @@ export function TechnologyList(props: TechnologyListProps) {
 
   return (
     <ul className={list}>
-      <Transition timeout={400} appear={true} in={true}>
-        {state =>
-          props.technologies.map(t => (
-            <li className={skillListItem} key={t.name}>
-              <a
-                href={technologyRoute.hashFromName(t.name)}
-                title="Details"
-                onClick={props.onClick}
-                className={link}
-              >
-                <div className={skillLinkTitle}>{t.name}</div>
-                <div className={skillListBarContainer}>
-                  {barTo && maxNumber !== null ? (
-                    <div
-                      className={skillListBar + " sparkline"}
-                      style={{
-                        left:
-                          state === "entered"
-                            ? ((barFrom(t) - chartMin(t)) /
-                                (maxNumber - chartMin(t))) *
-                                100 +
-                              "%"
-                            : 0,
-                        width:
-                          state === "entered"
-                            ? ((barTo(t) - barFrom(t)) /
-                                (maxNumber - chartMin(t))) *
-                                100 +
-                              "%"
-                            : 0,
-                        height: 7
-                      }}
-                    />
-                  ) : null}
-                </div>
-                <div className={skillLinkSub}>
-                  {t.experienceGross} years experience in {t.projects.length}{" "}
-                  projects in {t.jobs.length} jobs
-                </div>
-              </a>
-            </li>
-          ))
-        }
-      </Transition>
+      {
+        props.technologies.map(t => (
+          <li className={skillListItem} key={t.name}>
+            <a
+              href={technologyRoute.hashFromName(t.name)}
+              title="Details"
+              onClick={props.onClick}
+              className={link}
+            >
+              <div className={skillLinkTitle}>{t.name}</div>
+              <div className={skillListBarContainer}>
+                {barTo && maxNumber !== null ? (
+                  <Sparkline
+                    min={chartMin(t)}
+                    from={barFrom(t)}
+                    to={barTo(t)}
+                    max={maxNumber}
+                  />
+                ) : null}
+              </div>
+              <div className={skillLinkSub}>
+                {t.experienceGross} years experience in {t.projects.length}{" "}
+                projects in {t.jobs.length} jobs
+              </div>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   );
 }
@@ -79,4 +63,31 @@ export interface TechnologyListProps {
   barTo?: (t: Technology) => number;
   barFrom?: (t: Technology) => number;
   chartMin?: (t: Technology) => number;
+}
+
+function Sparkline(props: SparklineProps) {
+  const { from, to, min, max } = props;
+  return (
+    <Transition timeout={0} appear={true} in={true}>
+      {transitionStatus => (
+        <div
+          className={sparkline}
+          style={{
+            left:
+              transitionStatus === "entered" ? ((from - min) / (max - min)) * 100 + "%" : 0,
+            width:
+              transitionStatus === "entered" ? ((to - from) / (max - min)) * 100 + "%" : 0,
+            height: 7
+          }}
+        />
+      )}
+    </Transition>
+  );
+}
+
+interface SparklineProps {
+  max: number;
+  min: number;
+  from: number;
+  to: number;
 }

@@ -1,45 +1,38 @@
-## CV Application views
-* Technology View: Shows all technologies. Can be checked/unchecked. Then shows infos grouped by tech:
-    * First time used
-    * Last time used
-    * Gross total time used (last time - first time)
-    * Net total time used (sum of use among projects)
-    * Projects it was used in
-    * Jobs it was used in
-    * Time Filter from/to with slider
-* Timeline View:
-    * Everything in a nice timeline from start to end similar to Stack Overflow
-    * Possible to check/uncheck what to see (Techs, Projects, Jobs, Titles/Promotions, Companies)
-    * Filter by tech (checkboxes) => only projects where tech was used appear
-    * Filter by tasks (checkboxes) => only projects where task was done appear
+## Interactive resume web site
+
+### Development
+
+#### CSS
 
 
-## Further ideas
-* List linkedIn endorsements next to technologies/skills
-* Add compare feature (user can enter details about another candidate)
-* Add links to documents (e.g. Arbeitszeugnis), maybe with additional security
-* Only display company names to certain people
-* Make it a PWA
-* Visually integrate into blog
-* Make blog a PWA
-* Enable formatting texts (e.g. using markdown)
-* Make it an APP
-* Add an editor for data
-* Do different versions (Angular, React, Vanilla, native APP)
-* Enable users to extract data to be imported in common hiring applications
+#### Icons
 
-## Why?
-I'm a software developer, so a CV that is software itself and therefore part of my development work makes sense. Showcases my work.
-I'm not going to write a CV as my job at the potential employer but will develop applications.
+Icons are created as SVG. The file ./src/components/Icons.tsx contains a
+component for each icon.
 
-## Goals
-* Showcase skills:
-    * UI Design
-    * User experience
-    * Programming style => Put it on github
-    * React
-    * Data Visualization
-    * CSS (use grid)
-* Make it more fun to write and maintain CV
-* Avoid textual fluff as much as possible (just present facts)
-* Give employers easy way to find out about me
+##### Icon CSS
+
+Whenever possible we try to add SVG specific properties to existing Tachyons classes that
+should also affect the SVG icons. The css necessary goes into the file
+`./src/icons.css`.
+
+Example
+
+```css
+/* ./src/icons.css */
+.white {
+  stroke: white;
+}
+```
+
+The css in the example above ensures Tachyons' `white` class not only sets
+the normal `color` property but also SVG's `stroke` property.
+
+#### Animations
+##### CSS
+The CSS classes needed for animations go into the file `./src/Animations.css`. These classes should be similar to Tachyons' classes in that they only modify
+few properties. As with the other Tachyons classes, their names are then
+concatenated to form `className` properties in the file `css.ts`.
+
+#### React
+To help with animations (usually using CSS `transition`) that require `ClassName` or CSS properties to be changed, the react addon [react-transition-group](https://reactcommunity.org/react-transition-group/) is used.

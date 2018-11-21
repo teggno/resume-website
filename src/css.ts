@@ -1,4 +1,5 @@
-import "./components/icons.css";
+import "./Icons.css";
+import "./Animations.css";
 
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
@@ -26,9 +27,10 @@ export const link = `${fontColor} link hover-blue`;
 export const dt = "fw6";
 export const dd = "ma0 mb2";
 
-const button = "f6 link br1 ph3 pv2 mb2 dib white mh2";
-export const normalButton = `${button} ${blueBackground}`;
-export const clickedButton = `${button} ${lightBlueBackground}`;
+const button = "f6 link dim br1 ph3 pv2 mb2 dib tc";
+export const normalButton = `${button} ${blueBackground} white`;
+export const clickedButton = `${button} ${lightBlueBackground} white`;
+export const deemphasizedButton = `${button} ba ${fontColor}`;
 
 export const checkboxListItem = "nowrap";
 
@@ -36,18 +38,18 @@ export const textParagraph = `${normalFontSize} lh-copy`;
 export const list = "list pa0";
 export const stripedStringList = `lh-copy pa2 ${stripedBackground}`;
 export const card = `br3 hidden ba ${lightSilverBorder}`;
-export const cardTitle = `${nearWhiteBackground} f4 br3 br--top mv0 pv2 ph3`;
+export const cardTitle = `${nearWhiteBackground} br3 br--top mv0 pv2 ph3`;
 /** Container for the content of the card below the title bar. */
 export const cardContent = "pa3 bt b--black-10";
 
 export const skillListItem = `relative bb pa2 ${lightSilverBorder}`;
 export const skillListBarContainer = `relative pv1`;
-export const skillListBar = `absolute top-0 ${lightestBlueBackground}`;
+export const sparkline = `absolute top-0 grow-width move-h ${lightestBlueBackground}`;
 export const skillLinkTitle = "f4 fw6";
 export const skillLinkSub = `${normalFontSize}`;
 
 export const wrappingList = `${list} cf`;
-export const wrappingListItem = "fl mr4 mb4 w-100 w-40-l";
+export const wrappingListItem = "fl w-100 w-50-l mw6 pa2";
 
 export const chartBackground = nearWhiteBackground;
 

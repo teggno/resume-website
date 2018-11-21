@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowDown, ArrowUp } from "./icons";
+import { ArrowDown, ArrowUp } from "./Icons";
+import { normalButton, deemphasizedButton } from "../css";
 
 export class Expander extends React.Component<ExpanderProps, ExpanderState> {
   constructor(props: ExpanderProps) {
@@ -27,16 +28,18 @@ function Toggle(props: ToggleProps) {
     collapsedHeader = props.collapsedHeader || "More";
 
   return (
-    <button
-      className="v-mid dtc"
-      type="button"
-      onClick={() => {
+    <a
+      href="#"
+      className={deemphasizedButton + " v-mid"}
+      onClick={e => {
         props.onChange(!props.isExpanded);
+        e.preventDefault();
       }}
     >
-      {props.isExpanded ? <ArrowUp /> : <ArrowDown />}
-      {props.isExpanded ? expandedHeader : collapsedHeader}
-    </button>
+      {props.isExpanded ? <ArrowUp addPaddingLeft={false}/> : <ArrowDown addPaddingLeft={false}/>}
+      {/* Added a span and gave it a width to retain the same width no matter the label */}
+      <span className="w2 dib">{props.isExpanded ? expandedHeader : collapsedHeader}</span>
+    </a>
   );
 }
 

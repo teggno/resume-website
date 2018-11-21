@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { icon } from "../css";
 
 export function ArrowDown(props: IconProps) {
@@ -7,7 +8,10 @@ export function ArrowDown(props: IconProps) {
       xmlns="http://www.w3.org/2000/svg"
       width="100%"
       height="100%"
-      viewBox="0 0 40 40"
+      viewBox={`${
+        props.addPaddingLeft ? 0 : 10
+      } 0 40 40`}
+      // viewBox={`10 0 40 40`}
       preserveAspectRatio="true"
       className={icon}
     >
@@ -18,7 +22,6 @@ export function ArrowDown(props: IconProps) {
           strokeWidth="4"
           strokeLinejoin="round"
           strokeLinecap="round"
-          stroke={props.color || "#000"}
           fill="none"
         />
       </g>
@@ -32,7 +35,9 @@ export function ArrowUp(props: IconProps) {
       xmlns="http://www.w3.org/2000/svg"
       width="100%"
       height="100%"
-      viewBox="0 0 40 40"
+      viewBox={`${
+        props.addPaddingLeft ? 0 : 10
+      } 0 40 40`}
       preserveAspectRatio="true"
       className={icon}
     >
@@ -43,7 +48,6 @@ export function ArrowUp(props: IconProps) {
           strokeWidth="4"
           strokeLinejoin="round"
           strokeLinecap="round"
-          stroke={props.color || "#000"}
           fill="none"
         />
       </g>
@@ -52,5 +56,21 @@ export function ArrowUp(props: IconProps) {
 }
 
 export interface IconProps {
-  color?: string;
+  /** If true, there will be no left padding. Comes in handy when the icon is
+   * used in a button that contains the icon followed by some text */
+  addPaddingLeft?: boolean;
 }
+
+const iconPropTypes = {
+  addPaddingLeft: PropTypes.bool
+};
+
+const iconDefaultProps = {
+  addPaddingLeft: true,
+};
+
+ArrowDown.propTypes = iconPropTypes;
+ArrowDown.defaultProps = iconDefaultProps;
+
+ArrowUp.propTypes = iconPropTypes;
+ArrowUp.defaultProps = iconDefaultProps;

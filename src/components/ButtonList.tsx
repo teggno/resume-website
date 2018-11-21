@@ -1,18 +1,19 @@
 import * as React from "react";
-import { normalButton, clickedButton } from "../css";
 import ToggleButton from "./ToggleButton";
 
 export function ButtonList(props: ButtonListProps) {
   return (
     <div>
       {props.buttons.map((b, i) => (
-        <ToggleButton
-          key={i}
-          isOn={b.name === props.value}
-          onChange={() => props.changed(b.name)}
-        >
-          {b.label}
-        </ToggleButton>
+        <React.Fragment key={i}>
+          <ToggleButton
+            isOn={b.name === props.value}
+            onChange={() => props.changed(b.name)}
+          >
+            {b.label}
+          </ToggleButton>
+          {"\n" /* <-- We want a space between the buttons. */}
+        </React.Fragment>
       ))}
     </div>
   );

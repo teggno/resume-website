@@ -13,8 +13,8 @@ export default (props: { technology: Technology }) => {
   const { technology: t } = props;
   return (
     <React.Fragment>
-      <h2>My {t.name} experience</h2>
-      <div>
+      <div className="ph2">
+        <h2>My {t.name} experience</h2>
         <Timeline
           events={t.projects.map((prj, i) => {
             const { period, title } = prj,
@@ -46,11 +46,14 @@ export default (props: { technology: Technology }) => {
         />
       </div>
       <div>
-        <h3>Projects:</h3>
+        <h3 className="ph2">Projects:</h3>
         <ul className={wrappingList}>
           {t.projects.map((prj, i) =>
             findableCard(i).makeFindable(
-              <li key={prj.title} className={wrappingListItem + " flashing-card"}>
+              <li
+                key={prj.title}
+                className={wrappingListItem + " flashing-card"}
+              >
                 <div className={card}>
                   <h4 className={cardTitle}>{prj.title}</h4>
                   <ProjectDetails project={prj} technologyName={t.name} />
@@ -60,7 +63,7 @@ export default (props: { technology: Technology }) => {
           )}
         </ul>
       </div>
-      <div>
+      <div className="ph2">
         <h3>Jobs:</h3>
         <ul>
           {t.jobs.map((j, i) => (
@@ -87,5 +90,3 @@ function findableCard(index: number) {
     find: () => document.querySelector(`[data-project-index='${index}']`)
   };
 }
-
-

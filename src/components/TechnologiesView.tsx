@@ -74,7 +74,7 @@ export class TechnologiesView extends React.Component<
               "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
             }
           >
-            <div className="w-50 w-30-l">
+            <div className="w-50 w-30-l ph2">
               <ButtonList
                 buttons={sortButtons}
                 value={this.state.sort}
@@ -93,14 +93,16 @@ export class TechnologiesView extends React.Component<
               />
             </div>
             <div
-              className={"w-50 w-70-l ph1 ph4-ns"}
+              className={"w-50 w-70-l pl1 pl4-ns"}
               ref={this.technologyDetailsRef}
             >
               {this.state.selectedTechnology ? (
                 <div>
-                  <a className="dn-ns" href="#">
-                    Back to list
-                  </a>
+                  <div className="ph2">
+                    <a className="dn-ns link" href="#">
+                      Back to list
+                    </a>
+                  </div>
                   <TechnologyDetails
                     technology={this.state.selectedTechnology}
                   />
@@ -119,7 +121,10 @@ export class TechnologiesView extends React.Component<
       selectedTechnology: tech
     });
     if (tech) {
-      this.technologyDetailsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      this.technologyDetailsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
   };
 

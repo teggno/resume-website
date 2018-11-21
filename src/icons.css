@@ -1,0 +1,21 @@
+.v-mid-i {
+  position: relative;
+  top: 0.15em;
+}
+
+/* Add the stroke property to Tachyon's color classes*/
+.white {
+  stroke: white;
+}
+
+.dark-gray {
+  stroke: #333;
+}
+
+.blue {
+  stroke: #357edd;
+}
+
+.light-silver{
+  stroke: #aaa;
+}
