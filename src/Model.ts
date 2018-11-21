@@ -12,15 +12,20 @@ export interface Project {
   technologies: {
     name: string;
     tasks?: string[];
-  }[]
+  }[];
 }
 
 export interface Technology {
   name: string;
   projects: Project[];
-  jobs: { company: string; title: string }[];
+  jobs: Job[];
   experienceNet: number;
   experienceGross: number;
   yearStart: number;
   yearEnd: number;
+}
+
+export interface Job {
+  company: string;
+  title: string;
 }

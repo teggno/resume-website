@@ -56,4 +56,6 @@ export const chartBackground = nearWhiteBackground;
 
 export const icon = "w1 h1 v-mid-i";
 
+export const circle = "dib br4 w1 h1 mr2 v-top";
+
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;

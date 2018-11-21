@@ -70,3 +70,7 @@ export default class Month {
     return month.year * 12 + month.month;
   }
 }
+
+export function formatDateAsYearMonth(d: Date) {
+  return `${d.getFullYear()}/${d.getMonth() + 1}`;
+}
