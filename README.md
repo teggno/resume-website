@@ -1,4 +1,18 @@
-## Interactive resume web site
+## Interactive resume website
+This repo contains a website that can be used to browse resume information that
+is stored in a JSON file.
+
+The resume website is created as a Single Page Application (SPA) and developed using
+the following technologies:
+
+* [React](https://reactjs.org/)
+* [Tachyons](https://tachyons.io/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [webpack](https://webpack.js.org/)
+
+### Features
+
+### Browser Compatibility
 
 ### Development
 
