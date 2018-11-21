@@ -55,7 +55,10 @@ export default (props: { technology: Technology }) => {
                 className={wrappingListItem + " flashing-card"}
               >
                 <div className={card}>
-                  <h4 className={cardTitle}>{prj.title}</h4>
+                  <h4 className={cardTitle}>
+                    <div className="dib br4 w1 h1 mr2 v-top" style={{ backgroundColor: nthColor(i)}} />
+                    {prj.title}
+                  </h4>
                   <ProjectDetails project={prj} technologyName={t.name} />
                 </div>
               </li>

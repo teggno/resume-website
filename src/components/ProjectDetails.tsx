@@ -9,7 +9,8 @@ import {
   dt,
   dd,
   list,
-  cardContent
+  cardContent,
+  dl
 } from "../css";
 import { Expander } from "./Expandable";
 
@@ -27,7 +28,7 @@ export function ProjectDetails(props: ProjectDetailsProps) {
       <Conditional
         test={() => !!technologies.length && technologies.some(t => !!t.tasks)}
       >
-        <React.Fragment>
+        <dl className={dl}>
           <dt className={dt}>Work I did with {technologies[0].name}</dt>
           <dd className={dd}>
             <UnorderedListOfStrings
@@ -37,10 +38,10 @@ export function ProjectDetails(props: ProjectDetailsProps) {
               )}
             />
           </dd>
-        </React.Fragment>
+        </dl>
       </Conditional>
       <Expander>
-        <dl>
+        <dl className={dl}>
           <dt className={dt}>Project description</dt>
           <dd className={dd}>
             <p className={textParagraph}>{project.description}</p>
