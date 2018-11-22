@@ -27,6 +27,9 @@
 * Add an editor for data
 * Do different versions (Angular, React, Vanilla, native APP)
 * Enable users to extract data to be imported in common hiring applications
+* Unit tests for the data:
+  * Is a technology used as tool elsewhere?
+  * Do all items end in a period?
 
 ## Why?
 I'm a software developer, so a CV that is software itself and therefore part of my development work makes sense. Showcases my work.

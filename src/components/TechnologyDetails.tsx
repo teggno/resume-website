@@ -15,41 +15,34 @@ import "./TechnologyDetails.css";
 import { formatDateAsYearMonth } from "../Month";
 const now = new Date();
 
-export default (props: { technology: Technology }) => {
-  const { technology: t } = props;
+export default function(props: { technology: Technology }) {
+  const { technology } = props;
   return (
     <React.Fragment>
       <div className="ph2">
-        <h2>My {t.name} experience</h2>
-        <ProjectTimeline projects={t.projects} now={now} />
+        <h2>My {technology.name} experience</h2>
+        <ProjectTimeline projects={technology.projects} now={now} />
       </div>
       <div>
         <h3 className="ph2">Projects:</h3>
-        <ProjectGrid projects={t.projects} technologyName={t.name} />
+        <ProjectGrid
+          projects={technology.projects}
+          technologyName={technology.name}
+        />
       </div>
       <div className="ph2">
         <h3>Jobs:</h3>
-        <JobList jobs={t.jobs} />
+        <JobList jobs={technology.jobs} />
       </div>
     </React.Fragment>
   );
-};
-
-// The idea behind this function is to keep adding the data-project-item
-// attribute together with retrieving the card using the same attribute.
-function findableCard(index: number) {
-  return {
-    makeFindable: (card: any) =>
-      React.cloneElement(card, { "data-project-index": index }),
-    find: () => document.querySelector(`[data-project-index='${index}']`)
-  };
 }
 
 function ProjectTimeline(props: { projects: Project[]; now: Date }) {
   return (
     <Timeline
-      events={props.projects.map((prj, i) => {
-        const { period, title } = prj,
+      events={props.projects.map((project, i) => {
+        const { period, title } = project,
           from = period.from.startTime(),
           to = period.to ? period.to.endTime() : props.now;
         return {
@@ -115,4 +108,14 @@ function JobList(props: { jobs: Job[] }) {
       ))}
     </ul>
   );
+}
+
+// The idea behind this function is to keep adding the data-project-item
+// attribute together with retrieving the card using the same attribute.
+function findableCard(index: number) {
+  return {
+    makeFindable: (card: any) =>
+      React.cloneElement(card, { "data-project-index": index }),
+    find: () => document.querySelector(`[data-project-index='${index}']`)
+  };
 }

@@ -1,17 +1,12 @@
 import React from "react";
-import { TechnologyFilter } from "./TechnologyFilter";
 import { TechnologyList } from "./TechnologyList";
 import { ButtonList } from "./ButtonList";
-import Me from "../Me";
-import { descend, sort, ascend, sortBy, min } from "ramda";
-import YearsBackSlider from "./YearsBackSlider.1";
+import { descend, sort, ascend, min } from "ramda";
 import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
 import { technologyRoute } from "../Routes";
-import { componentSpacingVertical } from "../css";
 import "./TechnologiesView.css";
-
-const todaysYear = new Date().getFullYear();
+import { comparer } from "../Sorting";
 
 export class TechnologiesView extends React.Component<
   TechnologiesViewProps,
@@ -19,15 +14,66 @@ export class TechnologiesView extends React.Component<
 > {
   constructor(props: Readonly<TechnologiesViewProps>) {
     super(props);
-    const technologies = new Me(this.props.me).technologies();
     this.state = {
-      technologies: technologies,
-      selectedTechnologies: technologies,
       sort: sortButtons[0].name,
-      yearFrom: getWorkYears(technologies).min,
-      selectedTechnology: this.selectedTechnologyFromHash(technologies)
+      selectedTechnology: this.selectedTechnologyFromHash(
+        this.props.technologies
+      )
     };
     this.technologyDetailsRef = React.createRef();
+  }
+
+  render() {
+    const sortButton = findSortButton(this.state.sort),
+      minNumber = sortButton.chartMin
+        ? (sortButton.chartMin as any)(this.props.technologies)
+        : undefined,
+      chartMin = minNumber ? () => minNumber : undefined;
+    {
+      /* overflow-hidden because the way off canvas of the list is done would
+         otherwise cause horizontal scrollbars */
+    }
+    return (
+      <div className="overflow-hidden">
+        <div
+          className={
+            "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
+          }
+        >
+          <div className="w-50 w-30-l ph2">
+            <ButtonList
+              buttons={sortButtons}
+              value={this.state.sort}
+              changed={this.sortChanged.bind(this)}
+            />
+            <TechnologyList
+              technologies={sort(
+                findSortButton(this.state.sort).comparer,
+                this.props.technologies
+              )}
+              barTo={sortButton.barTo}
+              barFrom={sortButton.barFrom}
+              chartMin={chartMin}
+            />
+          </div>
+          <div
+            className={"w-50 w-70-l pl1 pl4-ns"}
+            ref={this.technologyDetailsRef}
+          >
+            {this.state.selectedTechnology ? (
+              <div>
+                <div className="ph2">
+                  <a className="dn-ns link" href="#">
+                    Back to list
+                  </a>
+                </div>
+                <TechnologyDetails technology={this.state.selectedTechnology} />
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   componentDidMount() {
@@ -38,85 +84,8 @@ export class TechnologiesView extends React.Component<
     window.removeEventListener("hashchange", this.hashChanged);
   }
 
-  render() {
-    const sortButton = findSortButton(this.state.sort),
-      minNumber = sortButton.chartMin
-        ? (sortButton.chartMin as any)(this.state.selectedTechnologies)
-        : undefined,
-      chartMin = minNumber ? () => minNumber : undefined;
-    return (
-      <React.Fragment>
-        {/* <div>
-          <div style={{ padding: "30px" }}>
-            <YearsBackSlider
-              yearFrom={getWorkYears(this.state.technologies).min}
-              yearTo={todaysYear}
-              year={this.state.yearFrom}
-              onDragging={this.periodSliderChanged.bind(this)}
-            />
-          </div>
-          <TechnologyFilter
-            allItems={sortBy(
-              t => t.name.toLowerCase(),
-              this.filterTechnologiesByYear(this.state.technologies)
-            )}
-            selectedItems={this.filterTechnologiesByYear(
-              this.state.selectedTechnologies
-            )}
-            selectionChanged={this.techSelectionChanged.bind(this)}
-            isAllNoneButtonAll={false}
-          />
-        </div> */}
-        {/* overflow-hidden because the way off canvas of the list is done would otherwise cause horizontal scrollbars */}
-        <div className="overflow-hidden">
-          <div
-            className={
-              "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
-            }
-          >
-            <div className="w-50 w-30-l ph2">
-              <ButtonList
-                buttons={sortButtons}
-                value={this.state.sort}
-                changed={this.sortChanged.bind(this)}
-              />
-              <TechnologyList
-                technologies={sortTechnologies(
-                  this.filterTechnologiesByYear(
-                    this.state.selectedTechnologies
-                  ),
-                  this.state.sort
-                )}
-                barTo={sortButton.barTo}
-                barFrom={sortButton.barFrom}
-                chartMin={chartMin}
-              />
-            </div>
-            <div
-              className={"w-50 w-70-l pl1 pl4-ns"}
-              ref={this.technologyDetailsRef}
-            >
-              {this.state.selectedTechnology ? (
-                <div>
-                  <div className="ph2">
-                    <a className="dn-ns link" href="#">
-                      Back to list
-                    </a>
-                  </div>
-                  <TechnologyDetails
-                    technology={this.state.selectedTechnology}
-                  />
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  }
-
   private hashChanged = () => {
-    const tech = this.selectedTechnologyFromHash(this.state.technologies);
+    const tech = this.selectedTechnologyFromHash(this.props.technologies);
     this.setState({
       selectedTechnology: tech
     });
@@ -136,59 +105,15 @@ export class TechnologiesView extends React.Component<
 
   private technologyDetailsRef: any = null;
 
-  private filterTechnologiesByYear(technologies: Technology[]) {
-    return technologies.filter(t => t.yearEnd >= this.state.yearFrom);
-  }
-
-  private techSelectionChanged(newSelection: Technology[]) {
-    this.setState({
-      selectedTechnologies: newSelection
-    });
-  }
-
   private sortChanged(name: string) {
     this.setState({
       sort: name
     });
   }
-
-  private periodSliderChanged(year: number) {
-    this.setState({
-      yearFrom: year
-    });
-  }
-}
-
-function sortTechnologies(technologies: Technology[], name: string) {
-  return sort(findSortButton(name).comparer, technologies);
 }
 
 function findSortButton(name: string) {
   return sortButtons.filter(b => b.name === name)[0];
-}
-
-function getWorkYears(technologies: Technology[]) {
-  return technologies.reduce(
-    (prev, current) => {
-      return {
-        min: prev.min < current.yearStart ? prev.min : current.yearStart,
-        max: prev.max > current.yearEnd ? prev.max : current.yearEnd
-      };
-    },
-    { min: Number.MAX_VALUE, max: Number.MIN_VALUE }
-  );
-}
-
-interface TechnologiesViewProps {
-  me: any;
-}
-
-interface TechnologiesViewState {
-  technologies: Technology[];
-  selectedTechnologies: Technology[];
-  sort: string;
-  yearFrom: number;
-  selectedTechnology: Technology | null;
 }
 
 const extractName = (tech: any) => tech.name.toLowerCase();
@@ -196,7 +121,7 @@ const sortButtons = [
   {
     label: "Experience",
     name: "byExperience",
-    comparer: combine(
+    comparer: comparer(
       (tech: any) => tech.experienceGross,
       descend,
       extractName,
@@ -207,7 +132,7 @@ const sortButtons = [
   {
     label: "Used most recently",
     name: "usedRecently",
-    comparer: combine(
+    comparer: comparer(
       (tech: any) => tech.yearEnd,
       descend,
       (tech: any) => tech.experienceGross,
@@ -225,11 +150,11 @@ const sortButtons = [
   }
 ];
 
-function combine<T, TP1, TP2>(
-  p1: (t: T) => TP1,
-  d1: (p: (t: T) => TP1) => ((a: T, b: T) => number),
-  p2: (t: T) => TP2,
-  d2: (p: (t: T) => TP2) => ((a: T, b: T) => number)
-) {
-  return (a: T, b: T) => (p1(a) === p1(b) ? d2(p2)(a, b) : d1(p1)(a, b));
+interface TechnologiesViewProps {
+  technologies: Technology[];
+}
+
+interface TechnologiesViewState {
+  sort: string;
+  selectedTechnology: Technology | null;
 }

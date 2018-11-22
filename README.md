@@ -16,6 +16,8 @@ the following technologies:
 
 ### Development
 
+#### Folder Structure
+
 #### CSS
 
 
@@ -49,4 +51,9 @@ few properties. As with the other Tachyons classes, their names are then
 concatenated to form `className` properties in the file `css.ts`.
 
 #### React
-To help with animations (usually using CSS `transition`) that require `ClassName` or CSS properties to be changed, the react addon [react-transition-group](https://reactcommunity.org/react-transition-group/) is used.
+To help with animations (usually using CSS `transition`) that require
+`ClassName` or CSS properties to be changed, the react addon
+[react-transition-group](https://reactcommunity.org/react-transition-group/) is
+used.
+
+### Build
