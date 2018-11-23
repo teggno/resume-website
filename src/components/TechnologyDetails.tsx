@@ -60,13 +60,18 @@ function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
       onEventClicked={e => {
         const card = findableCard((e as any).projectIndex).find();
         if (!card) return;
-        if (!isElementInViewport(card))
+        var flashDelay = 0;
+        if (!isElementInViewport(card)) {
           card.scrollIntoView({ behavior: "smooth" });
-        const oldClassName = card.className;
-        card.className += " flashing";
+          flashDelay = 500; /* Wait with flashing the card a bit to let the scrolling happen first. */
+        }
         setTimeout(() => {
-          card.className = oldClassName;
-        }, 250);
+          const oldClassName = card.className;
+          card.className += " flashing";
+          setTimeout(() => {
+            card.className = oldClassName;
+          }, 250);
+        }, flashDelay);
       }}
     />
   );
