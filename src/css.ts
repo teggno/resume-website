@@ -1,5 +1,6 @@
 import "./Icons.css";
 import "./Animations.css";
+import "./Grid.css";
 
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
@@ -49,8 +50,9 @@ export const sparkline = `absolute top-0 grow-width move-h ${lightestBlueBackgro
 export const skillLinkTitle = "f4 fw6";
 export const skillLinkSub = `${normalFontSize}`;
 
-export const wrappingList = `${list} cf`;
-export const wrappingListItem = "fl w-100 w-50-l mw6 pa2";
+export const grid2 = `grid2-ns ${list}`;
+export const gridItem = "pa2 mw6";
+export const gridCard = `h-100 ${card}`
 
 export const chartBackground = nearWhiteBackground;
 
@@ -59,3 +61,4 @@ export const icon = "w1 h1 v-mid-i";
 export const circle = "dib br4 w1 h1 mr2 v-top";
 
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;
+

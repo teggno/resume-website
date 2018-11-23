@@ -2,11 +2,11 @@ import React from "react";
 import { Technology, Project, Job } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
 import {
-  wrappingList,
-  wrappingListItem,
-  card,
+  grid2,
+  gridItem,
   cardTitle,
-  circle
+  circle,
+  gridCard
 } from "../css";
 import Timeline from "./Timeline";
 import nthColor from "../Colors";
@@ -74,11 +74,11 @@ function ProjectTimeline(props: { projects: Project[]; now: Date }) {
 
 function ProjectGrid(props: { projects: Project[]; technologyName: string }) {
   return (
-    <ul className={wrappingList}>
+    <ul className={grid2}>
       {props.projects.map((prj, i) =>
         findableCard(i).makeFindable(
-          <li key={prj.title} className={wrappingListItem + " flashing-card"}>
-            <div className={card}>
+          <li key={prj.title} className={gridItem + " flashing-card"}>
+            <div className={gridCard}>
               <h4 className={cardTitle}>
                 <div
                   className={circle}

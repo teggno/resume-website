@@ -12,7 +12,6 @@ import {
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
 import { Transition } from "react-transition-group";
-import { TransitionStatus } from "react-transition-group/Transition";
 
 export function TechnologyList(props: TechnologyListProps) {
   const { barTo, barFrom: bf, chartMin: cMin } = props,

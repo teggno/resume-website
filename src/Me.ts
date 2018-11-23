@@ -53,7 +53,7 @@ export default class Me {
         ),
         experienceGross: Math.round(
           (maxMonth.totalMonths() - minMonth.totalMonths()) / 12
-        ),
+        ) || 1 /* If it rounds to 0, just say it's 1 year */,
         projects: projectsWhereTechWasUsed,
         jobs: R.values(
           R.groupBy(
