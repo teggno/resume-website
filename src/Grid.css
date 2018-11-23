@@ -2,10 +2,10 @@
   display: grid;
 }
 
-/* NOTE: the query below is the same as tachyon's -ns module's */
-@media screen and (min-width: 30em) {
+/* NOTE: the query below is the same as tachyons' -l module's */
+@media screen and (min-width: 60em) {
   /* Grid with 2 columns */
-  .grid2-ns {
+  .grid2-l {
     display: grid;
     grid-template-columns: 50% 50%;
   }

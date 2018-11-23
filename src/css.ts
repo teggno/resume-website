@@ -50,7 +50,7 @@ export const sparkline = `absolute top-0 grow-width move-h ${lightestBlueBackgro
 export const skillLinkTitle = "f4 fw6";
 export const skillLinkSub = `${normalFontSize}`;
 
-export const grid2 = `grid2-ns ${list}`;
+export const grid2 = `grid2-l ${list}`;
 export const gridItem = "pa2 mw6";
 export const gridCard = `h-100 ${card}`
 
