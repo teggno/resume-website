@@ -1,13 +1,7 @@
 import React from "react";
 import { Technology, Project, Job } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
-import {
-  grid2,
-  gridItem,
-  cardTitle,
-  circle,
-  gridCard
-} from "../css";
+import { grid2, gridItem, cardTitle, circle, gridCard } from "../css";
 import Timeline from "./Timeline";
 import nthColor from "../Colors";
 import { isElementInViewport } from "../DomHelpers";
@@ -16,17 +10,23 @@ import { formatDateAsYearMonth } from "../Month";
 const now = new Date();
 
 export default function(props: { technology: Technology }) {
-  const { technology } = props;
+  const { technology } = props,
+    projectsWithColors = technology.projects
+      .sort((a, b) => a.period.from.totalMonths() - b.period.from.totalMonths())
+      .map((p, i) => ({
+        project: p,
+        color: nthColor(i)
+      }));
   return (
     <React.Fragment>
       <div className="ph2">
         <h2>My {technology.name} experience</h2>
-        <ProjectTimeline projects={technology.projects} now={now} />
+        <ProjectTimeline projects={projectsWithColors} now={now} />
       </div>
       <div>
         <h3 className="ph2">Projects:</h3>
         <ProjectGrid
-          projects={technology.projects}
+          projects={projectsWithColors}
           technologyName={technology.name}
         />
       </div>
@@ -38,11 +38,11 @@ export default function(props: { technology: Technology }) {
   );
 }
 
-function ProjectTimeline(props: { projects: Project[]; now: Date }) {
+function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
   return (
     <Timeline
-      events={props.projects.map((project, i) => {
-        const { period, title } = project,
+      events={props.projects.map((pc, i) => {
+        const { period, title } = pc.project,
           from = period.from.startTime(),
           to = period.to ? period.to.endTime() : props.now;
         return {
@@ -51,7 +51,7 @@ function ProjectTimeline(props: { projects: Project[]; now: Date }) {
           label: `${title}, ${formatDateAsYearMonth(
             from
           )} - ${formatDateAsYearMonth(to)}`,
-          color: nthColor(i),
+          color: pc.color,
           projectIndex: i
         };
       })}
@@ -72,22 +72,22 @@ function ProjectTimeline(props: { projects: Project[]; now: Date }) {
   );
 }
 
-function ProjectGrid(props: { projects: Project[]; technologyName: string }) {
+function ProjectGrid(props: {
+  projects: ProjectWithColor[];
+  technologyName: string;
+}) {
   return (
     <ul className={grid2}>
-      {props.projects.map((prj, i) =>
+      {props.projects.map((pc, i) =>
         findableCard(i).makeFindable(
-          <li key={prj.title} className={gridItem + " flashing-card"}>
+          <li key={pc.project.title} className={gridItem + " flashing-card"}>
             <div className={gridCard}>
               <h4 className={cardTitle}>
-                <div
-                  className={circle}
-                  style={{ backgroundColor: nthColor(i) }}
-                />
-                {prj.title}
+                <div className={circle} style={{ backgroundColor: pc.color }} />
+                {pc.project.title}
               </h4>
               <ProjectDetails
-                project={prj}
+                project={pc.project}
                 technologyName={props.technologyName}
               />
             </div>
@@ -118,4 +118,9 @@ function findableCard(index: number) {
       React.cloneElement(card, { "data-project-index": index }),
     find: () => document.querySelector(`[data-project-index='${index}']`)
   };
+}
+
+interface ProjectWithColor {
+  project: Project;
+  color: string;
 }
