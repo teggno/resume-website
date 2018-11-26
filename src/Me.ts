@@ -9,6 +9,10 @@ const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
 export default class Me {
   constructor(private source: MeJson) {}
 
+  projects() {
+    return this.getProjects();
+  }
+
   technologies() {
     const projects = this.getProjects();
     const jobs = this.getJobs();
@@ -80,6 +84,7 @@ export default class Me {
         s.period.to ? Month.parse(s.period.to) : undefined
       ),
       title: <string>s.title,
+      company: <string>s.company,
       technologies: <{ name: string; tasks?: string[] }[]>(
         s.technologies.map(t =>
           typeof t === "string" ? { name: t } : { name: t.name, tasks: t.tasks }

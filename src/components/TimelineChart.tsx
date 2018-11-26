@@ -3,7 +3,7 @@ import { chartBackground } from "../css";
 import "./Timeline.css";
 import nthColor from "../Colors";
 
-export default function Timeline(props: TimelineProps) {
+export default function TimelineChart(props: TimelineProps) {
   const { events } = props;
   const formatAxisLabel = props.formatAxisLabel || (d => d.toLocaleString());
 

@@ -1,3 +1,5 @@
+import { string } from "prop-types";
+
 // interfaces here mirror the JSON schema in me.schema.json
 
 export default interface MeJson {
@@ -14,6 +16,7 @@ interface Job {
 interface Project {
   title: string;
   description: string;
+  company?: string;
   tools?: string[];
   tasks: string[];
   teamSize: string;

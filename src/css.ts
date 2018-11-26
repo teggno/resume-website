@@ -7,7 +7,7 @@ const fontColor = "dark-gray";
 const normalFontSize = "f6 f5-ns"
 
 const nearWhite = "near-white";
-const stripedBackground = `striped--${nearWhite}`;
+export const stripedBackground = `striped--${nearWhite}`;
 const nearWhiteBackground = `bg-${nearWhite}`;
 
 const lightSilver = "light-silver";

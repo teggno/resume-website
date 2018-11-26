@@ -2,7 +2,7 @@ import React from "react";
 import { Technology, Project, Job } from "../Model";
 import { ProjectDetails } from "./ProjectDetails";
 import { grid2, gridItem, cardTitle, circle, gridCard } from "../css";
-import Timeline from "./Timeline";
+import TimelineChart from "./TimelineChart";
 import nthColor from "../Colors";
 import { isElementInViewport, isElementTopLeftInViewport } from "../DomHelpers";
 import "./TechnologyDetails.css";
@@ -40,7 +40,7 @@ export default function(props: { technology: Technology }) {
 
 function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
   return (
-    <Timeline
+    <TimelineChart
       events={props.projects.map((pc, i) => {
         const { period, title } = pc.project,
           from = period.from.startTime(),

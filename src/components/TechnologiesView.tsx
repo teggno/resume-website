@@ -25,6 +25,7 @@ export class TechnologiesView extends React.Component<
   }
 
   render() {
+    console.debug("TechnologiesView render");
     const sortButton = findSortButton(this.state.sort),
       minNumber = sortButton.chartMin
         ? (sortButton.chartMin as any)(this.props.technologies)
@@ -64,7 +65,7 @@ export class TechnologiesView extends React.Component<
             {this.state.selectedTechnology ? (
               <div>
                 <div className="ph2">
-                  <a className="dn-ns link" href="#">
+                  <a className="dn-ns link" href="#techologies">
                     Back to list
                   </a>
                 </div>
