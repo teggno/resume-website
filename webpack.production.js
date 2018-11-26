@@ -15,6 +15,9 @@ module.exports = merge(common, {
           reactDom:
             "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js",
           smoothScroll: "https://npmcdn.com/smoothscroll"
+        },
+        css: {
+          tachyons: "https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
         }
       }
     })

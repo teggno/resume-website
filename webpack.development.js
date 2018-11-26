@@ -23,6 +23,9 @@ module.exports = merge(common, {
           reactDom: "./node_modules/react-dom/umd/react-dom.development.js",
           smoothScroll:
             "./node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js"
+        },
+        css: {
+          tachyons: "./node_modules/tachyons/css/tachyons.css"
         }
       }
     })
