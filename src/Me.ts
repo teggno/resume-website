@@ -1,12 +1,13 @@
 import * as R from "ramda";
 import Month from "./Month";
 import Period from "./Period";
+import MeJson from "./MeJson";
 
 const now = new Date();
 const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
 
 export default class Me {
-  constructor(private source: any) {}
+  constructor(private source: MeJson) {}
 
   technologies() {
     const projects = this.getProjects();
@@ -51,9 +52,9 @@ export default class Me {
             )
             .reduce((prev, current) => prev + current, 0) / 12
         ),
-        experienceGross: Math.round(
-          (maxMonth.totalMonths() - minMonth.totalMonths()) / 12
-        ) || 1 /* If it rounds to 0, just say it's 1 year */,
+        experienceGross:
+          Math.round((maxMonth.totalMonths() - minMonth.totalMonths()) / 12) ||
+          1 /* If it rounds to 0, just say it's 1 year */,
         projects: projectsWhereTechWasUsed,
         jobs: R.values(
           R.groupBy(
@@ -73,14 +74,14 @@ export default class Me {
     );
   }
   private getProjects() {
-    return R.values(this.source.projects).map(s => ({
+    return this.source.projects.map(s => ({
       period: new Period(
         Month.parse(s.period.from),
         s.period.to ? Month.parse(s.period.to) : undefined
       ),
       title: <string>s.title,
       technologies: <{ name: string; tasks?: string[] }[]>(
-        s.technologies.map((t: any) =>
+        s.technologies.map(t =>
           typeof t === "string" ? { name: t } : { name: t.name, tasks: t.tasks }
         )
       ),
@@ -94,7 +95,7 @@ export default class Me {
   }
 
   private getJobs() {
-    return R.values(this.source.jobs).map(j => ({
+    return this.source.jobs.map(j => ({
       company: <string>j.company,
       titles: R.mapAccum(
         (to, titleItem) => [
@@ -108,12 +109,7 @@ export default class Me {
           }
         ],
         j.period.to ? Month.parse(j.period.to) : undefined,
-        R.sort(R.descend(<any>R.propOr("", "from")), <
-          {
-            title: string;
-            from?: string;
-          }[]
-        >j.titles)
+        R.sort(R.descend(<any>R.propOr("", "from")), j.titles)
       )[1],
       period: new Period(
         Month.parse(j.period.from),

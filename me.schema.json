@@ -1,0 +1,241 @@
+{
+  "definitions": {
+    "month": {
+      "$id": "#definitions/month",
+      "type": "string",
+      "title": "Month in format yyyy-mm",
+      "examples": ["2018-11"],
+      "pattern": "^\\d{4}-(([0][1-9])|([1][0-2]))$"
+    },
+    "period": {
+      "$id": "#definitions/period",
+      "type": "object",
+      "title": "A time period enclosed by two months",
+      "required": ["from"],
+      "properties": {
+        "from": {
+          "$ref": "#definitions/month"
+        },
+        "to": {
+          "$ref": "#definitions/month"
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "Resume Schema",
+  "required": ["jobs", "projects"],
+  "properties": {
+    "jobs": {
+      "$id": "#/properties/jobs",
+      "type": "array",
+      "title": "List of jobs",
+      "default": null,
+      "items": {
+        "$id": "#/properties/jobs/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": ["company", "titles", "period"],
+        "properties": {
+          "company": {
+            "$id": "#/properties/jobs/items/properties/company",
+            "type": "string",
+            "title": "Company name",
+            "default": "",
+            "examples": ["bwv AG"],
+            "pattern": "^(.*)$"
+          },
+          "titles": {
+            "$id": "#/properties/jobs/items/properties/titles",
+            "type": "array",
+            "title": "Titles obtained at the job",
+            "items": {
+              "$id": "#/properties/jobs/items/properties/titles/items",
+              "type": "object",
+              "title": "The Items Schema",
+              "required": ["title"],
+              "properties": {
+                "title": {
+                  "$id": "#/properties/jobs/items/properties/titles/items/properties/title",
+                  "type": "string",
+                  "title": "Job title name",
+                  "default": "",
+                  "examples": ["Data Operator"],
+                  "pattern": "^(.*)$"
+                },
+                "from": {
+                  "$ref": "#/definitions/month"
+                }
+              }
+            }
+          },
+          "period": {
+            "$ref": "#definitions/period"
+          }
+        }
+      }
+    },
+    "projects": {
+      "$id": "#/properties/projects",
+      "type": "array",
+      "title": "Projects worked in",
+      "items": {
+        "$id": "#/properties/projects/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "title",
+          "description",
+          "technologies",
+          "period"
+        ],
+        "properties": {
+          "title": {
+            "$id": "#/properties/projects/items/properties/title",
+            "type": "string",
+            "title": "Name of the project",
+            "default": "",
+            "examples": ["Project A"],
+            "pattern": "^(.*)$"
+          },
+          "description": {
+            "$id": "#/properties/projects/items/properties/description",
+            "type": "string",
+            "title": "Project description",
+            "default": "",
+            "examples": [
+              "Software to help travel agents help their customers faster."
+            ],
+            "pattern": "^(.*)$"
+          },
+          "company": {
+            "$id": "#/properties/projects/items/properties/company",
+            "type": "string",
+            "title": "Company name",
+            "default": "",
+            "examples": ["ABC Travel"],
+            "pattern": "^(.*)$"
+          },
+          "technologies": {
+            "$id": "#/properties/projects/items/properties/technologies",
+            "type": "array",
+            "title": "Technologies used in project",
+            "items": {
+              "$id": "#/properties/projects/items/properties/technologies/items",
+              "type": "object",
+              "title": "The Items Schema",
+              "required": ["name"],
+              "properties": {
+                "name": {
+                  "$id": "#/properties/projects/items/properties/technologies/items/properties/name",
+                  "type": "string",
+                  "title": "Technology name",
+                  "examples": ["React", "Mongodb"],
+                  "pattern": "^(.*)$"
+                },
+                "tasks": {
+                  "$id": "#/properties/projects/items/properties/technologies/items/properties/tasks",
+                  "type": "array",
+                  "title": "Tasks performed using the technology",
+                  "items": {
+                    "$id": "#/properties/projects/items/properties/technologies/items/properties/tasks/items",
+                    "type": "string",
+                    "title": "The Items Schema",
+                    "examples": [
+                      "Frontend of the application containing 30+ screens."
+                    ],
+                    "pattern": "^(.*)$"
+                  }
+                }
+              }
+            }
+          },
+          "tools": {
+            "$id": "#/properties/projects/items/properties/tools",
+            "type": "array",
+            "title": "List of tools used",
+            "items": {
+              "$id": "#/properties/projects/items/properties/tools/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "Git",
+                "Travis",
+                "Visual Studio Code"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "tasks": {
+            "$id": "#/properties/projects/items/properties/tasks",
+            "type": "array",
+            "title": "List of tasks performed",
+            "items": {
+              "$id": "#/properties/projects/items/properties/tasks/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "Architecture and Design",
+                "Frontend Development",
+                "User Interface Design",
+                "Backend Development",
+                "Database Design",
+                "DevOps",
+                "Estimation of Efforts",
+                "Documentation"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "achievements": {
+            "$id": "#/properties/projects/items/properties/achievements",
+            "type": "array",
+            "title": "List achievements",
+            "items": {
+              "$id": "#/properties/projects/items/properties/achievements/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "Helped inprove performance by 100%",
+                "Increased user experience"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "products": {
+            "$id": "#/properties/projects/items/properties/products",
+            "type": "array",
+            "title": "List products used",
+            "items": {
+              "$id": "#/properties/projects/items/properties/products/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "Some data service",
+                "Some cloud thing"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "period": {
+            "$ref": "#definitions/period"
+          },
+          "teamSize": {
+            "$id": "#/properties/projects/items/properties/teamSize",
+            "type": "string",
+            "title": "Description of the team size",
+            "default": "",
+            "examples": ["2", "2-3"],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}
