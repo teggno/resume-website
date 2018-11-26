@@ -4,7 +4,7 @@ import { ProjectDetails } from "./ProjectDetails";
 import { grid2, gridItem, cardTitle, circle, gridCard } from "../css";
 import TimelineChart from "./TimelineChart";
 import nthColor from "../Colors";
-import { isElementInViewport, isElementTopLeftInViewport } from "../DomHelpers";
+import { isElementTopLeftInViewport } from "../DomHelpers";
 import "./TechnologyDetails.css";
 import { formatDateAsYearMonth } from "../Month";
 const now = new Date();
@@ -30,10 +30,10 @@ export default function(props: { technology: Technology }) {
           technologyName={technology.name}
         />
       </div>
-      <div className="ph2">
+      {/* <div className="ph2">
         <h3>Jobs:</h3>
         <JobList jobs={technology.jobs} />
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }

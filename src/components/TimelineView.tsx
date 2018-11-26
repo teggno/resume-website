@@ -60,7 +60,7 @@ export default function TimelineView(props: TimelineViewViewProps) {
                 {(p.period.to
                   ? p.period.to
                   : Month.fromDate(now)
-                ).totalMonths() - p.period.from.totalMonths()}
+                ).totalMonths() - p.period.from.totalMonths() + 1}
               </td>
               <td className="tr">{p.technologies.length}</td>
               <td style={{ width: "50%" }} className="relative">
