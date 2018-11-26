@@ -33,19 +33,21 @@ export function TechnologyList(props: TechnologyListProps) {
             className={link}
           >
             <div className={skillLinkTitle}>{t.name}</div>
-            <div className={skillListBarContainer}>
-              {barTo && maxNumber !== null ? (
-                <Sparkline
-                  min={chartMin(t)}
-                  from={barFrom(t)}
-                  to={barTo(t)}
-                  max={maxNumber}
-                />
-              ) : null}
-            </div>
-            <div className={skillLinkSub}>
-              {t.experienceGross} years experience in {t.projects.length}{" "}
-              projects
+            <div>
+              <div className={skillLinkSub}>
+                {t.experienceGross} years experience in {t.projects.length}{" "}
+                projects
+              </div>
+              <div className={skillListBarContainer}>
+                {barTo && maxNumber !== null ? (
+                  <Sparkline
+                    min={chartMin(t)}
+                    from={barFrom(t)}
+                    to={barTo(t)}
+                    max={maxNumber}
+                  />
+                ) : null}
+              </div>
             </div>
           </a>
         </li>
@@ -77,8 +79,7 @@ function Sparkline(props: SparklineProps) {
             width:
               transitionStatus === "entered"
                 ? ((to - from) / (max - min)) * 100 + "%"
-                : 0,
-            height: 7
+                : 0
           }}
         />
       )}
