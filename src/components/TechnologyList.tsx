@@ -24,34 +24,32 @@ export function TechnologyList(props: TechnologyListProps) {
 
   return (
     <ul className={list}>
-      {
-        props.technologies.map(t => (
-          <li className={skillListItem} key={t.name}>
-            <a
-              href={technologyRoute.hashFromName(t.name)}
-              title="Details"
-              onClick={props.onClick}
-              className={link}
-            >
-              <div className={skillLinkTitle}>{t.name}</div>
-              <div className={skillListBarContainer}>
-                {barTo && maxNumber !== null ? (
-                  <Sparkline
-                    min={chartMin(t)}
-                    from={barFrom(t)}
-                    to={barTo(t)}
-                    max={maxNumber}
-                  />
-                ) : null}
-              </div>
-              <div className={skillLinkSub}>
-                {t.experienceGross} years experience in {t.projects.length}{" "}
-                projects in {t.jobs.length} jobs
-              </div>
-            </a>
-          </li>
-        ))
-      }
+      {props.technologies.map(t => (
+        <li className={skillListItem} key={t.name}>
+          <a
+            href={technologyRoute.hashFromName(t.name)}
+            title="Details"
+            onClick={props.onClick}
+            className={link}
+          >
+            <div className={skillLinkTitle}>{t.name}</div>
+            <div className={skillListBarContainer}>
+              {barTo && maxNumber !== null ? (
+                <Sparkline
+                  min={chartMin(t)}
+                  from={barFrom(t)}
+                  to={barTo(t)}
+                  max={maxNumber}
+                />
+              ) : null}
+            </div>
+            <div className={skillLinkSub}>
+              {t.experienceGross} years experience in {t.projects.length}{" "}
+              projects
+            </div>
+          </a>
+        </li>
+      ))}
     </ul>
   );
 }
@@ -73,9 +71,13 @@ function Sparkline(props: SparklineProps) {
           className={sparkline}
           style={{
             left:
-              transitionStatus === "entered" ? ((from - min) / (max - min)) * 100 + "%" : 0,
+              transitionStatus === "entered"
+                ? ((from - min) / (max - min)) * 100 + "%"
+                : 0,
             width:
-              transitionStatus === "entered" ? ((to - from) / (max - min)) * 100 + "%" : 0,
+              transitionStatus === "entered"
+                ? ((to - from) / (max - min)) * 100 + "%"
+                : 0,
             height: 7
           }}
         />

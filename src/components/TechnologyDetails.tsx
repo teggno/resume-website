@@ -4,7 +4,7 @@ import { ProjectDetails } from "./ProjectDetails";
 import { grid2, gridItem, cardTitle, circle, gridCard } from "../css";
 import Timeline from "./Timeline";
 import nthColor from "../Colors";
-import { isElementInViewport } from "../DomHelpers";
+import { isElementInViewport, isElementTopLeftInViewport } from "../DomHelpers";
 import "./TechnologyDetails.css";
 import { formatDateAsYearMonth } from "../Month";
 const now = new Date();
@@ -61,7 +61,7 @@ function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
         const card = findableCard((e as any).projectIndex).find();
         if (!card) return;
         var flashDelay = 0;
-        if (!isElementInViewport(card)) {
+        if (!isElementTopLeftInViewport(card)) {
           card.scrollIntoView({ behavior: "smooth" });
           flashDelay = 500; /* Wait with flashing the card a bit to let the scrolling happen first. */
         }

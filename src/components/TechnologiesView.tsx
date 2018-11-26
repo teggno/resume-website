@@ -7,6 +7,7 @@ import TechnologyDetails from "./TechnologyDetails";
 import { technologyRoute } from "../Routes";
 import "./TechnologiesView.css";
 import { comparer } from "../Sorting";
+import { isElementTopLeftInViewport } from "../DomHelpers";
 
 export class TechnologiesView extends React.Component<
   TechnologiesViewProps,
@@ -89,13 +90,14 @@ export class TechnologiesView extends React.Component<
     this.setState({
       selectedTechnology: tech
     });
-    if (tech) {
-      this.technologyDetailsRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  };
+    if (!tech) return;
+    if (isElementTopLeftInViewport(this.technologyDetailsRef.current)) return;
+
+    this.technologyDetailsRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+};
 
   private selectedTechnologyFromHash(technologies: Technology[]) {
     return technologies.filter(
