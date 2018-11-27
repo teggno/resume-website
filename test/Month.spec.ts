@@ -39,31 +39,75 @@ describe("Month", () => {
     expect(startTime.toISOString()).to.eql("2018-05-31T21:59:59.999Z");
   });
 
-  it ("should calculate the durationUntil correctly if it's less than 12 months", () => {
+  it("should calculate the durationUntil correctly if it's less than 12 months", () => {
     const month = new Month(2017, 5);
-    const duration = month.durationUntil(new Month (2017, 7));
-    expect(duration).to.eql({years: 0, months: 3});
+    const duration = month.durationUntil(new Month(2017, 7));
+    expect(duration).to.eql({ years: 0, months: 3 });
   });
 
-  it ("should calculate the durationUntil correctly if it's more than 12 months", () => {
+  it("should calculate the durationUntil correctly if it's more than 12 months", () => {
     const month = new Month(2017, 5);
-    const duration = month.durationUntil(new Month (2018, 7));
-    expect(duration).to.eql({years: 1, months: 3});
+    const duration = month.durationUntil(new Month(2018, 7));
+    expect(duration).to.eql({ years: 1, months: 3 });
   });
 
-  it("should add a positive number of months correctly without year switch", () =>{
+  it("should add a positive number of months correctly without year switch", () => {
     expect(new Month(2018, 5).add(2)).to.eql(new Month(2018, 7));
   });
 
-  it("should add a positive number of months correctly with year switch", () =>{
+  it("should add a positive number of months correctly with year switch", () => {
     expect(new Month(2018, 5).add(13)).to.eql(new Month(2019, 6));
   });
 
-  it("should subtract positive number of months correctly without year switch", () =>{
+  it("should subtract positive number of months correctly without year switch", () => {
     expect(new Month(2018, 5).add(-2)).to.eql(new Month(2018, 3));
   });
 
-  it("should subtract positive number of months correctly with year switch", () =>{
+  it("should subtract positive number of months correctly with year switch", () => {
     expect(new Month(2018, 5).add(-13)).to.eql(new Month(2017, 4));
+  });
+
+  it("should return the minimum of two months if the year is the same", () => {
+    expect(Month.min(new Month(2007, 5), new Month(2007, 4))).to.eql(
+      new Month(2007, 4)
+    );
+  });
+
+  it("should return the minimum of two months if the year differs", () => {
+    expect(Month.min(new Month(2008, 5), new Month(2007, 4))).to.eql(
+      new Month(2007, 4)
+    );
+  });
+
+  it("should return the maximum of two months if the year is the same", () => {
+    expect(Month.max(new Month(2007, 5), new Month(2007, 4))).to.eql(
+      new Month(2007, 5)
+    );
+  });
+
+  it("should return the maximum of two months if the year differs", () => {
+    expect(Month.max(new Month(2008, 5), new Month(2007, 4))).to.eql(
+      new Month(2008, 5)
+    );
+  });
+
+  it("toString() should return a string in the format yyyy/mm if the month has only a single digit", () => {
+    expect(new Month(2008, 5).toString()).to.equal("2008/05");
+  });
+
+  it("toString() should return a string in the format yyyy/mm if the month has two digits", () => {
+    expect(new Month(2008, 12).toString()).to.equal("2008/12");
+  });
+
+  it("should correctly calculate the difference between two months of the same year", () => {
+    expect(Month.diff(new Month(2008, 7), new Month(2008, 12))).to.equal(5);
+  });
+
+  it("should correctly calculate the difference between two months of different years", () => {
+    expect(Month.diff(new Month(2007, 7), new Month(2008, 12))).to.equal(17);
+  });
+
+  it("should calculate 0 as the difference between two equal months", () => {
+    expect(Month.diff(new Month(2007, 7), new Month(2007, 7))).to.equal(0);
   });
 });

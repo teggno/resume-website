@@ -34,6 +34,10 @@ export default class Month {
     return Month.fromTotalMonths(this.totalMonths() + months);
   }
 
+  monthsUntil(to: Month) {
+    return Month.diff(this, to);
+  }
+
   durationUntil(to: Month) {
     return Month.duration(this, to);
   }
@@ -47,12 +51,22 @@ export default class Month {
     return new Date(new Date(next.year, next.month - 1).valueOf() - 1);
   }
 
+  toString() {
+    return this.month < 10
+      ? `${this.year}/0${this.month}`
+      : `${this.year}/${this.month}`;
+  }
+
   static duration(from: Month, to: Month) {
-    const diff = to.totalMonths() - from.totalMonths() + 1;
+    const diff = Month.diff(from, to) + 1;
     return {
       years: Math.floor(diff / 12),
       months: diff % 12
     };
+  }
+
+  static diff(from: Month, to: Month) {
+    return to.totalMonths() - from.totalMonths();
   }
 
   static fromDate(date: Date) {
@@ -68,6 +82,14 @@ export default class Month {
 
   static totalMonths(month: Month) {
     return month.year * 12 + month.month;
+  }
+
+  static min(a: Month, b: Month) {
+    return a.totalMonths() < b.totalMonths() ? a : b;
+  }
+
+  static max(a: Month, b: Month) {
+    return a.totalMonths() > b.totalMonths() ? a : b;
   }
 }
 
