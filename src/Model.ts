@@ -4,11 +4,11 @@ export interface Project {
   title: string;
   description: string;
   period: Period;
-  tasks: string[];
-  tools: string[];
+  tasks?: string[];
+  tools?: string[];
   products?: string[];
   teamSize: string;
-  achievements: string[];
+  achievements?: string[];
   company?: string;
   technologies: {
     name: string;

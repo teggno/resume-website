@@ -1,7 +1,6 @@
 import React from "react";
 import Month from "../Month";
 import { Project } from "../Model";
-import Conditional from "./Conditional";
 import { chain } from "ramda";
 import {
   stripedStringList,
@@ -25,9 +24,7 @@ export function ProjectDetails(props: ProjectDetailsProps) {
     );
   return (
     <div className={cardContent}>
-      <Conditional
-        test={() => !!technologies.length && technologies.some(t => !!t.tasks)}
-      >
+      {!!technologies.length && technologies.some(t => !!t.tasks) ? (
         <dl className={dl}>
           <dt className={dt}>Work I did with {technologies[0].name}</dt>
           <dd className={dd}>
@@ -39,7 +36,7 @@ export function ProjectDetails(props: ProjectDetailsProps) {
             />
           </dd>
         </dl>
-      </Conditional>
+      ) : null}
       <Expander>
         <dl className={dl}>
           <dt className={dt}>Project description</dt>
@@ -52,23 +49,36 @@ export function ProjectDetails(props: ProjectDetailsProps) {
             {duration.years && duration.months ? ", " : ""}
             {duration.months ? `${duration.months} months` : ""}
           </dd>
-          <dt className={dt}>Team Size</dt>
-          <dd className={dd}>{project.teamSize}</dd>
+          {project.teamSize ? (
+            <>
+              <dt className={dt}>Team Size</dt>
+              <dd className={dd}>{project.teamSize}</dd>
+            </>
+          ) : null}
+          {project.achievements && project.achievements.length ? (
+            <>
+              <dt className={dt}>Achievements</dt>
+              <dd className={dd}>
+                <UnorderedListOfStrings items={project.achievements} />
+              </dd>
+            </>
+          ) : null}
+
           {/* <Conditional test={() => !!project.tasks.length}>
-          <React.Fragment>
+          <>
             <dt>Tasks</dt>
             <dd>
               <UnorderedListOfStrings items={project.tasks} />
             </dd>
-          </React.Fragment>
+          </>
         </Conditional>
         <Conditional test={() => !!project.tools.length}>
-          <React.Fragment>
+          <>
             <dt>Tools used</dt>
             <dd>
               <UnorderedListOfStrings items={project.tools} />
             </dd>
-          </React.Fragment>
+          </>
         </Conditional>{" "} */}
         </dl>
       </Expander>
