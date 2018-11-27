@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as R from "ramda";
 import { checkboxListItem } from "../css";
+import { difference } from "ramda";
 
 export function CheckboxList<T extends { name: string }>(
   props: CheckboxListProps<T>
@@ -17,7 +17,7 @@ export function CheckboxList<T extends { name: string }>(
                 props.selectionChanged(
                   event.currentTarget.checked
                     ? [...props.selectedItems, item]
-                    : R.difference(props.selectedItems, [item])
+                    : difference(props.selectedItems, [item])
                 );
               }}
             />

@@ -7,7 +7,6 @@ import nthColor from "../Colors";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import "./TechnologyDetails.css";
 import { formatDateAsYearMonth } from "../Month";
-const now = new Date();
 
 export default function(props: { technology: Technology }) {
   const { technology } = props,
@@ -16,7 +15,8 @@ export default function(props: { technology: Technology }) {
       .map((p, i) => ({
         project: p,
         color: nthColor(i)
-      }));
+      })),
+    now = new Date();
   return (
     <React.Fragment>
       <div className="ph2">
