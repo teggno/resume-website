@@ -10,7 +10,7 @@ export class Expander extends React.Component<ExpanderProps, ExpanderState> {
   }
   render() {
     return (
-      <React.Fragment>
+      <>
         <Toggle
           isExpanded={this.state.isExpanded}
           onChange={isExpanded => this.setState({ isExpanded: isExpanded })}
@@ -18,7 +18,7 @@ export class Expander extends React.Component<ExpanderProps, ExpanderState> {
         <Expandable isExpanded={this.state.isExpanded}>
           {this.props.children}
         </Expandable>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -54,7 +54,7 @@ class Expandable extends React.Component<ExpanderProps> {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div
           ref={this.ref}
           style={{
@@ -65,7 +65,7 @@ class Expandable extends React.Component<ExpanderProps> {
         >
           {this.props.children}
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

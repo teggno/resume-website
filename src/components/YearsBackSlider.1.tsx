@@ -13,7 +13,7 @@ export default function YearsBackSlider(props: {
 }) {
   const yearDiff = props.yearTo - props.yearFrom;
   return (
-    <React.Fragment>
+    <>
       <span>today</span>
       <input
         type="range"
@@ -25,7 +25,7 @@ export default function YearsBackSlider(props: {
         }}
       />
       <span>{yearDiff} years back</span>
-    </React.Fragment>
+    </>
     // <Rheostat
     //   min={0}
     //   max={yearDiff}

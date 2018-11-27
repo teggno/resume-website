@@ -6,7 +6,7 @@ export function CheckboxList<T extends { name: string }>(
   props: CheckboxListProps<T>
 ) {
   return (
-    <React.Fragment>
+    <>
       {props.allItems.map(item => (
         <React.Fragment key={item.name}>
           <label className={checkboxListItem}>
@@ -25,7 +25,7 @@ export function CheckboxList<T extends { name: string }>(
           </label>{"\n"/* needed because otherwise the labels don't wrap */}
         </React.Fragment>
       ))}
-    </React.Fragment>
+    </>
   );
 }
 

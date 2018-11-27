@@ -18,7 +18,7 @@ export default function(props: { technology: Technology }) {
       })),
     now = new Date();
   return (
-    <React.Fragment>
+    <>
       <div className="ph2">
         <h2>My {technology.name} experience</h2>
         <ProjectTimeline projects={projectsWithColors} now={now} />
@@ -34,7 +34,7 @@ export default function(props: { technology: Technology }) {
         <h3>Jobs:</h3>
         <JobList jobs={technology.jobs} />
       </div> */}
-    </React.Fragment>
+    </>
   );
 }
 
