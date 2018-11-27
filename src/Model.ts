@@ -9,6 +9,7 @@ export interface Project {
   products?: string[];
   teamSize: string;
   achievements: string[];
+  company?: string;
   technologies: {
     name: string;
     tasks?: string[];

@@ -1,15 +1,12 @@
 import React from "React";
 
-export default class HashAware extends React.Component<
-  HasAwareProps,
-  { hash: string }
-> {
-  constructor(props: HasAwareProps) {
+export default class HashAware extends React.Component<{}, { hash: string }> {
+  constructor(props: {}) {
     super(props);
 
     this.hashChanged = this.hashChanged.bind(this);
     this.state = {
-      hash: this.extractRelevantPartFromHash()
+      hash: window.location.hash
     };
   }
 
@@ -22,15 +19,7 @@ export default class HashAware extends React.Component<
   }
 
   private hashChanged() {
-    const newValue = this.extractRelevantPartFromHash();
-    if (newValue === this.state.hash) return;
-    this.setState({ hash: newValue });
-  }
-
-  private extractRelevantPartFromHash() {
-    return this.props.extractRelevantPart
-      ? this.props.extractRelevantPart(window.location.hash)
-      : window.location.hash;
+    this.setState({ hash: window.location.hash });
   }
 
   render() {
@@ -38,8 +27,4 @@ export default class HashAware extends React.Component<
       return this.props.children(this.state.hash);
     return React.Children.only(this.props.children);
   }
-}
-
-interface HasAwareProps {
-  extractRelevantPart?: (hash: string) => string;
 }

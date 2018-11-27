@@ -4,7 +4,6 @@ import { ButtonList } from "./ButtonList";
 import { descend, sort, ascend, min } from "ramda";
 import { Technology } from "../Model";
 import TechnologyDetails from "./TechnologyDetails";
-import { technologyRoute } from "../Routes";
 import "./TechnologiesView.css";
 import { comparer } from "../Sorting";
 import { isElementTopLeftInViewport } from "../DomHelpers";
@@ -16,10 +15,7 @@ export class TechnologiesView extends React.Component<
   constructor(props: Readonly<TechnologiesViewProps>) {
     super(props);
     this.state = {
-      sort: sortButtons[0].name,
-      selectedTechnology: this.selectedTechnologyFromHash(
-        this.props.technologies
-      )
+      sort: sortButtons[0].name
     };
     this.technologyDetailsRef = React.createRef();
   }
@@ -30,18 +26,15 @@ export class TechnologiesView extends React.Component<
       minNumber = sortButton.chartMin
         ? (sortButton.chartMin as any)(this.props.technologies)
         : undefined,
-      chartMin = minNumber ? () => minNumber : undefined;
+      chartMin = minNumber ? () => minNumber : undefined,
+      selectedTechnology = this.selectedTechnology();
     {
       /* overflow-hidden because the way off canvas of the list is done would
          otherwise cause horizontal scrollbars */
     }
     return (
       <div className="overflow-hidden">
-        <div
-          className={
-            "flex offc" + (this.state.selectedTechnology ? " off on-ns" : "")
-          }
-        >
+        <div className={"flex offc" + (selectedTechnology ? " off on-ns" : "")}>
           <div className="w-50 w-30-l ph2">
             <ButtonList
               buttons={sortButtons}
@@ -62,14 +55,14 @@ export class TechnologiesView extends React.Component<
             className={"w-50 w-70-l pl1 pl4-ns"}
             ref={this.technologyDetailsRef}
           >
-            {this.state.selectedTechnology ? (
+            {selectedTechnology ? (
               <div>
                 <div className="ph2">
                   <a className="dn-ns link" href="#techologies">
                     Back to list
                   </a>
                 </div>
-                <TechnologyDetails technology={this.state.selectedTechnology} />
+                <TechnologyDetails technology={selectedTechnology} />
               </div>
             ) : null}
           </div>
@@ -78,31 +71,24 @@ export class TechnologiesView extends React.Component<
     );
   }
 
-  componentDidMount() {
-    window.addEventListener("hashchange", this.hashChanged);
+  componentDidUpdate(){
+    console.debug("TechnologiesView.componentDidUpdate");
+    this.scroll();
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("hashchange", this.hashChanged);
-  }
-
-  private hashChanged = () => {
-    const tech = this.selectedTechnologyFromHash(this.props.technologies);
-    this.setState({
-      selectedTechnology: tech
-    });
-    if (!tech) return;
+  private scroll() {
+    if (!this.props.selectedTechnologyName) return;
     if (isElementTopLeftInViewport(this.technologyDetailsRef.current)) return;
 
     this.technologyDetailsRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
-};
+  }
 
-  private selectedTechnologyFromHash(technologies: Technology[]) {
-    return technologies.filter(
-      t => t.name === technologyRoute.nameFromHash(window.location.hash)
+  private selectedTechnology() {
+    return this.props.technologies.filter(
+      t => t.name === this.props.selectedTechnologyName
     )[0];
   }
 
@@ -155,9 +141,9 @@ const sortButtons = [
 
 interface TechnologiesViewProps {
   technologies: Technology[];
+  selectedTechnologyName?: string;
 }
 
 interface TechnologiesViewState {
   sort: string;
-  selectedTechnology: Technology | null;
 }
