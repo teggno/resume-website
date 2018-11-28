@@ -18,7 +18,7 @@ import {
 import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
 
-export default function TimelineView(props: TimelineViewViewProps) {
+export default function ProjectTableView(props: ProjectTableViewProps) {
   const now = new Date(),
     projects = props.me
       .projects()
@@ -34,7 +34,7 @@ export default function TimelineView(props: TimelineViewViewProps) {
   );
 }
 
-interface TimelineViewViewProps {
+interface ProjectTableViewProps {
   me: Me;
 }
 
