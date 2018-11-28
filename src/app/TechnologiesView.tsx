@@ -1,12 +1,12 @@
+import { ascend, descend, min, sort } from "ramda";
 import React from "react";
-import { TechnologyList } from "./TechnologyList";
-import { ButtonList } from "./ButtonList";
-import { descend, sort, ascend, min } from "ramda";
-import { Technology } from "../Model";
-import TechnologyDetails from "./TechnologyDetails";
-import "./TechnologiesView.css";
-import { comparer } from "../Sorting";
+import { ButtonList } from "../common/ButtonList";
 import { isElementTopLeftInViewport } from "../DomHelpers";
+import { Technology } from "../Model";
+import { comparer } from "../Sorting";
+import "./TechnologiesView.css";
+import TechnologyDetails from "./TechnologyDetails";
+import { TechnologyList } from "./TechnologyList";
 
 export class TechnologiesView extends React.Component<
   TechnologiesViewProps,

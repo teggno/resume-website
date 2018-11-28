@@ -1,6 +1,6 @@
 import React from "react";
 import { chartBackground } from "../css";
-import "./Timeline.css";
+import "./TimelineChart.css";
 import nthColor from "../Colors";
 import { min, max } from "ramda";
 

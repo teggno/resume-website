@@ -17,6 +17,13 @@ the following technologies:
 ### Development
 
 #### Folder Structure
+`/src`: Container for source code files (tsx, ts, js, jsx, html, css) and folders
+making up the application go here. Source code used for the build doesn't go
+here.  
+`/src/app`: All source code that is **specific to the application's domain**
+(i.e. specific to a resume website) goes here.  
+`/src/common`: All source code that is **not specific** to the application's
+domain goes here.  
 
 #### CSS
 

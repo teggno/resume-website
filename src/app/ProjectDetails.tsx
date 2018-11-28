@@ -11,7 +11,7 @@ import {
   cardContent,
   dl
 } from "../css";
-import { Expander } from "./Expandable";
+import { Expander } from "../common/Expandable";
 
 export function ProjectDetails(props: ProjectDetailsProps) {
   const { project, technologyName } = props,

@@ -11,7 +11,7 @@ import {
 } from "../css";
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
-import Sparkline from "./Sparkline";
+import Sparkline from "../common/Sparkline";
 
 export function TechnologyList(props: TechnologyListProps) {
   const { barTo, barFrom: bf, chartMin: cMin } = props,

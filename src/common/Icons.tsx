@@ -11,7 +11,6 @@ export function ArrowDown(props: IconProps) {
       viewBox={`${
         props.addPaddingLeft ? 0 : 10
       } 0 40 40`}
-      // viewBox={`10 0 40 40`}
       preserveAspectRatio="true"
       className={icon}
     >

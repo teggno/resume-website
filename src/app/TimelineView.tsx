@@ -1,7 +1,7 @@
 import React from "React";
 import Me from "../Me";
-import TimelineChart from "./TimelineChart";
-import Sparkline from "./Sparkline";
+import TimelineChart from "../common/TimelineChart";
+import Sparkline from "../common/Sparkline";
 import Month from "../Month";
 import { stripedBackground } from "../css";
 import {

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { CheckboxListProps, CheckboxList } from "./CheckboxList";
+import React from "react";
+import { CheckboxListProps, CheckboxList } from "../common/CheckboxList";
 
 export interface TechnologyFilterProps<T> extends CheckboxListProps<T>{
   isAllNoneButtonAll: boolean

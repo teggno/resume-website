@@ -1,12 +1,12 @@
 import React from "react";
-import { Technology, Project, Job } from "../Model";
-import { ProjectDetails } from "./ProjectDetails";
-import { grid2, gridItem, cardTitle, circle, gridCard } from "../css";
-import TimelineChart from "./TimelineChart";
 import nthColor from "../Colors";
+import TimelineChart from "../common/TimelineChart";
+import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
-import "./TechnologyDetails.css";
+import { Job, Project, Technology } from "../Model";
 import { formatDateAsYearMonth } from "../Month";
+import { ProjectDetails } from "./ProjectDetails";
+import "./TechnologyDetails.css";
 
 export default function(props: { technology: Technology }) {
   const { technology } = props,

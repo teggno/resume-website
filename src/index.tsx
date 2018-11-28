@@ -1,13 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-
-import { TechnologiesView } from "./components/TechnologiesView";
+import { TechnologiesView } from "./app/TechnologiesView";
+import TimelineView from "./app/TimelineView";
+import HashAware from "./common/HashAware";
 import { mainContainer } from "./css";
 import Me from "./Me";
-import HashAware from "./components/HashAware";
-import TimelineView from "./components/TimelineView";
-import { technologyRoute } from "./Routes";
 import MeJson from "./MeJson";
+import { technologyRoute } from "./Routes";
 
 fetch("me.json")
   .then(r => r.json() as any as MeJson)
