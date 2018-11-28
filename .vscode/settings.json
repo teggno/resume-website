@@ -4,5 +4,9 @@
       "fileMatch": ["./me.json"],
       "url": "./me.schema.json"
     }
-  ]
+  ],
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  }
 }
