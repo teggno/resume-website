@@ -5,6 +5,7 @@ import { mainContainer } from "./css";
 import Me from "./Me";
 import { technologyRoute } from "./Routes";
 import ProjectTableView from "./app/ProjectTableView";
+import TimelineView from "./app/TimelineView";
 
 export default function App(props: { me: Me }) {
   return (
@@ -40,7 +41,7 @@ export default function App(props: { me: Me }) {
               />
             );
           } else if (hash.indexOf("#timeline") === 0) {
-            return "Timeline is not implemented yet";
+            return <TimelineView/>;
           } else if (hash.indexOf("#projecttable") === 0) {
             return <ProjectTableView me={props.me} />;
           } else {
