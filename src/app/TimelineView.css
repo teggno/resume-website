@@ -1,0 +1,40 @@
+.timeline {
+  position: relative;
+  padding-top: 2em;
+}
+
+.timeline-line {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  left:50%;
+  border: solid 1px silver;
+  top: 0;
+}
+
+.timeline-item{
+  width: calc(50% - 1em);
+  min-height: 8em;
+  margin-top: -2em;
+  position: relative;
+}
+
+.timeline-item:nth-child(1){
+  margin-top: 0;
+}
+.timeline-item:nth-child(2n+1){
+  margin-left: calc(50% + 1em);
+}
+
+.timeline-item-icon{
+  position: absolute;
+  left: calc(100% + 1px);
+  background-color: green;
+  width: 1em;
+  height: 1em;
+}
+
+.timeline-item:nth-child(2n+1) .timeline-item-icon{
+  left: -1em;
+  /* right: auto; */
+}

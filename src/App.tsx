@@ -41,7 +41,13 @@ export default function App(props: { me: Me }) {
               />
             );
           } else if (hash.indexOf("#timeline") === 0) {
-            return <TimelineView/>;
+            return (
+              <TimelineView
+                events={props.me
+                  .projects()
+                  .map(p => ({ from: p.period.from, title: p.title }))}
+              />
+            );
           } else if (hash.indexOf("#projecttable") === 0) {
             return <ProjectTableView me={props.me} />;
           } else {
