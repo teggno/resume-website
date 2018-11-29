@@ -129,15 +129,15 @@ const sortButtons = [
     label: "Used most recently",
     name: "usedRecently",
     comparer: comparer(
-      (tech: any) => tech.yearEnd,
+      (tech: any) => tech.monthEnd.totalMonths(),
       descend,
       (tech: any) => tech.experienceGross,
       descend
     ),
-    barTo: (t: Technology) => t.yearEnd,
-    barFrom: (t: Technology) => t.yearStart,
+    barFrom: (t: Technology) => t.monthStart.totalMonths(),
+    barTo: (t: Technology) => t.monthEnd.totalMonths(),
     chartMin: (t: Technology[]) =>
-      t.map(t => t.yearStart).reduce(min, Number.MAX_VALUE)
+      t.map(t => t.monthStart.totalMonths()).reduce(min, Number.MAX_VALUE)
   },
   {
     label: "A...Z",

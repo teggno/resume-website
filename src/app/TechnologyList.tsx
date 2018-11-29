@@ -34,7 +34,7 @@ export function TechnologyList(props: TechnologyListProps) {
             <div className={skillLinkTitle}>{t.name}</div>
             <div>
               <div className={skillLinkSub}>
-                {t.experienceGross} years experience in {t.projects.length}{" "}
+                {Math.round(t.experienceGross) || "< 1" } years experience in {t.projects.length}{" "}
                 projects
               </div>
               <div className={skillListBarContainer}>

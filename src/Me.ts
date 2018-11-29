@@ -49,17 +49,13 @@ export default class Me {
 
       return {
         name: name,
-        yearStart: minMonth.year,
-        yearEnd: maxMonth.year,
         monthStart: minMonth,
-        experienceNet: Math.round(
+        monthEnd: maxMonth,
+        experienceNet:
           projectsWhereTechWasUsed
             .map(p => Month.diff(p.period.from, p.period.to || todaysMonth))
-            .reduce((prev, current) => prev + current, 0) / 12
-        ),
-        experienceGross:
-          Math.round(Month.diff(minMonth, maxMonth) / 12) ||
-          1 /* If it rounds to 0, just say it's 1 year */,
+            .reduce((prev, current) => prev + current, 0) / 12,
+        experienceGross: Month.diff(minMonth, maxMonth) / 12,
         projects: projectsWhereTechWasUsed,
         jobs: R.values(
           R.groupBy(

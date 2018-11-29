@@ -1,4 +1,5 @@
 import Period from "./Period";
+import Month from "./Month";
 
 export interface Project {
   title: string;
@@ -22,8 +23,8 @@ export interface Technology {
   jobs: Job[];
   experienceNet: number;
   experienceGross: number;
-  yearStart: number;
-  yearEnd: number;
+  monthStart: Month;
+  monthEnd: Month;
 }
 
 export interface Job {

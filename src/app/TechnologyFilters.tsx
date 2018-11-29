@@ -52,7 +52,7 @@ export class TechnologyFilters extends React.Component<TechnologyFiltersProps, T
     });
   }
   private filterTechnologiesByYear(technologies: Technology[]) {
-    return technologies.filter(t => t.yearEnd >= this.state.yearFrom);
+    return technologies.filter(t => t.monthEnd.year >= this.state.yearFrom);
   }
 }
 
@@ -60,8 +60,8 @@ function getWorkYears(technologies: Technology[]) {
   return technologies.reduce(
     (prev, current) => {
       return {
-        min: prev.min < current.yearStart ? prev.min : current.yearStart,
-        max: prev.max > current.yearEnd ? prev.max : current.yearEnd
+        min: prev.min < current.monthStart.year ? prev.min : current.monthStart.year,
+        max: prev.max > current.monthEnd.year ? prev.max : current.monthEnd.year
       };
     },
     { min: Number.MAX_VALUE, max: Number.MIN_VALUE }
