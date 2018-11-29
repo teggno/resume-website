@@ -64,14 +64,21 @@ export class TechnologiesView extends React.Component<
                 </div>
                 <TechnologyDetails technology={selectedTechnology} />
               </div>
-            ) : null}
+            ) : (
+              <div className="relative">
+                <div className="f2 fixed mt6 mw6 tc lh-copy">
+                  Click a technology in the list to the left to see what I used
+                  it for.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
     );
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     console.debug("TechnologiesView.componentDidUpdate");
     this.scroll();
   }
