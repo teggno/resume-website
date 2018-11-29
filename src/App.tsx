@@ -41,26 +41,29 @@ export default function App(props: { me: Me }) {
 
 function Navigation() {
   return (
-    <nav>
-      <ul className="list ph0 ma0">
-        <li className="dib pa2">
-          <a className={link} href="#technologies">
-            Technologies
-          </a>
-        </li>
-        {"\n"}
-        <li className="dib pa2">
-          <a className={link} href="#timeline">
-            Timeline
-          </a>
-        </li>
-        {"\n"}
-        <li className="dib pa2">
-          <a className={link} href="#projecttable">
-            Project Table
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <nav className="fixed bg-white w-100 z-999 top-0">
+        <ul className="list ph0 ma0">
+          <li className="dib pa2">
+            <a className={link} href="#technologies">
+              Technologies
+            </a>
+          </li>
+          {"\n"}
+          <li className="dib pa2">
+            <a className={link} href="#timeline">
+              Timeline
+            </a>
+          </li>
+          {"\n"}
+          <li className="dib pa2">
+            <a className={link} href="#projecttable">
+              Project Table
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div className="pv2" >&nbsp;</div>
+    </div>
   );
 }
