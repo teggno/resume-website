@@ -37,12 +37,12 @@ component for each icon.
 
 Whenever possible we try to add SVG specific properties to existing Tachyons classes that
 should also affect the SVG icons. The css necessary goes into the file
-`./src/icons.css`.
+`./src/Icons.css`.
 
 Example
 
 ```css
-/* ./src/icons.css */
+/* ./src/Icons.css */
 .white {
   stroke: white;
 }
