@@ -2,10 +2,11 @@ import React from "react";
 import TimelineList from "../common/TimelineList";
 import Me from "../Me";
 import { by } from "../Functional";
-import { chain, project } from "ramda";
+import { chain } from "ramda";
 import { cardTitle, cardContent, link } from "../css";
 import Month from "../Month";
 import { technologyRoute } from "../Routes";
+import Link from "../common/Link";
 
 export default function TimelineView(props: { me: Me }) {
   return (
@@ -57,12 +58,13 @@ function TechnologyComponent(props: { technology: any }) {
       title="First use of technology"
       from={props.technology.monthStart}
     >
-      <a
+      <Link
         className={link}
         href={technologyRoute.hashFromName(props.technology.name)}
+        scrollToTop={true}
       >
         {props.technology.name}
-      </a>
+      </Link>
     </TimelineCard>
   );
 }
