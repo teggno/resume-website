@@ -6,6 +6,7 @@ import Me from "./Me";
 import { technologyRoute } from "./Routes";
 import ProjectTableView from "./app/ProjectTableView";
 import TimelineView from "./app/TimelineView";
+import Link from "./common/Link";
 
 export default function App(props: { me: Me }) {
   return (
@@ -45,21 +46,21 @@ function Navigation() {
       <nav className="fixed bg-white w-100 z-999 top-0">
         <ul className="list ph0 ma0">
           <li className="dib pa2">
-            <a className={link} href="#technologies">
+            <Link className={link} href="#technologies" scrollToTop={true}>
               Technologies
-            </a>
+            </Link>
           </li>
           {"\n"}
           <li className="dib pa2">
-            <a className={link} href="#timeline">
+            <Link className={link} href="#timeline" scrollToTop={true}>
               Timeline
-            </a>
+            </Link>
           </li>
           {"\n"}
           <li className="dib pa2">
-            <a className={link} href="#projecttable">
+            <Link className={link} href="#projecttable" scrollToTop={true}>
               Project Table
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
