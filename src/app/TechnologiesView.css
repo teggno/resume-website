@@ -15,4 +15,7 @@
     margin-left: unset;
     margin-right: unset;
   }
+  .offc:not(.off) {
+    margin-right: unset;
+  }
 }
