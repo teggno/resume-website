@@ -1,6 +1,6 @@
 import { sortBy } from "ramda";
 import React from "react";
-import YearsBackSlider from "../common/YearsBackSlider.1";
+import YearsBackSlider from "../common/YearsBackSlider";
 import { Technology } from "../Model";
 import { TechnologyFilter } from "./TechnologyFilter";
 
