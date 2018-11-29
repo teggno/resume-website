@@ -1,8 +1,8 @@
 {
-  "name": "resu",
+  "name": "resume-website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A website that can be used to browse resume information that is stored in a JSON file",
+  "main": "bundle.js",
   "scripts": {
     "build": "webpack --config webpack.production.js",
     "watch": "webpack --watch --config webpack.development.js",
@@ -10,9 +10,13 @@
     "test": "karma start --single-run",
     "test-watch": "karma start"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "resume",
+    "portfolio",
+    "CV"
+  ],
+  "author": "Christian Bär",
+  "license": "MIT",
   "dependencies": {
     "ramda": "^0.25.0",
     "react": "^16.6.3",
