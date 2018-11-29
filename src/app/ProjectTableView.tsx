@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import Me from "../Me";
 import TimelineChart from "../common/TimelineChart";
 import Sparkline from "../common/Sparkline";

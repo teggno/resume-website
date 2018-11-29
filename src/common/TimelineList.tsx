@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import "./TimelineList.css";
 import { card } from "../css";
 

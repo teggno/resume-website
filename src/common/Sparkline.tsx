@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import { Transition } from "react-transition-group";
 import { sparkline } from "../css";
 
