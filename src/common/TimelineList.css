@@ -7,34 +7,43 @@
   position: absolute;
   height: 100%;
   width: 1px;
-  left:50%;
+  left: 50%;
   border-left: solid 1px silver;
   top: 0;
+  z-index: -1;
 }
 
-.timeline-item{
-  width: calc(50% - 1em);
-  min-height: 8em;
-  margin-top: -2em;
-  position: relative;
+.timeline-item {
+  margin-bottom: 1em;
+  background-color: white;
 }
 
-.timeline-item:nth-child(1){
-  margin-top: 0;
-}
-.timeline-item:nth-child(2n+1){
-  margin-left: calc(50% + 1em);
-}
+/* NOTE: the query below is the same as tachyon's -ns module's */
+@media screen and (min-width: 30em) {
+  .timeline-item {
+    width: calc(50% - 1em);
+    min-height: 8em;
+    margin-top: -2em;
+    position: relative;
+  }
 
-.timeline-item-icon{
-  position: absolute;
-  left: calc(100% + 1px);
-  border-top: 1px silver solid;
-  width: 1em;
-  height: 1em;
-  top: 2em;
-}
+  .timeline-item:nth-child(1) {
+    margin-top: 0;
+  }
+  .timeline-item:nth-child(2n + 1) {
+    margin-left: calc(50% + 1em);
+  }
 
-.timeline-item:nth-child(2n+1) .timeline-item-icon{
-  left: -1em;
+  .timeline-item-icon {
+    position: absolute;
+    left: calc(100% + 1px);
+    border-top: 1px silver solid;
+    width: 1em;
+    height: 1em;
+    top: 2em;
+  }
+
+  .timeline-item:nth-child(2n + 1) .timeline-item-icon {
+    left: -1em;
+  }
 }

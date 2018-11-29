@@ -10,7 +10,7 @@ import { technologyRoute } from "../Routes";
 export default function TimelineView(props: { me: Me }) {
   return (
     <TimelineList
-      className="ph2"
+      className="ph2 mw8"
       events={props.me
         .projects()
         .map(p => ({

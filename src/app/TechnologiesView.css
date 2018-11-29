@@ -16,13 +16,3 @@
     margin-right: unset;
   }
 }
-
-.foobar {
-  animation: bla .6s;
-}
-
-@keyframes bla{
-  from {width: 0;}
-  to {width: unset;}
-
-}
