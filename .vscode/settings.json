@@ -1,8 +1,8 @@
 {
   "json.schemas": [
     {
-      "fileMatch": ["./me.json"],
-      "url": "./me.schema.json"
+      "fileMatch": ["*.resume.json"],
+      "url": "/resume.schema.json"
     }
   ],
   "files.trimTrailingWhitespace": true,

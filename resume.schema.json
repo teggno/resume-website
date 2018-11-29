@@ -32,7 +32,6 @@
       "$id": "#/properties/jobs",
       "type": "array",
       "title": "List of jobs",
-      "default": null,
       "items": {
         "$id": "#/properties/jobs/items",
         "type": "object",

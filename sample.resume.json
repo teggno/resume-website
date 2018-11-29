@@ -1,0 +1,67 @@
+{
+  "projects": [
+    {
+      "title": "Circumnavigating the world",
+      "company": "Fun adventures ltd",
+      "description": "Set out to circumnavigate the world on a boat with an electric engine powered by solar panels with five other adventurers. Start and end of the journey was Naples, Italy.",
+      "period": { "from": "2016-04", "to": "2018-05" },
+      "teamSize": "5",
+      "technologies": [
+        {
+          "name": "Solar cooker",
+          "tasks": [
+            "Use a solar cooker to cook the meals of all crew members.",
+            "Use a solar cooker to make tea."
+          ]
+        },
+        {
+          "name": "Sextant",
+          "tasks": [
+            "Measure the angle between arbitrary stars and the horizon to find out longitude."
+          ]
+        },
+        {
+          "name": "Fishing rod",
+          "tasks": ["Catch fish in the oceans of the world."]
+        }
+      ],
+      "achievements": [
+        "Keep the crew happy with providing warm meals thanks to skillful use of solar cooker.",
+        "Reached the planned destination three months earlier than expected by using celestial navigation skills."
+      ]
+    },
+    {
+      "title": "Waterski down the Rhine",
+      "description": "Become the first person in history that has waterskied the full length of the river Rhine and produce a documentary about the endavour.",
+      "company": "Skis got wet",
+      "period": { "from": "2018-06", "to": "2018-10" },
+      "technologies": [
+        {
+          "name": "Water Skis",
+          "tasks": [
+            "Ski on water",
+            "Carry the skis on my back where the river wasn't skiable."
+          ]
+        },
+        {
+          "name": "Fishing rod",
+          "tasks": [
+            "Catch fish in the Rhine",
+            "Catch fish using fly fishing technique."
+          ]
+        }
+      ],
+      "achievements": [
+        "Successfully became the first person to water ski down the rhine.",
+        "Gained one million subscribers on my youtube channel."
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "company": "Adventures.com",
+      "period": { "from": "2014-02" },
+      "titles": [{ "title": "CAO - Chief adventure officer" }]
+    }
+  ]
+}

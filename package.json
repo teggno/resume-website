@@ -4,7 +4,7 @@
   "description": "A website that can be used to browse resume information that is stored in a JSON file",
   "main": "bundle.js",
   "scripts": {
-    "build": "webpack --config webpack.production.js && node anonymizeMe.js",
+    "build": "webpack --config webpack.production.js && node copySample.js",
     "watch": "webpack --watch --config webpack.development.js",
     "start": "webpack-dev-server --open --config webpack.development.js",
     "test": "karma start --single-run",
