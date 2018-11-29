@@ -1,7 +1,7 @@
 import React from "react";
 import { TechnologiesView } from "./app/TechnologiesView";
 import HashAware from "./common/HashAware";
-import { mainContainer } from "./css";
+import { mainContainer, link } from "./css";
 import Me from "./Me";
 import { technologyRoute } from "./Routes";
 import ProjectTableView from "./app/ProjectTableView";
@@ -42,21 +42,21 @@ export default function App(props: { me: Me }) {
 function Navigation() {
   return (
     <nav>
-      <ul className="list pa2 ma0">
-        <li className="dib">
-          <a className="link" href="#technologies">
+      <ul className="list ph0 ma0">
+        <li className="dib pa2">
+          <a className={link} href="#technologies">
             Technologies
           </a>
         </li>
         {"\n"}
-        <li className="dib">
-          <a className="link" href="#timeline">
+        <li className="dib pa2">
+          <a className={link} href="#timeline">
             Timeline
           </a>
         </li>
         {"\n"}
-        <li className="dib">
-          <a className="link" href="#projecttable">
+        <li className="dib pa2">
+          <a className={link} href="#projecttable">
             Project Table
           </a>
         </li>
