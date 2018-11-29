@@ -13,6 +13,10 @@ export default class Me {
     return this.getProjects();
   }
 
+  jobs() {
+    return this.getJobs();
+  }
+
   technologies() {
     const projects = this.getProjects();
     const jobs = this.getJobs();
@@ -47,6 +51,7 @@ export default class Me {
         name: name,
         yearStart: minMonth.year,
         yearEnd: maxMonth.year,
+        monthStart: minMonth,
         experienceNet: Math.round(
           projectsWhereTechWasUsed
             .map(p => Month.diff(p.period.from, p.period.to || todaysMonth))

@@ -8,7 +8,7 @@
   height: 100%;
   width: 1px;
   left:50%;
-  border: solid 1px silver;
+  border-left: solid 1px silver;
   top: 0;
 }
 
@@ -29,12 +29,12 @@
 .timeline-item-icon{
   position: absolute;
   left: calc(100% + 1px);
-  background-color: green;
+  border-top: 1px silver solid;
   width: 1em;
   height: 1em;
+  top: 2em;
 }
 
 .timeline-item:nth-child(2n+1) .timeline-item-icon{
   left: -1em;
-  /* right: auto; */
 }

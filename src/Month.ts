@@ -57,6 +57,10 @@ export default class Month {
       : `${this.year}/${this.month}`;
   }
 
+  name() {
+    return MonthNames.byOneBasedIndex(this.month);
+  }
+
   static duration(from: Month, to: Month) {
     const diff = Month.diff(from, to) + 1;
     return {
@@ -95,4 +99,26 @@ export default class Month {
 
 export function formatDateAsYearMonth(d: Date) {
   return `${d.getFullYear()}/${d.getMonth() + 1}`;
+}
+
+class MonthNames {
+  static byOneBasedIndex(index: number) {
+    if (index < 1 || index > 12 || Math.round(index) !== index) {
+      throw new Error("Only integers between 1 and 12 allowed.");
+    }
+    return this.monthNames[index - 1];
+  }
+  private static monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "September",
+    "October",
+    "November",
+    "September"
+  ];
 }

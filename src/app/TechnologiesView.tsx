@@ -58,7 +58,7 @@ export class TechnologiesView extends React.Component<
             {selectedTechnology ? (
               <div>
                 <div className="ph2">
-                  <a className="dn-ns link" href="#techologies">
+                  <a className="dn-ns link" href="#technologies">
                     Back to list
                   </a>
                 </div>

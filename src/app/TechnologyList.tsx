@@ -1,13 +1,12 @@
 import { max, reduce } from "ramda";
 import React from "react";
 import {
-  link,
   list,
   skillLinkSub,
   skillLinkTitle,
   skillListItem,
-  sparkline,
-  skillListBarContainer
+  skillListBarContainer,
+  blackLink
 } from "../css";
 import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
@@ -30,7 +29,7 @@ export function TechnologyList(props: TechnologyListProps) {
             href={technologyRoute.hashFromName(t.name)}
             title="Details"
             onClick={props.onClick}
-            className={link}
+            className={blackLink}
           >
             <div className={skillLinkTitle}>{t.name}</div>
             <div>

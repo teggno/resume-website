@@ -10,27 +10,7 @@ import TimelineView from "./app/TimelineView";
 export default function App(props: { me: Me }) {
   return (
     <div className={mainContainer}>
-      <nav>
-        <ul className="list pa2 ma0">
-          <li className="dib">
-            <a className="link" href="#technologies">
-              Technologies
-            </a>
-          </li>
-          {"\n"}
-          <li className="dib">
-            <a className="link" href="#timeline">
-              Timeline
-            </a>
-          </li>
-          {"\n"}
-          <li className="dib">
-            <a className="link" href="#projecttable">
-              Project Table
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Navigation />
       <HashAware>
         {(hash: string) => {
           if (hash.indexOf("#technologies") === 0) {
@@ -41,13 +21,7 @@ export default function App(props: { me: Me }) {
               />
             );
           } else if (hash.indexOf("#timeline") === 0) {
-            return (
-              <TimelineView
-                events={props.me
-                  .projects()
-                  .map(p => ({ from: p.period.from, title: p.title }))}
-              />
-            );
+            return <TimelineView me={props.me} />;
           } else if (hash.indexOf("#projecttable") === 0) {
             return <ProjectTableView me={props.me} />;
           } else {
@@ -62,5 +36,31 @@ export default function App(props: { me: Me }) {
         }}
       </HashAware>
     </div>
+  );
+}
+
+function Navigation() {
+  return (
+    <nav>
+      <ul className="list pa2 ma0">
+        <li className="dib">
+          <a className="link" href="#technologies">
+            Technologies
+          </a>
+        </li>
+        {"\n"}
+        <li className="dib">
+          <a className="link" href="#timeline">
+            Timeline
+          </a>
+        </li>
+        {"\n"}
+        <li className="dib">
+          <a className="link" href="#projecttable">
+            Project Table
+          </a>
+        </li>
+      </ul>
+    </nav>
   );
 }
