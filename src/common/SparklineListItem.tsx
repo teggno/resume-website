@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  sparklineListItem,
+  listItem,
   blackLink,
-  sparklineListItemTitle,
-  sparklineListItemSub,
+  listItemTitle,
+  listItemSub,
   sparklineContainer
 } from "../css";
 import Sparkline from "./Sparkline";
@@ -28,11 +28,11 @@ export default function SparklineListItem({
   chartMax
 }: SparklineListItemProps) {
   return (
-    <li className={sparklineListItem} key={title}>
+    <li className={listItem} key={title}>
       <a href={href} title="Details" className={blackLink}>
-        <div className={sparklineListItemTitle}>{title}</div>
+        <div className={listItemTitle}>{title}</div>
         <div>
-          <div className={sparklineListItemSub}>{sub}</div>
+          <div className={listItemSub}>{sub}</div>
           <div className={sparklineContainer}>
             {barTo && chartMax !== null ? (
               <Sparkline

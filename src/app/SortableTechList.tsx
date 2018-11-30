@@ -1,8 +1,9 @@
-import { ascend, descend, min, sort, sortWith } from "ramda";
+import { ascend, descend, sort, sortWith } from "ramda";
 import React from "react";
 import { ButtonList } from "../common/ButtonList";
 import { Technology } from "../Model";
 import { TechnologyList } from "./TechnologyList";
+import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 
 export default class SortableTechList extends React.Component<
   SortableTechListProps,
@@ -16,14 +17,7 @@ export default class SortableTechList extends React.Component<
     };
   }
   render() {
-    const sortButton = findSortButton(this.state.sort),
-      minNumber = sortButton.chartMin
-        ? sortButton.chartMin(this.props.technologies)
-        : undefined,
-      // minNumber = sortButton.chartMin
-      // ? (sortButton.chartMin as any)(this.props.technologies)
-      // : undefined,
-      chartMin = minNumber ? () => minNumber : undefined;
+    const sortButton = findSortButton(this.state.sort);
     return (
       <>
         <ButtonList
@@ -35,9 +29,11 @@ export default class SortableTechList extends React.Component<
           technologies={findSortButton(this.state.sort).sort(
             this.props.technologies
           )}
-          chartMin={chartMin}
-          barTo={sortButton.barTo}
-          barFrom={sortButton.barFrom}
+          sparklineProps={
+            sortButton.sparklineConfig
+              ? sortButton.sparklineConfig(this.props.technologies)
+              : undefined
+          }
         />
       </>
     );
@@ -63,7 +59,7 @@ const sortButtons = [
       descend((t: Technology) => t.experienceGross),
       ascend((t: Technology) => t.name)
     ]),
-    barTo: (t: Technology) => t.experienceGross
+    sparklineConfig: zeroBasedCharts<Technology>(t => t.experienceGross)
   },
   {
     label: "Used most recently",
@@ -72,10 +68,10 @@ const sortButtons = [
       descend((t: Technology) => t.monthEnd.totalMonths()),
       descend((t: Technology) => t.experienceGross)
     ]),
-    barFrom: (t: Technology) => t.monthStart.totalMonths(),
-    barTo: (t: Technology) => t.monthEnd.totalMonths(),
-    chartMin: (t: Technology[]) =>
-      t.map(t => t.monthStart.totalMonths()).reduce(min, Number.MAX_VALUE)
+    sparklineConfig: fromToChart<Technology>(
+      (t: Technology) => t.monthStart.totalMonths(),
+      (t: Technology) => t.monthEnd.totalMonths()
+    )
   },
   {
     label: "A...Z",
