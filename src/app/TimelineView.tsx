@@ -5,7 +5,7 @@ import { byAsc, byDesc } from "../Functional";
 import { chain } from "ramda";
 import { cardTitle, cardContent, link } from "../css";
 import Month from "../Month";
-import { technologyRoute } from "../Routes";
+import { technologyRoute, projectRoute } from "../Routes";
 import Link from "../common/Link";
 
 export default function TimelineView(props: { me: Me }) {
@@ -43,7 +43,13 @@ function ProjectComponent(props: { project: any }) {
       title="Started working in project"
       from={props.project.period.from}
     >
-      {props.project.title}
+      <Link
+        className={link}
+        href={projectRoute.hashFromName(props.project.title)}
+        scrollToTop={true}
+      >
+        {props.project.title}
+      </Link>
     </TimelineCard>
   );
 }
