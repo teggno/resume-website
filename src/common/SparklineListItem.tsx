@@ -29,7 +29,7 @@ export default function SparklineListItem({
 }: SparklineListItemProps) {
   return (
     <li className={listItem} key={title}>
-      <a href={href} title="Details" className={blackLink}>
+      <a href={href} className={blackLink}>
         <div className={listItemTitle}>{title}</div>
         <div>
           <div className={listItemSub}>{sub}</div>
