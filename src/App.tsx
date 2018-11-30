@@ -3,10 +3,11 @@ import { TechnologiesView } from "./app/TechnologiesView";
 import HashAware from "./common/HashAware";
 import { mainContainer, link } from "./css";
 import Me from "./Me";
-import { technologyRoute } from "./Routes";
+import { technologyRoute, projectRoute } from "./Routes";
 import ProjectTableView from "./app/ProjectTableView";
 import TimelineView from "./app/TimelineView";
 import Link from "./common/Link";
+import { ProjectsView } from "./app/ProjectsView";
 
 export default function App(props: { me: Me }) {
   return (
@@ -14,11 +15,18 @@ export default function App(props: { me: Me }) {
       <Navigation />
       <HashAware>
         {(hash: string) => {
-          if (hash.indexOf("#technologies") === 0) {
+          if (hash.indexOf("#projects") === 0) {
+            return (
+              <ProjectsView
+                projects={props.me.projects()}
+                selectedProjectTitle={projectRoute.nameFromHash(hash)}
+              />
+            );
+          } else if (hash.indexOf("#technologies") === 0) {
             return (
               <TechnologiesView
                 technologies={props.me.technologies()}
-                selectedTechnologyName={technologyRoute.nameFromHash(hash)}
+                selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
               />
             );
           } else if (hash.indexOf("#timeline") === 0) {
@@ -45,6 +53,11 @@ function Navigation() {
     <div>
       <nav className="fixed bg-white w-100 z-999 top-0">
         <ul className="list ph0 ma0">
+        <li className="dib pa2">
+            <Link className={link} href="#projects" scrollToTop={true}>
+              Projects
+            </Link>
+          </li>
           <li className="dib pa2">
             <Link className={link} href="#technologies" scrollToTop={true}>
               Technologies
