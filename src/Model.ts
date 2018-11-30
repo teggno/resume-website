@@ -1,5 +1,6 @@
 import Period from "./Period";
 import Month from "./Month";
+import Duration from "./Duration";
 
 export interface Project {
   title: string;
@@ -11,6 +12,7 @@ export interface Project {
   teamSize: string;
   achievements?: string[];
   company?: string;
+  duration: (now: Date) => Duration;
   technologies: {
     name: string;
     tasks?: string[];

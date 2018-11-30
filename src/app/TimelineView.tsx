@@ -80,7 +80,7 @@ function JobTitleComponent(props: { jobTitle: any }) {
 }
 
 function TimelineCard(props: { children: any; title: string; from: Month }) {
-  const yearMonth = `${props.from.name()} ${props.from.year}`;
+  const yearMonth = `${props.from.nameYearShort()}`;
   return (
     <>
       <div className={cardTitle}>

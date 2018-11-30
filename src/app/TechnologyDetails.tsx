@@ -4,13 +4,12 @@ import TimelineChart from "../common/TimelineChart";
 import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import { Job, Project, Technology } from "../Model";
-import { formatDateAsYearMonth } from "../Month";
 import { ProjectCard } from "./ProjectCard";
 import "./TechnologyDetails.css";
+import Month from "../Month";
 
-export default function(props: { technology: Technology }) {
-  const { technology } = props,
-    projectsWithColors = technology.projects
+export default function({ technology }: { technology: Technology }) {
+  const projectsWithColors = technology.projects
       .sort((a, b) => a.period.from.totalMonths() - b.period.from.totalMonths())
       .map((p, i) => ({
         project: p,
@@ -48,15 +47,15 @@ function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
         return {
           from: from,
           to: to,
-          label: `${title}, ${formatDateAsYearMonth(
+          label: `${title}, ${Month.fromDate(
             from
-          )} - ${formatDateAsYearMonth(to)}`,
+          ).nameYearShort()} - ${Month.fromDate(to).nameYearShort()}`,
           color: pc.color,
           projectIndex: i
         };
       })}
       to={props.now}
-      formatAxisLabel={formatDateAsYearMonth}
+      formatAxisLabel={date => Month.fromDate(date).nameYearShort()}
       onEventClicked={e => {
         const card = findableCard((e as any).projectIndex).find();
         if (!card) return;

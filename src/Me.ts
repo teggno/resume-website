@@ -2,6 +2,7 @@ import * as R from "ramda";
 import Month from "./Month";
 import Period from "./Period";
 import MeJson from "./MeJson";
+import Duration from "./Duration";
 
 const now = new Date();
 const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
@@ -75,25 +76,32 @@ export default class Me {
     );
   }
   private getProjects() {
-    return this.source.projects.map(s => ({
-      period: new Period(
+    return this.source.projects.map(s => {
+      const period = new Period(
         Month.parse(s.period.from),
         s.period.to ? Month.parse(s.period.to) : undefined
-      ),
-      title: <string>s.title,
-      company: <string>s.company,
-      technologies: <{ name: string; tasks?: string[] }[]>(
-        s.technologies.map(t =>
-          typeof t === "string" ? { name: t } : { name: t.name, tasks: t.tasks }
-        )
-      ),
-      description: <string>s.description,
-      teamSize: <string>s.teamSize,
-      achievements: <string[]>s.achievements,
-      tasks: <string[]>s.tasks,
-      products: <string[]>s.products,
-      tools: <string[]>s.tools
-    }));
+      );
+      return {
+        period: period,
+        title: <string>s.title,
+        company: <string>s.company,
+        technologies: <{ name: string; tasks?: string[] }[]>(
+          s.technologies.map(t =>
+            typeof t === "string"
+              ? { name: t }
+              : { name: t.name, tasks: t.tasks }
+          )
+        ),
+        description: <string>s.description,
+        teamSize: <string>s.teamSize,
+        achievements: <string[]>s.achievements,
+        tasks: <string[]>s.tasks,
+        products: <string[]>s.products,
+        tools: <string[]>s.tools,
+        duration: (now: Date) =>
+          period.from.durationUntil(period.to || Month.fromDate(now))
+      };
+    });
   }
 
   private getJobs() {

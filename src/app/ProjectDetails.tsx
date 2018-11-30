@@ -1,37 +1,28 @@
 import React from "react";
-import { Project } from "../Model";
-import { chain } from "ramda";
-import { textParagraph, dt, dd, cardContent, dl } from "../css";
-import { Expander } from "../common/Expandable";
+import { Project, Technology } from "../Model";
+import {
+  dl,
+  dd,
+  dt,
+  textParagraph,
+  grid2,
+  gridItem,
+  gridCard,
+  cardTitle,
+  cardContent
+} from "../css";
 import StringList from "../common/StringList";
 
-export function ProjectCard(props: ProjectCardProps) {
-  const { project, technologyName } = props,
-    now = new Date(),
-    technologies = project.technologies.filter(
-      t => !technologyName || t.name === technologyName
-    );
+export default function ProjectDetails({ project }: { project: Project }) {
+  const now = new Date();
   return (
-    <div className={cardContent}>
-      {!!technologies.length && technologies.some(t => !!t.tasks) ? (
+    <>
+      <div className="ph2">
+        <h2>{project.title}</h2>
+        <p className={textParagraph}>{project.description}</p>
+      </div>
+      <div className="ph2">
         <dl className={dl}>
-          <dt className={dt}>Work I did with {technologies[0].name}</dt>
-          <dd className={dd}>
-            <StringList
-              items={chain(
-                t => (t.tasks ? t.tasks.map(tt => tt) : []),
-                technologies
-              )}
-            />
-          </dd>
-        </dl>
-      ) : null}
-      <Expander>
-        <dl className={dl}>
-          <dt className={dt}>Project description</dt>
-          <dd className={dd}>
-            <p className={textParagraph}>{project.description}</p>
-          </dd>
           <dt className={dt}>Duration</dt>
           <dd className={dd}>{project.duration(now).text()}</dd>
           {project.teamSize ? (
@@ -66,12 +57,32 @@ export function ProjectCard(props: ProjectCardProps) {
           </>
         </Conditional>{" "} */}
         </dl>
-      </Expander>
-    </div>
+      </div>
+      <div>
+        <h3 className="ph2">Project tasks by technology:</h3>
+        <TechnologyGrid technologies={project.technologies} />
+      </div>
+    </>
   );
 }
 
-export interface ProjectCardProps {
-  project: Project;
-  technologyName?: string;
+function TechnologyGrid({
+  technologies
+}: {
+  technologies: { name: string; tasks?: string[] }[];
+}) {
+  return (
+    <ul className={grid2}>
+      {technologies.map((t, i) => (
+        <li key={t.name} className={gridItem}>
+          <div className={gridCard}>
+            <h4 className={cardTitle}>{t.name}</h4>
+            <div className={cardContent}>
+              {t.tasks ? <StringList items={t.tasks} /> : null}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 }

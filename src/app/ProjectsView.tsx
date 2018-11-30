@@ -6,6 +6,7 @@ import Month from "../Month";
 import { projectRoute } from "../Routes";
 import SortableList from "../common/SortableList";
 import { zeroBasedCharts, fromToChart } from "../common/ChartConfig";
+import ProjectDetails from "./ProjectDetails";
 
 export function ProjectsView(props: ProjectsViewProps) {
   console.debug("ProjectsView render");
@@ -17,12 +18,7 @@ export function ProjectsView(props: ProjectsViewProps) {
       backToListRoute={"#projects"}
       detailsVisible={!!selectedProject}
       master={<List projects={props.projects} />}
-      detail={
-        <div>
-          Details for project {selectedProject ? selectedProject.title : ""} go
-          here
-        </div>
-      }
+      detail={<ProjectDetails project={selectedProject} />}
     />
   );
 }
@@ -42,11 +38,12 @@ interface ProjectsViewProps {
   selectedProjectTitle?: string;
 }
 
-const titleNonCase = (project: Project) => project.title.toLowerCase(),
-  nowMonth = Month.fromDate(new Date()),
+const now = new Date(),
+  nowMonth = Month.fromDate(now),
+  titleNonCase = (project: Project) => project.title.toLowerCase(),
   titleOf = (project: Project) => project.title,
   subOf = (project: Project) =>
-    `until ${(project.period.to || nowMonth).toString()}`,
+    `${project.duration(now).text()} until ${(project.period.to || nowMonth).nameYearShort()}`,
   totalMonths = (p: Project) =>
     Month.diff(p.period.from, p.period.to || nowMonth),
   startMonth = (p: Project) => p.period.from.totalMonths(),
