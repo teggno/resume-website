@@ -45,10 +45,10 @@ export const cardTitle = `${nearWhiteBackground} br3 br--top mv0 pv2 ph3`;
 /** Container for the content of the card below the title bar. */
 export const cardContent = "pa3 bt b--black-10";
 
-export const skillListItem = `relative bb pa2 ${lightSilverBorder}`;
-export const skillLinkTitle = "f4 fw6";
-export const skillLinkSub = `w-70 dib ${normalFontSize}`;
-export const skillListBarContainer = `w-30 dib relative h1 v-btm`;
+export const sparklineListItem = `relative bb pa2 ${lightSilverBorder}`;
+export const sparklineListItemTitle = "f4 fw6";
+export const sparklineListItemSub = `w-70 dib ${normalFontSize}`;
+export const sparklineContainer = `w-30 dib relative h1 v-btm`;
 export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBackground}`;
 
 export const grid2 = `grid2-l ${list}`;

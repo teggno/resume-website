@@ -6,6 +6,14 @@ export function applyOrDefault<TIn, TOut>(
   return x === null || x === undefined ? defaultValue : fn(x);
 }
 
+export function applyToOrDefault<T, TOut>(
+  fnOrNot: ((x: T) => TOut) | null | undefined,
+  x: T,
+  defaultValue: TOut
+) {
+  return fnOrNot ? fnOrNot(x) : defaultValue;
+}
+
 function by<TIn, TOut extends Sortable>(projection: (i: TIn) => TOut, ltOrGt: (a:TOut, b:TOut) => boolean){
   return (a: TIn, b: TIn) => {
     const a2 = projection(a),
