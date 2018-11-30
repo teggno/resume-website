@@ -13,7 +13,7 @@ import {
 } from "../css";
 import { Expander } from "../common/Expandable";
 
-export function ProjectDetails(props: ProjectDetailsProps) {
+export function ProjectCard(props: ProjectCardProps) {
   const { project, technologyName } = props,
     now = new Date(),
     duration = project.period.from.durationUntil(
@@ -98,7 +98,7 @@ function UnorderedListOfStrings(props: { items: string[] }) {
   );
 }
 
-export interface ProjectDetailsProps {
+export interface ProjectCardProps {
   project: Project;
   technologyName?: string;
 }

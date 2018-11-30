@@ -5,7 +5,7 @@ import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import { Job, Project, Technology } from "../Model";
 import { formatDateAsYearMonth } from "../Month";
-import { ProjectDetails } from "./ProjectDetails";
+import { ProjectCard } from "./ProjectCard";
 import "./TechnologyDetails.css";
 
 export default function(props: { technology: Technology }) {
@@ -91,7 +91,7 @@ function ProjectGrid(props: {
                 <div className={circle} style={{ backgroundColor: pc.color }} />
                 {pc.project.title}
               </h4>
-              <ProjectDetails
+              <ProjectCard
                 project={pc.project}
                 technologyName={props.technologyName}
               />
