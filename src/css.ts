@@ -1,6 +1,7 @@
 import "./Icons.css";
 import "./Animations.css";
 import "./Grid.css";
+import "./Columns.css";
 
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
@@ -27,7 +28,7 @@ export const componentSpacingVertical = "ml4-ns";
 export const link = `${blue} link hover-blue`;
 export const blackLink = `${fontColor} link hover-blue`;
 export const dl = "ma0";
-export const dt = "fw6";
+export const dt = "fw6 mt2";
 export const dd = "ml0 mv2";
 
 const button = "f6 link dim br1 ph3 pv2 mb2 dib tc";
@@ -60,6 +61,8 @@ export const chartBackground = nearWhiteBackground;
 export const icon = "w1 h1 v-mid-i";
 
 export const circle = "dib br4 w1 h1 mr2 v-top";
+
+export const twoColumns = "cc2-l cr1 cr--light-silver"
 
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;
 

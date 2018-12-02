@@ -1,0 +1,16 @@
+.cr--light-silver {
+  column-rule-color: #aaa;
+}
+
+.cr1 {
+  column-rule-width: 1px;
+  column-rule-style: solid;
+}
+
+/* NOTE: the query below is the same as tachyons' -l module's */
+@media screen and (min-width: 60em) {
+  /* Grid with 2 columns */
+  .cc2-l {
+    column-count: 2;
+  }
+}

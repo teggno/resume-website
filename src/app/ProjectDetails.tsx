@@ -9,7 +9,8 @@ import {
   gridItem,
   gridCard,
   cardTitle,
-  cardContent
+  cardContent,
+  twoColumns
 } from "../css";
 import StringList from "../common/StringList";
 
@@ -19,9 +20,9 @@ export default function ProjectDetails({ project }: { project: Project }) {
     <>
       <div className="ph2">
         <h2>{project.title}</h2>
-        <p className={textParagraph}>{project.description}</p>
       </div>
-      <div className="ph2">
+      <div className={`ph2 ${twoColumns}`}>
+        <p className={textParagraph}>{project.description}</p>
         <dl className={dl}>
           <dt className={dt}>Duration</dt>
           <dd className={dd}>{project.duration(now).text()}</dd>
