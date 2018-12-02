@@ -23,41 +23,40 @@ export default function ProjectDetails({ project }: { project: Project }) {
       </div>
       <div className={`ph2 ${twoColumns}`}>
         <p className={textParagraph}>{project.description}</p>
-        <dl className={dl}>
-          <dt className={dt}>Duration</dt>
-          <dd className={dd}>{project.duration(now).text()}</dd>
-          {project.teamSize ? (
-            <>
-              <dt className={dt}>Team Size</dt>
-              <dd className={dd}>{project.teamSize}</dd>
-            </>
-          ) : null}
-          {project.achievements && project.achievements.length ? (
-            <>
-              <dt className={dt}>Achievements</dt>
-              <dd className={dd}>
-                <StringList items={project.achievements} />
-              </dd>
-            </>
-          ) : null}
-
-          {/* <Conditional test={() => !!project.tasks.length}>
-          <>
-            <dt>Tasks</dt>
-            <dd>
-              <UnorderedListOfStrings items={project.tasks} />
-            </dd>
-          </>
-        </Conditional>
-        <Conditional test={() => !!project.tools.length}>
-          <>
-            <dt>Tools used</dt>
-            <dd>
-              <UnorderedListOfStrings items={project.tools} />
-            </dd>
-          </>
-        </Conditional>{" "} */}
-        </dl>
+        <div className="noColumnBreak">
+          <div className={dt}>Duration</div>
+          <div className={dd}>{project.duration(now).text()}</div>
+        </div>
+        {project.teamSize ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Team Size</div>
+            <div className={dd}>{project.teamSize}</div>
+          </div>
+        ) : null}
+        {project.achievements && project.achievements.length ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Achievements</div>
+            <div className={dd}>
+              <StringList items={project.achievements} />
+            </div>
+          </div>
+        ) : null}
+        {project.tasks && project.tasks.length ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Tasks</div>
+            <div className={dd}>
+              <StringList items={project.tasks} />
+            </div>
+          </div>
+        ) : null}
+        {project.tools && project.tools.length ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Tools</div>
+            <div className={dd}>
+              <StringList items={project.tools} />
+            </div>
+          </div>
+        ) : null}
       </div>
       <div>
         <h3 className="ph2">Project tasks by technology:</h3>

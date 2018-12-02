@@ -13,4 +13,8 @@
   .cc2-l {
     column-count: 2;
   }
+
+  .cc2-l .noColumnBreak, .cc2-l .noColumnBreak ul {
+    break-inside: avoid-column;
+  }
 }
