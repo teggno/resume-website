@@ -1,5 +1,4 @@
 import React from "react";
-import nthColor from "../Colors";
 import TimelineChart from "../common/TimelineChart";
 import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
@@ -7,33 +6,43 @@ import { Job, Project, Technology } from "../Model";
 import ProjectCard from "./ProjectCard";
 import "./TechnologyDetails.css";
 import Month from "../Month";
+import { sortBy } from "ramda";
+import ProjectColorContext from "./ProjectColorContext";
 
-export default function({ technology }: { technology: Technology }) {
-  const projectsWithColors = technology.projects
-      .sort((a, b) => a.period.from.totalMonths() - b.period.from.totalMonths())
-      .map((p, i) => ({
-        project: p,
-        color: nthColor(i)
-      })),
-    now = new Date();
+export default function TechnologyDetails({
+  technology
+}: {
+  technology: Technology;
+}) {
   return (
-    <>
-      <div className="ph2">
-        <h2>My {technology.name} experience</h2>
-        <ProjectTimeline projects={projectsWithColors} now={now} />
-      </div>
-      <div>
-        <h3 className="ph2">Projects:</h3>
-        <ProjectGrid
-          projects={projectsWithColors}
-          technologyName={technology.name}
-        />
-      </div>
-      {/* <div className="ph2">
-        <h3>Jobs:</h3>
-        <JobList jobs={technology.jobs} />
-      </div> */}
-    </>
+    <ProjectColorContext.Consumer>
+      {colorByKey => {
+        const sortByDuration = sortBy<Project>(p =>
+            p.period.from.totalMonths()
+          ),
+          projectsWithColors = sortByDuration(technology.projects).map(p => ({
+            project: p,
+            color: colorByKey(p.title)
+          })),
+          now = new Date();
+
+        return (
+          <>
+            <div className="ph2">
+              <h2>My {technology.name} experience</h2>
+              <ProjectTimeline projects={projectsWithColors} now={now} />
+            </div>
+            <div>
+              <h3 className="ph2">Projects:</h3>
+              <ProjectGrid
+                projects={projectsWithColors}
+                technologyName={technology.name}
+              />
+            </div>
+          </>
+        );
+      }}
+    </ProjectColorContext.Consumer>
   );
 }
 

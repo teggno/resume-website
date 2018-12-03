@@ -17,6 +17,7 @@ import {
 } from "ramda";
 import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
+import ProjectColorContext from "./ProjectColorContext";
 
 export default function ProjectTableView(props: ProjectTableViewProps) {
   const now = new Date(),
@@ -43,15 +44,20 @@ function ProjectTimelineChart(props: { projectsSorted: Project[]; now: Date }) {
     endTimeOrNow = (month?: Month) =>
       applyOrDefault(m => m.endTime(), month, now);
   return (
-    <TimelineChart
-      to={now}
-      events={projectsSorted.map(p => ({
-        from: p.period.from.startTime(),
-        to: endTimeOrNow(p.period.to),
-        label: p.title
-      }))}
-      formatAxisLabel={() => ""}
-    />
+    <ProjectColorContext.Consumer>
+      {colorByKey => (
+        <TimelineChart
+          to={now}
+          events={projectsSorted.map(p => ({
+            from: p.period.from.startTime(),
+            to: endTimeOrNow(p.period.to),
+            label: p.title,
+            color: colorByKey(p.title)
+          }))}
+          formatAxisLabel={() => ""}
+        />
+      )}
+    </ProjectColorContext.Consumer>
   );
 }
 

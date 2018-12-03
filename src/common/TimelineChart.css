@@ -1,5 +1,5 @@
 .bar {
-  opacity: .6;
+  /* opacity: .6; */
   transition: all .25s;
   border: 0 none;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { chartBackground } from "../css";
 import "./TimelineChart.css";
-import nthColor from "../Colors";
 import { min, max } from "ramda";
 
 export default function TimelineChart(props: TimelineProps) {
@@ -26,7 +25,7 @@ export default function TimelineChart(props: TimelineProps) {
                 right:
                   (1 - dateToFraction(minFrom, maxTo, e.to || props.to)) * 100 +
                   "%",
-                backgroundColor: e.backgroundColor || nthColor(i)
+                backgroundColor: e.color
               }}
               onClick={() => {
                 if (props.onEventClicked) props.onEventClicked(e);
@@ -74,5 +73,5 @@ interface Event {
   from: Date;
   to?: Date;
   label?: string;
-  backgroundColor?: string;
+  color: string;
 }
