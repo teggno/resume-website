@@ -104,10 +104,7 @@ function CertificateComponent({ name, date }: { name: string; date: string }) {
   );
   return (
     <TimelineCard header={header} from={Month.parse(date.substr(0, 7))}>
-      <div>
-        <div className="w2 h2" />
-        {`${name}`}
-      </div>
+      {name}
     </TimelineCard>
   );
 }
