@@ -42,7 +42,7 @@ export function ProjectCard(props: ProjectCardProps) {
           ) : null}
           {project.achievements && project.achievements.length ? (
             <>
-              <dt className={dt}>Achievements</dt>
+              <dt className={dt}>My achievements</dt>
               <dd className={dd}>
                 <StringList items={project.achievements} />
               </dd>

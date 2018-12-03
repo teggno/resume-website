@@ -35,7 +35,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
         {project.achievements && project.achievements.length ? (
           <div className="noColumnBreak">
-            <div className={dt}>Achievements</div>
+            <div className={dt}>My achievements</div>
             <div className={dd}>
               <StringList items={project.achievements} />
             </div>
@@ -43,7 +43,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
         {project.tasks && project.tasks.length ? (
           <div className="noColumnBreak">
-            <div className={dt}>Tasks</div>
+            <div className={dt}>My tasks in the project</div>
             <div className={dd}>
               <StringList items={project.tasks} />
             </div>
@@ -51,7 +51,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
         {project.tools && project.tools.length ? (
           <div className="noColumnBreak">
-            <div className={dt}>Tools</div>
+            <div className={dt}>Tools I used</div>
             <div className={dd}>
               <StringList items={project.tools} />
             </div>
