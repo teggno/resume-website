@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDown, ArrowUp } from "./Icons";
+import { ArrowDown, ArrowUp } from "./icons/Icons";
 import { deemphasizedButton } from "../css";
 
 export class Expander extends React.Component<ExpanderProps, ExpanderState> {
