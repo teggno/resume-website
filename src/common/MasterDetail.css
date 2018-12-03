@@ -19,3 +19,11 @@
     margin-right: unset;
   }
 }
+
+/*this ensures that, when calling scrollIntoView(element) with an element that
+has this class, its top part won't be overlaped by the navigation header.*/
+.scroll-hack{
+  /* -2rem/2rem because 2rem is the height of the fixed navigation header*/
+  margin-top: -2rem;
+  padding-top: 2rem;
+}

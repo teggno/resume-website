@@ -29,7 +29,7 @@ export const link = `${blue} link hover-blue`;
 export const blackLink = `${fontColor} link hover-blue`;
 export const dl = "ma0";
 export const dt = "fw6 mt2";
-export const dd = "ml0 mv2";
+export const dd = "ml0 pv2";
 
 const button = "f6 link dim br1 ph3 pv2 mb2 dib tc";
 export const normalButton = `${button} ${blueBackground} white`;
@@ -39,7 +39,7 @@ export const deemphasizedButton = `${button} ba ${fontColor}`;
 export const checkboxListItem = "nowrap";
 
 export const textParagraph = `${normalFontSize} lh-copy ma0`;
-export const list = "list pa0";
+export const list = "list pa0 ma0";
 export const stripedStringList = `lh-copy pa2 ${stripedBackground}`;
 export const card = `br3 ba ${lightSilverBorder}`;
 export const cardTitle = `${nearWhiteBackground} br3 br--top mv0 pv2 ph3`;
