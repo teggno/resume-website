@@ -2,9 +2,7 @@ import React from "react";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import "./MasterDetail.css";
 
-export class MasterDetail extends React.Component<
-  MasterDetailProps
-> {
+export class MasterDetail extends React.Component<MasterDetailProps> {
   constructor(props: Readonly<MasterDetailProps>) {
     super(props);
     this.detailsRef = React.createRef();
@@ -18,28 +16,23 @@ export class MasterDetail extends React.Component<
     }
     return (
       <div className="overflow-hidden">
-        <div className={"flex offc" + (this.props.detailsVisible ? " off on-ns" : "")}>
-          <div className="w-50 w-30-l ph2">
-          {this.props.master}
-          </div>
+        <div
+          className={
+            "flex offc" + (this.props.detailsVisible ? " off on-ns" : "")
+          }
+        >
+          <div className="w-50 w-30-l ph2">{this.props.master}</div>
           <div
             className={"w-50 w-70-l pl1 pl4-ns scroll-hack"}
             ref={this.detailsRef}
           >
             {this.props.detailsVisible ? (
-              <div>
-                <div className="ph2">
-                  <a className="dn-ns link" href={this.props.backToListRoute}>
-                    Back to list
-                  </a>
-                </div>
-                {this.props.detail}
-              </div>
+              this.props.detail
             ) : (
               <div className="relative">
                 <div className="f2 fixed mt6 mw6 tc lh-copy">
-                  Click an item in the list to the left to see what I used
-                  it for.
+                  Click an item in the list to the left to see what I used it
+                  for.
                 </div>
               </div>
             )}
