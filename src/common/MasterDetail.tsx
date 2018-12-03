@@ -23,7 +23,7 @@ export class MasterDetail extends React.Component<MasterDetailProps> {
         >
           <div className="w-50 w-30-l ph2">{this.props.master}</div>
           <div
-            className={"w-50 w-70-l pl1 pl4-ns scroll-hack"}
+            className={"w-50 w-70-l pl4-ns scroll-hack"}
             ref={this.detailsRef}
           >
             {this.props.detailsVisible ? (
