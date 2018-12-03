@@ -3,6 +3,7 @@
     {
       "title": "Circumnavigating the world",
       "company": "Fun adventures ltd",
+      "industry": "Leisure",
       "description": "Set out to circumnavigate the world on a boat with an electric engine powered by solar panels with five other adventurers. Start and end of the journey was Naples, Italy.",
       "period": { "from": "2016-04", "to": "2018-05" },
       "teamSize": "5",
@@ -35,6 +36,7 @@
       "description": "Become the first person in history that has waterskied the full length of the river Rhine and produce a documentary about the endavour.",
       "company": "Skis got wet",
       "period": { "from": "2018-06", "to": "2018-10" },
+      "industry": "Media",
       "technologies": [
         {
           "name": "Water Skis",

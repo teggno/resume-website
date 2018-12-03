@@ -12,6 +12,7 @@ export interface Project {
   teamSize: string;
   achievements?: string[];
   company?: string;
+  industry?: string;
   duration: (now: Date) => Duration;
   technologies: {
     name: string;

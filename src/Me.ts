@@ -85,6 +85,7 @@ export default class Me {
         period: period,
         title: <string>s.title,
         company: <string>s.company,
+        industry: s.industry,
         technologies: <{ name: string; tasks?: string[] }[]>(
           s.technologies.map(t =>
             typeof t === "string"

@@ -17,6 +17,7 @@ interface Project {
   title: string;
   description: string;
   company?: string;
+  industry?: string;
   tools?: string[];
   tasks: string[];
   teamSize: string;

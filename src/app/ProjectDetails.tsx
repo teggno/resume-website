@@ -27,6 +27,12 @@ export default function ProjectDetails({ project }: { project: Project }) {
           <div className={dt}>Duration</div>
           <div className={dd}>{project.duration(now).text()}</div>
         </div>
+        {project.industry ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Industry</div>
+            <div className={dd}>{project.industry}</div>
+          </div>
+        ) : null}
         {project.teamSize ? (
           <div className="noColumnBreak">
             <div className={dt}>Team Size</div>

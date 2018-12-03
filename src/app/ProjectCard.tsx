@@ -34,12 +34,12 @@ export default function ProjectCard(props: ProjectCardProps) {
           </dd>
           <dt className={dt}>Duration</dt>
           <dd className={dd}>{project.duration(now).text()}</dd>
-          {project.teamSize ? (
+          {/* {project.industry ? (
             <>
-              <dt className={dt}>Team Size</dt>
-              <dd className={dd}>{project.teamSize}</dd>
+              <dt className={dt}>Industry</dt>
+              <dd className={dd}>{project.industry}</dd>
             </>
-          ) : null}
+          ) : null} */}
           {project.achievements && project.achievements.length ? (
             <>
               <dt className={dt}>My achievements</dt>

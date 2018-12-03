@@ -117,6 +117,14 @@
             "examples": ["ABC Travel"],
             "pattern": "^(.*)$"
           },
+          "industry": {
+            "$id": "#/properties/projects/items/properties/industry",
+            "type": "string",
+            "title": "Industry",
+            "default": "",
+            "examples": ["Tourism"],
+            "pattern": "^(.*)$"
+          },
           "technologies": {
             "$id": "#/properties/projects/items/properties/technologies",
             "type": "array",

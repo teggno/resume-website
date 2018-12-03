@@ -72,6 +72,7 @@ function ProjectGanttTable(props: { projectsSorted: Project[]; now: Date }) {
         <tr>
           <th className="pv2 ph3 tl f6 fw6 ttu">Title</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Company</th>
+          <th className="pv2 ph3 tl f6 fw6 ttu">Industry</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">From</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">To</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Gap</th>
@@ -88,6 +89,7 @@ function ProjectGanttTable(props: { projectsSorted: Project[]; now: Date }) {
               <tr className={stripedBackground} key={p.title}>
                 <td className="pv2 ph3">{p.title}</td>
                 <td className="pv2 ph3">{p.company}</td>
+                <td className="pv2 ph3">{p.industry}</td>
                 <td className="pv2 ph3">{p.period.from.toString()}</td>
                 <td className="pv2 ph3">
                   {p.period.to ? p.period.to.toString() : ""}
