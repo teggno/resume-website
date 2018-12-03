@@ -2,7 +2,7 @@ import React from "react";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import "./MasterDetail.css";
 
-export class MasterDetail extends React.Component<MasterDetailProps> {
+export default class MasterDetail extends React.Component<MasterDetailProps> {
   constructor(props: Readonly<MasterDetailProps>) {
     super(props);
     this.detailsRef = React.createRef();

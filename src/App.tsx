@@ -1,5 +1,5 @@
 import React from "react";
-import { TechnologiesView } from "./app/TechnologiesView";
+import TechnologiesView from "./app/TechnologiesView";
 import HashAware from "./common/HashAware";
 import { mainContainer, link } from "./css";
 import Me from "./Me";
@@ -7,7 +7,7 @@ import { technologyRoute, projectRoute } from "./Routes";
 import ProjectTableView from "./app/ProjectTableView";
 import TimelineView from "./app/TimelineView";
 import Link from "./common/Link";
-import { ProjectsView } from "./app/ProjectsView";
+import ProjectsView from "./app/ProjectsView";
 
 export default function App(props: { me: Me }) {
   return (

@@ -4,7 +4,7 @@ import TimelineChart from "../common/TimelineChart";
 import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import { Job, Project, Technology } from "../Model";
-import { ProjectCard } from "./ProjectCard";
+import ProjectCard from "./ProjectCard";
 import "./TechnologyDetails.css";
 import Month from "../Month";
 

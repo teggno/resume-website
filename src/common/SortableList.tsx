@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonList } from "../common/ButtonList";
+import ButtonList from "../common/ButtonList";
 import { list } from "../css";
 import SparklineListItem from "../common/SparklineListItem";
 import ListItem from "../common/ListItem";

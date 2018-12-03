@@ -1,7 +1,7 @@
 import * as React from "react";
 import ToggleButton from "./ToggleButton";
 
-export function ButtonList(props: ButtonListProps) {
+export default function ButtonList(props: ButtonListProps) {
   return (
     <div>
       {props.buttons.map((b, i) => (

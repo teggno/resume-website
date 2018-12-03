@@ -2,7 +2,7 @@ import * as React from "react";
 import { checkboxListItem } from "../css";
 import { difference } from "ramda";
 
-export function CheckboxList<T extends { name: string }>(
+export default function CheckboxList<T extends { name: string }>(
   props: CheckboxListProps<T>
 ) {
   return (

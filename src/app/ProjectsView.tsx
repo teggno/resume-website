@@ -1,6 +1,6 @@
 import React from "react";
 import { Project } from "../Model";
-import { MasterDetail } from "../common/MasterDetail";
+import MasterDetail from "../common/MasterDetail";
 import { sort, ascend, sortWith, descend } from "ramda";
 import Month from "../Month";
 import { projectRoute } from "../Routes";
@@ -8,7 +8,7 @@ import SortableList from "../common/SortableList";
 import { zeroBasedCharts, fromToChart } from "../common/ChartConfig";
 import ProjectDetails from "./ProjectDetails";
 
-export function ProjectsView(props: ProjectsViewProps) {
+export default function ProjectsView(props: ProjectsViewProps) {
   console.debug("ProjectsView render");
   const selectedProject = props.projects.filter(
     p => p.title === props.selectedProjectTitle

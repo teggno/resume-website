@@ -5,7 +5,7 @@ import { textParagraph, dt, dd, cardContent, dl } from "../css";
 import { Expander } from "../common/Expandable";
 import StringList from "../common/StringList";
 
-export function ProjectCard(props: ProjectCardProps) {
+export default function ProjectCard(props: ProjectCardProps) {
   const { project, technologyName } = props,
     now = new Date(),
     technologies = project.technologies.filter(

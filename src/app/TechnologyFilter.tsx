@@ -1,11 +1,11 @@
 import React from "react";
-import { CheckboxListProps, CheckboxList } from "../common/CheckboxList";
+import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
 
 export interface TechnologyFilterProps<T> extends CheckboxListProps<T>{
   isAllNoneButtonAll: boolean
 }
 
-export class TechnologyFilter<
+export default class TechnologyFilter<
   T extends { name: string }
 > extends React.Component<TechnologyFilterProps<T>, { all: boolean }> {
   constructor(props: TechnologyFilterProps<T>) {

@@ -2,11 +2,11 @@ import { sortBy } from "ramda";
 import React from "react";
 import YearsBackSlider from "../common/YearsBackSlider";
 import { Technology } from "../Model";
-import { TechnologyFilter } from "./TechnologyFilter";
+import TechnologyFilter from "./TechnologyFilter";
 
 const todaysYear = new Date().getFullYear();
 
-export class TechnologyFilters extends React.Component<TechnologyFiltersProps, TechnologyFiltersState> {
+export default class TechnologyFilters extends React.Component<TechnologyFiltersProps, TechnologyFiltersState> {
   constructor(props: TechnologyFiltersProps) {
     super(props);
     this.state = {

@@ -1,13 +1,13 @@
 import React from "react";
 import { Technology } from "../Model";
-import { MasterDetail } from "../common/MasterDetail";
+import MasterDetail from "../common/MasterDetail";
 import { sort, ascend, sortWith, descend } from "ramda";
 import { technologyRoute } from "../Routes";
 import SortableList from "../common/SortableList";
 import TechnologyDetails from "./TechnologyDetails";
 import { zeroBasedCharts, fromToChart } from "../common/ChartConfig";
 
-export function TechnologiesView(props: TechnologiesViewProps) {
+export default function TechnologiesView(props: TechnologiesViewProps) {
   console.debug("TechnologiesView render");
   const selectedTechnology = props.technologies.filter(
     t => t.name === props.selectedTechnologyTitle
