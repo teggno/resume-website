@@ -1,8 +1,7 @@
 import React from "react";
 import TimelineList from "../common/TimelineList";
 import Me from "../Me";
-import { byAsc, byDesc } from "../Functional";
-import { chain } from "ramda";
+import { chain, descend } from "ramda";
 import { cardTitle, cardContent, link } from "../css";
 import Month from "../Month";
 import { technologyRoute, projectRoute } from "../Routes";
@@ -33,7 +32,14 @@ export default function TimelineView(props: { me: Me }) {
         key: t.title.period.from.totalMonths().toString() + t.title.title
       }))
     )
-    .sort(byDesc(e => e.from.totalMonths()));
+    .concat(
+      props.me.certificates().map(c => ({
+        component: () => <CertificateComponent {...c} />,
+        from: Month.parse(c.date.substr(0, 7)),
+        key: `Certificate${c.name}`
+      }))
+    )
+    .sort(descend(e => e.from.totalMonths()));
   return <TimelineList className="ph2 mw8" events={events} />;
 }
 
@@ -75,6 +81,14 @@ function JobTitleComponent(props: { jobTitle: any }) {
   return (
     <TimelineCard title="New job title" from={props.jobTitle.title.period.from}>
       {`${props.jobTitle.title.title} at ${props.jobTitle.job.company}`}
+    </TimelineCard>
+  );
+}
+
+function CertificateComponent({ name, date }: { name: string; date: string }) {
+  return (
+    <TimelineCard title="Certificate" from={Month.parse(date.substr(0, 7))}>
+      {`${name}`}
     </TimelineCard>
   );
 }

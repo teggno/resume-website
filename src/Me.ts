@@ -2,7 +2,6 @@ import * as R from "ramda";
 import Month from "./Month";
 import Period from "./Period";
 import MeJson from "./MeJson";
-import Duration from "./Duration";
 
 const now = new Date();
 const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
@@ -16,6 +15,10 @@ export default class Me {
 
   jobs() {
     return this.getJobs();
+  }
+
+  certificates() {
+    return this.source.certificates || [];
   }
 
   technologies() {

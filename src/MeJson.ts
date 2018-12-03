@@ -1,10 +1,9 @@
-import { string } from "prop-types";
-
-// interfaces here mirror the JSON schema in me.schema.json
+// interfaces here mirror the JSON schema in resume.schema.json
 
 export default interface MeJson {
   jobs: Job[];
   projects: Project[];
+  certificates?: Certificate[];
 }
 
 interface Job {
@@ -33,4 +32,9 @@ interface Project {
 interface Period {
   from: string;
   to?: string;
+}
+
+interface Certificate {
+  date: string;
+  name: string;
 }

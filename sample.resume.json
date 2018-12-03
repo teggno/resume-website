@@ -65,5 +65,9 @@
       "period": { "from": "2014-02" },
       "titles": [{ "title": "CAO - Chief adventure officer" }]
     }
+  ],
+  "certificates": [
+    { "date": "2013-02-01", "name": "PADI Dive Instructor" },
+    { "date": "2013-12-01", "name": "Ski Instructor Swiss Skiing" }
   ]
 }

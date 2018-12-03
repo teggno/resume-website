@@ -1,5 +1,12 @@
 {
   "definitions": {
+    "date": {
+      "$id": "#definitions/date",
+      "type": "string",
+      "title": "Date in format yyyy-mm-dd",
+      "examples": ["2018-11-05"],
+      "pattern": "^\\d{4}-(([0][1-9])|([1][0-2]))-(([0][1-9])|([1-2][0-9])|([3][0-1]))$"
+    },
     "month": {
       "$id": "#definitions/month",
       "type": "string",
@@ -72,6 +79,33 @@
           },
           "period": {
             "$ref": "#definitions/period"
+          }
+        }
+      }
+    },
+    "certificates": {
+      "$id": "#/properties/certificates",
+      "type": "array",
+      "title": "Certificates",
+      "items": {
+        "$id": "#/properties/certificates/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "name",
+          "date"
+        ],
+        "properties": {
+          "name": {
+            "$id": "#/properties/certificates/items/properties/name",
+            "type": "string",
+            "title": "Name of the certificate",
+            "default": "",
+            "examples": ["Sailing instructor"],
+            "pattern": "^(.*)$"
+          },
+          "date": {
+            "$ref": "#definitions/date"
           }
         }
       }
