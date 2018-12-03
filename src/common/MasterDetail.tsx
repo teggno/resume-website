@@ -31,8 +31,7 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
             ) : (
               <div className="relative">
                 <div className="f2 fixed mt6 mw6 tc lh-copy">
-                  Click an item in the list to the left to see what I used it
-                  for.
+                  Click an item in the list for details.
                 </div>
               </div>
             )}
