@@ -13,26 +13,26 @@ import {
   ManWithCompanyIcon
 } from "../common/icons/Icons";
 
-export default function TimelineView(props: { me: Me }) {
-  const projects = props.me.projects().map(p => ({
+export default function TimelineView({ me }: { me: Me }) {
+  const projects = me.projects().map(p => ({
       component: () => <ProjectComponent project={p} />,
       from: p.period.from,
       key: p.title
     })),
-    technologies = props.me.technologies().map(t => ({
+    technologies = me.technologies().map(t => ({
       component: () => <TechnologyComponent technology={t} />,
       from: t.monthStart,
       key: t.name
     })),
     jobTitles = chain(
       j => j.titles.map(t => ({ title: t, job: j })),
-      props.me.jobs()
+      me.jobs()
     ).map(t => ({
       component: () => <JobTitleComponent jobTitle={t} />,
       from: t.title.period.from,
       key: t.title.period.from.totalMonths().toString() + t.title.title
     })),
-    certificates = props.me.certificates().map(c => ({
+    certificates = me.certificates().map(c => ({
       component: () => <CertificateComponent {...c} />,
       from: Month.parse(c.date.substr(0, 7)),
       key: `Certificate${c.name}`
@@ -45,53 +45,53 @@ export default function TimelineView(props: { me: Me }) {
   return <TimelineList className="ph2 mw8" events={events} />;
 }
 
-function ProjectComponent(props: { project: any }) {
+function ProjectComponent({ project }: { project: any }) {
   const header = (
     <IconHeader title="Started working in project">
       <PuzzleIcon />
     </IconHeader>
   );
   return (
-    <TimelineCard header={header} from={props.project.period.from}>
+    <TimelineCard header={header} from={project.period.from}>
       <Link
         className={link}
-        href={projectRoute.hashFromName(props.project.title)}
+        href={projectRoute.hashFromName(project.title)}
         scrollToTop={true}
       >
-        {props.project.title}
+        {project.title}
       </Link>
     </TimelineCard>
   );
 }
 
-function TechnologyComponent(props: { technology: any }) {
+function TechnologyComponent({ technology }: { technology: any }) {
   const header = (
     <IconHeader title="First use of technology">
       <CodeIcon />
     </IconHeader>
   );
   return (
-    <TimelineCard header={header} from={props.technology.monthStart}>
+    <TimelineCard header={header} from={technology.monthStart}>
       <Link
         className={link}
-        href={technologyRoute.hashFromName(props.technology.name)}
+        href={technologyRoute.hashFromName(technology.name)}
         scrollToTop={true}
       >
-        {props.technology.name}
+        {technology.name}
       </Link>
     </TimelineCard>
   );
 }
 
-function JobTitleComponent(props: { jobTitle: any }) {
+function JobTitleComponent({ jobTitle }: { jobTitle: any }) {
   const header = (
     <IconHeader title="New job title">
       <ManWithCompanyIcon />
     </IconHeader>
   );
   return (
-    <TimelineCard header={header} from={props.jobTitle.title.period.from}>
-      {`${props.jobTitle.title.title} at ${props.jobTitle.job.company}`}
+    <TimelineCard header={header} from={jobTitle.title.period.from}>
+      {`${jobTitle.title.title} at ${jobTitle.job.company}`}
     </TimelineCard>
   );
 }
@@ -112,15 +112,23 @@ function CertificateComponent({ name, date }: { name: string; date: string }) {
   );
 }
 
-function TimelineCard(props: { children: any; header: any; from: Month }) {
-  const yearMonth = `${props.from.nameYearShort()}`;
+function TimelineCard({
+  children,
+  header,
+  from
+}: {
+  children: any;
+  header: any;
+  from: Month;
+}) {
+  const yearMonth = `${from.nameYearShort()}`;
   return (
     <>
       <div className={cardTitle}>
-        <div className="tc pa0 ma0 f5 f4-ns">{props.header}</div>
+        <div className="tc pa0 ma0 f5 f4-ns">{header}</div>
       </div>
       <div className={cardContent + " f5 f4-ns tc"}>
-        {props.children}
+        {children}
         <div className="fw1 f6 mt3">{yearMonth}</div>
       </div>
     </>

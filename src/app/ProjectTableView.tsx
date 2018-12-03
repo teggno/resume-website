@@ -19,9 +19,9 @@ import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
 import ProjectColorContext from "./ProjectColorContext";
 
-export default function ProjectTableView(props: ProjectTableViewProps) {
+export default function ProjectTableView({ me }: { me: Me }) {
   const now = new Date(),
-    projects = props.me
+    projects = me
       .projects()
       .sort(
         (a, b) => a.period.from.totalMonths() - b.period.from.totalMonths()
@@ -35,14 +35,15 @@ export default function ProjectTableView(props: ProjectTableViewProps) {
   );
 }
 
-interface ProjectTableViewProps {
-  me: Me;
-}
-
-function ProjectTimelineChart(props: { projectsSorted: Project[]; now: Date }) {
-  const { projectsSorted, now } = props,
-    endTimeOrNow = (month?: Month) =>
-      applyOrDefault(m => m.endTime(), month, now);
+function ProjectTimelineChart({
+  projectsSorted,
+  now
+}: {
+  projectsSorted: Project[];
+  now: Date;
+}) {
+  const endTimeOrNow = (month?: Month) =>
+    applyOrDefault(m => m.endTime(), month, now);
   return (
     <ProjectColorContext.Consumer>
       {colorByKey => (
@@ -61,9 +62,14 @@ function ProjectTimelineChart(props: { projectsSorted: Project[]; now: Date }) {
   );
 }
 
-function ProjectGanttTable(props: { projectsSorted: Project[]; now: Date }) {
-  const { projectsSorted, now } = props,
-    endTimeOrNow = (month?: Month) =>
+function ProjectGanttTable({
+  projectsSorted,
+  now
+}: {
+  projectsSorted: Project[];
+  now: Date;
+}) {
+  const endTimeOrNow = (month?: Month) =>
       applyOrDefault(m => m.endTime(), month, now),
     [minFrom, maxTo] = projectsSorted.reduce(
       (prev, current) => [
@@ -130,9 +136,8 @@ function ProjectGanttTable(props: { projectsSorted: Project[]; now: Date }) {
   );
 }
 
-function TermList(props: { projects: Project[] }) {
-  const { projects } = props,
-    sortByName = sortBy((i: [string, number]) => i[0].toLowerCase()),
+function TermList({ projects }: { projects: Project[] }) {
+  const sortByName = sortBy((i: [string, number]) => i[0].toLowerCase()),
     toNameLengthTuples = map(
       (techs: { name: string }[]) =>
         [techs[0].name, techs.length] as [string, number]

@@ -85,13 +85,16 @@ function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
   );
 }
 
-function ProjectGrid(props: {
+function ProjectGrid({
+  projects,
+  technologyName
+}: {
   projects: ProjectWithColor[];
   technologyName: string;
 }) {
   return (
     <ul className={grid2}>
-      {props.projects.map((pc, i) =>
+      {projects.map((pc, i) =>
         findableCard(i).makeFindable(
           <li key={pc.project.title} className={gridItem + " flashing-card"}>
             <div className={gridCard}>
@@ -101,24 +104,12 @@ function ProjectGrid(props: {
               </h4>
               <ProjectCard
                 project={pc.project}
-                technologyName={props.technologyName}
+                technologyName={technologyName}
               />
             </div>
           </li>
         )
       )}
-    </ul>
-  );
-}
-
-function JobList(props: { jobs: Job[] }) {
-  return (
-    <ul>
-      {props.jobs.map((job, i) => (
-        <li key={i}>
-          {job.title} at {job.company}
-        </li>
-      ))}
     </ul>
   );
 }

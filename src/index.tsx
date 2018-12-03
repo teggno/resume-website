@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
+import App from "./App";
 import Me from "./Me";
 import MeJson from "./MeJson";
-import App from "./App";
 
 fetch("my.resume.json")
   .then(r => r.json() as any as MeJson)

@@ -1,23 +1,26 @@
+import { ascend, descend, sort, sortWith } from "ramda";
 import React from "react";
-import { Project } from "../Model";
+import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 import MasterDetail from "../common/MasterDetail";
-import { sort, ascend, sortWith, descend } from "ramda";
+import SortableList from "../common/SortableList";
+import { Project } from "../Model";
 import Month from "../Month";
 import { projectRoute } from "../Routes";
-import SortableList from "../common/SortableList";
-import { zeroBasedCharts, fromToChart } from "../common/ChartConfig";
 import ProjectDetails from "./ProjectDetails";
 
-export default function ProjectsView(props: ProjectsViewProps) {
+export default function ProjectsView({
+  projects,
+  selectedProjectTitle
+}: ProjectsViewProps) {
   console.debug("ProjectsView render");
-  const selectedProject = props.projects.filter(
-    p => p.title === props.selectedProjectTitle
+  const selectedProject = projects.filter(
+    p => p.title === selectedProjectTitle
   )[0];
   return (
     <MasterDetail
       backToListRoute={"#projects"}
       detailsVisible={!!selectedProject}
-      master={<List projects={props.projects} />}
+      master={<List projects={projects} />}
       detail={<ProjectDetails project={selectedProject} />}
     />
   );
@@ -43,7 +46,9 @@ const now = new Date(),
   titleNonCase = (project: Project) => project.title.toLowerCase(),
   titleOf = (project: Project) => project.title,
   subOf = (project: Project) =>
-    `${project.duration(now).text()} until ${(project.period.to || nowMonth).nameYearShort()}`,
+    `${project.duration(now).text()} until ${(
+      project.period.to || nowMonth
+    ).nameYearShort()}`,
   totalMonths = (p: Project) =>
     Month.diff(p.period.from, p.period.to || nowMonth),
   startMonth = (p: Project) => p.period.from.totalMonths(),

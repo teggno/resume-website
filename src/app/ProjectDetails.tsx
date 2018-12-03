@@ -1,7 +1,6 @@
 import React from "react";
 import { Project, Technology } from "../Model";
 import {
-  dl,
   dd,
   dt,
   textParagraph,

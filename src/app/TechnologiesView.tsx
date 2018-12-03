@@ -1,22 +1,25 @@
+import { ascend, descend, sort, sortWith } from "ramda";
 import React from "react";
-import { Technology } from "../Model";
+import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 import MasterDetail from "../common/MasterDetail";
-import { sort, ascend, sortWith, descend } from "ramda";
-import { technologyRoute } from "../Routes";
 import SortableList from "../common/SortableList";
+import { Technology } from "../Model";
+import { technologyRoute } from "../Routes";
 import TechnologyDetails from "./TechnologyDetails";
-import { zeroBasedCharts, fromToChart } from "../common/ChartConfig";
 
-export default function TechnologiesView(props: TechnologiesViewProps) {
+export default function TechnologiesView({
+  technologies,
+  selectedTechnologyTitle
+}: TechnologiesViewProps) {
   console.debug("TechnologiesView render");
-  const selectedTechnology = props.technologies.filter(
-    t => t.name === props.selectedTechnologyTitle
+  const selectedTechnology = technologies.filter(
+    t => t.name === selectedTechnologyTitle
   )[0];
   return (
     <MasterDetail
       backToListRoute={"#technologies"}
       detailsVisible={!!selectedTechnology}
-      master={<List technologys={props.technologies} />}
+      master={<List technologys={technologies} />}
       detail={<TechnologyDetails technology={selectedTechnology} />}
     />
   );
