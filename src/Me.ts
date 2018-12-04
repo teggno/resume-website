@@ -2,7 +2,6 @@ import Month from "./Month";
 import Period from "./Period";
 import MeJson from "./MeJson";
 import {
-  flatten,
   groupBy,
   minBy,
   maxBy,
@@ -11,11 +10,12 @@ import {
   mapAccum,
   descend,
   sort,
-  propOr
+  propOr,
+  chain,
+  add
 } from "ramda";
 
-const now = new Date();
-const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
+const todaysMonth = Month.fromDate(new Date());
 
 export default class Me {
   constructor(private source: MeJson) {}
@@ -33,68 +33,59 @@ export default class Me {
   }
 
   technologies() {
-    const projects = this.getProjects();
-    const jobs = this.getJobs();
-    const jobsAndTitles = flatten(
-      jobs.map(j => j.titles.map(t => ({ job: j, title: t })))
-    );
-    const pairs = flatten(
-      projects.map(p =>
-        p.technologies.map(t => ({ project: p, technology: t }))
-      )
-    );
-    const grouped = groupBy(p => p.technology.name, pairs);
-    const technologies = Object.keys(grouped).map(name => {
-      const pairs = grouped[name];
-      const projectsWhereTechWasUsed = pairs.map(g => g.project);
-      const minMonth = projectsWhereTechWasUsed
-        .map(p => p.period.from)
-        .reduce(
-          (prev, current) =>
-            prev === null ? current : minBy(Month.totalMonths, prev, current),
-          Month.maxValue
-        );
-      const maxMonth = projectsWhereTechWasUsed
-        .map(p => p.period.to || todaysMonth)
-        .reduce(
-          (prev, current) =>
-            prev === null ? current : maxBy(Month.totalMonths, prev, current),
-          Month.minValue
-        );
+    const projects = this.getProjects(),
+      jobs = this.getJobs(),
+      jobsAndTitles = chain(
+        j => j.titles.map(t => ({ job: j, title: t })),
+        jobs
+      ),
+      pairs = chain(
+        p => p.technologies.map(t => ({ project: p, technology: t })),
+        projects
+      ),
+      grouped = groupBy(p => p.technology.name, pairs),
+      technologies = Object.keys(grouped).map(name => {
+        const pairs = grouped[name],
+          projectsWhereTechWasUsed = pairs.map(g => g.project),
+          minMonth = projectsWhereTechWasUsed.reduce(
+            (prev, current) =>
+              minBy(Month.totalMonths, prev, current.period.from),
+            Month.maxValue
+          ),
+          maxMonth = projectsWhereTechWasUsed.reduce(
+            (prev, current) =>
+              maxBy(Month.totalMonths, prev, current.period.to || todaysMonth),
+            Month.minValue
+          );
 
-      return {
-        name: name,
-        monthStart: minMonth,
-        monthEnd: maxMonth,
-        experienceNet:
-          projectsWhereTechWasUsed
-            .map(p => Month.diff(p.period.from, p.period.to || todaysMonth))
-            .reduce((prev, current) => prev + current, 0) / 12,
-        experienceGross: Month.diff(minMonth, maxMonth) / 12,
-        projects: projectsWhereTechWasUsed,
-        jobs: values(
-          groupBy(
-            jt => jt.job.company,
-            innerJoin(
-              (jt, p) => jt.title.period.overlaps(p.period),
-              jobsAndTitles,
-              projectsWhereTechWasUsed
+        return {
+          name: name,
+          monthStart: minMonth,
+          monthEnd: maxMonth,
+          experienceNet:
+            projectsWhereTechWasUsed
+              .map(p => Month.diff(p.period.from, p.period.to || todaysMonth))
+              .reduce(add, 0) / 12,
+          experienceGross: Month.diff(minMonth, maxMonth) / 12,
+          projects: projectsWhereTechWasUsed,
+          jobs: values(
+            groupBy(
+              jt => jt.job.company,
+              innerJoin(
+                (jt, p) => jt.title.period.overlaps(p.period),
+                jobsAndTitles,
+                projectsWhereTechWasUsed
+              )
             )
-          )
-        ).map(g => ({ company: g[0].job.company, title: g[0].title.title }))
-      };
-    });
+          ).map(g => ({ company: g[0].job.company, title: g[0].title.title }))
+        };
+      });
 
-    return technologies.sort((a, b) =>
-      a.name === b.name ? 0 : a.name > b.name ? -1 : 1
-    );
+    return technologies;
   }
   private getProjects() {
     return this.source.projects.map(s => {
-      const period = new Period(
-        Month.parse(s.period.from),
-        s.period.to ? Month.parse(s.period.to) : undefined
-      );
+      const period = parse(s.period);
       return {
         period: period,
         title: <string>s.title,
@@ -136,10 +127,14 @@ export default class Me {
         j.period.to ? Month.parse(j.period.to) : undefined,
         sort(descend(<any>propOr("", "from")), j.titles)
       )[1],
-      period: new Period(
-        Month.parse(j.period.from),
-        j.period.to ? Month.parse(j.period.to) : undefined
-      )
+      period: parse(j.period)
     }));
   }
+}
+
+function parse(src: { from: string; to?: string }) {
+  return new Period(
+    Month.parse(src.from),
+    src.to ? Month.parse(src.to) : undefined
+  );
 }
