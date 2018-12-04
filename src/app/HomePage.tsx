@@ -1,11 +1,44 @@
 import React from "react";
+import { technologyRoute } from "../Routes";
+import Link from "../common/Link";
+import { link } from "../css";
 
 export default function HomePage() {
   return (
-    <div className="f1 tc">
-      Awesome, you made it here. This is the default screen, and I'm not yet
-      sure what to put here. So use the navigation at the top left to get some
-      useful information about me.
+    <div className="f2 tc">
+      <p>
+        Hi, I'm Christian. I'm a developer who likes frontend and backend. I'm
+        really good at{" "}
+        <Link className={link} href={technologyRoute.hashFromName("c#")}>
+          c#
+        </Link>
+        ,{" "}
+        <Link
+          className={link}
+          href={technologyRoute.hashFromName("JavaScript")}
+        >
+          JavaScript
+        </Link>
+        ,{" "}
+        <Link
+          className={link}
+          href={technologyRoute.hashFromName("TypeScript")}
+        >
+          TypeScript
+        </Link>{" "}
+        and{" "}
+        <Link className={link} href={technologyRoute.hashFromName("T-SQL")}>
+          SQL
+        </Link>
+        .
+      </p>
+      <p>
+        When I was confronted with the tedious task of updating my resume yet
+        another time I decided that, instead of using my doubtful prose writing
+        skills, I'd better write down all my experience in a more structured way
+        and make it available in a website which itself showcases how I do
+        things.
+      </p>
     </div>
   );
 }
