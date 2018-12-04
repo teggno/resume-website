@@ -4,7 +4,7 @@ export default function Link(props: {
   href: string;
   scrollToTop?: boolean;
   children: any;
-  className: string;
+  className?: string;
 }) {
   return (
     <a
