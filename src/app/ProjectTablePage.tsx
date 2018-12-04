@@ -19,7 +19,7 @@ import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
 import ProjectColorContext from "./ProjectColorContext";
 
-export default function ProjectTableView({ me }: { me: Me }) {
+export default function ProjectTablePage({ me }: { me: Me }) {
   const now = new Date(),
     projects = me
       .projects()

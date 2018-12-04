@@ -7,11 +7,11 @@ import { Technology } from "../Model";
 import { technologyRoute } from "../Routes";
 import TechnologyDetails from "./TechnologyDetails";
 
-export default function TechnologiesView({
+export default function TechnologiesPage({
   technologies,
   selectedTechnologyTitle
-}: TechnologiesViewProps) {
-  console.debug("TechnologiesView render");
+}: TechnologiesPageProps) {
+  console.debug("TechnologiesPage render");
   const selectedTechnology = technologies.filter(
     t => t.name === selectedTechnologyTitle
   )[0];
@@ -35,7 +35,7 @@ function List({ technologys }: { technologys: Technology[] }) {
   );
 }
 
-interface TechnologiesViewProps {
+interface TechnologiesPageProps {
   technologies: Technology[];
   selectedTechnologyTitle?: string;
 }

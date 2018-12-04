@@ -13,7 +13,7 @@ import {
   ManWithCompanyIcon
 } from "../common/icons/Icons";
 
-export default function TimelineView({ me }: { me: Me }) {
+export default function TimelinePage({ me }: { me: Me }) {
   const projects = me.projects().map(p => ({
       component: () => <ProjectComponent project={p} />,
       from: p.period.from,

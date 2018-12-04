@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function() {
+export default function HomePage() {
   return (
     <div className="f1 tc">
       Awesome, you made it here. This is the default screen, and I'm not yet

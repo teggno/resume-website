@@ -1,13 +1,13 @@
+import { sortBy } from "ramda";
 import React from "react";
 import TimelineChart from "../common/TimelineChart";
 import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
-import { Job, Project, Technology } from "../Model";
-import ProjectCard from "./ProjectCard";
-import "./TechnologyDetails.css";
+import { Project, Technology } from "../Model";
 import Month from "../Month";
-import { sortBy } from "ramda";
+import ProjectCard from "./ProjectCard";
 import ProjectColorContext from "./ProjectColorContext";
+import "./TechnologyDetails.css";
 
 export default function TechnologyDetails({
   technology
@@ -46,13 +46,19 @@ export default function TechnologyDetails({
   );
 }
 
-function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
+function ProjectTimeline({
+  projects,
+  now
+}: {
+  projects: ProjectWithColor[];
+  now: Date;
+}) {
   return (
     <TimelineChart
-      events={props.projects.map((pc, i) => {
+      events={projects.map((pc, i) => {
         const { period, title } = pc.project,
           from = period.from.startTime(),
-          to = period.to ? period.to.endTime() : props.now;
+          to = period.to ? period.to.endTime() : now;
         return {
           from: from,
           to: to,
@@ -63,7 +69,7 @@ function ProjectTimeline(props: { projects: ProjectWithColor[]; now: Date }) {
           projectIndex: i
         };
       })}
-      to={props.now}
+      to={now}
       formatAxisLabel={date => Month.fromDate(date).nameYearShort()}
       onEventClicked={e => {
         const card = findableCard((e as any).projectIndex).find();

@@ -1,16 +1,16 @@
 import React from "react";
 import ProjectColorContext from "./app/ProjectColorContext";
-import ProjectsView from "./app/ProjectsView";
-import ProjectTableView from "./app/ProjectTableView";
-import TechnologiesView from "./app/TechnologiesView";
-import TimelineView from "./app/TimelineView";
+import ProjectsPage from "./app/ProjectsPage";
+import ProjectTablePage from "./app/ProjectTablePage";
+import TechnologiesPage from "./app/TechnologiesPage";
+import TimelinePage from "./app/TimelinePage";
 import colors from "./Colors";
 import HashAware from "./common/HashAware";
 import Link from "./common/Link";
 import { link, mainContainer } from "./css";
 import Me from "./Me";
 import { projectRoute, technologyRoute } from "./Routes";
-import HomeView from "./app/HomeView";
+import HomePAge from "./app/HomePage";
 
 export default function App({ me }: { me: Me }) {
   const keyed = colors(me.projects().length).keyed;
@@ -24,24 +24,24 @@ export default function App({ me }: { me: Me }) {
           {(hash: string) => {
             if (hash.indexOf("#projects") === 0) {
               return (
-                <ProjectsView
+                <ProjectsPage
                   projects={me.projects()}
                   selectedProjectTitle={projectRoute.nameFromHash(hash)}
                 />
               );
             } else if (hash.indexOf("#technologies") === 0) {
               return (
-                <TechnologiesView
+                <TechnologiesPage
                   technologies={me.technologies()}
                   selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
                 />
               );
             } else if (hash.indexOf("#timeline") === 0) {
-              return <TimelineView me={me} />;
+              return <TimelinePage me={me} />;
             } else if (hash.indexOf("#projecttable") === 0) {
-              return <ProjectTableView me={me} />;
+              return <ProjectTablePage me={me} />;
             } else {
-              return <HomeView />;
+              return <HomePAge />;
             }
           }}
         </HashAware>

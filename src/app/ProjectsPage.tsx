@@ -8,11 +8,11 @@ import Month from "../Month";
 import { projectRoute } from "../Routes";
 import ProjectDetails from "./ProjectDetails";
 
-export default function ProjectsView({
+export default function ProjectsPage({
   projects,
   selectedProjectTitle
-}: ProjectsViewProps) {
-  console.debug("ProjectsView render");
+}: ProjectsPageProps) {
+  console.debug("ProjectsPage render");
   const selectedProject = projects.filter(
     p => p.title === selectedProjectTitle
   )[0];
@@ -36,7 +36,7 @@ function List({ projects }: { projects: Project[] }) {
   );
 }
 
-interface ProjectsViewProps {
+interface ProjectsPageProps {
   projects: Project[];
   selectedProjectTitle?: string;
 }
