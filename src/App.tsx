@@ -10,6 +10,7 @@ import Link from "./common/Link";
 import { link, mainContainer } from "./css";
 import Me from "./Me";
 import { projectRoute, technologyRoute } from "./Routes";
+import HomeView from "./app/HomeView";
 
 export default function App({ me }: { me: Me }) {
   const keyed = colors(me.projects().length).keyed;
@@ -40,13 +41,7 @@ export default function App({ me }: { me: Me }) {
             } else if (hash.indexOf("#projecttable") === 0) {
               return <ProjectTableView me={me} />;
             } else {
-              return (
-                <div className="f1 tc">
-                  Awesome, you made it here. This is the default screen, and I'm
-                  not yet sure what to put here. So use the navigation at the
-                  top left to get some useful information about me.
-                </div>
-              );
+              return <HomeView />;
             }
           }}
         </HashAware>
