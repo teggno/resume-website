@@ -6,85 +6,125 @@ import TechnologiesPage from "./app/TechnologiesPage";
 import TimelinePage from "./app/TimelinePage";
 import colors from "./Colors";
 import HashAware from "./common/HashAware";
-import Link from "./common/Link";
-import { link, mainContainer } from "./css";
+import { mainContainer } from "./css";
 import Me from "./Me";
 import { projectRoute, technologyRoute } from "./Routes";
-import HomePAge from "./app/HomePage";
+import HomePage from "./app/HomePage";
+import { Technology, Project } from "./Model";
+import { min, lens, over, filter, map } from "ramda";
+import Navigation from "./app/Navigation";
 
-export default function App({ me }: { me: Me }) {
-  const keyed = colors(me.projects().length).keyed;
-  return (
-    <div className={mainContainer}>
-      <ProjectColorContext.Provider
-        value={(title: string) => keyed(title) || "cyan"}
-      >
-        <Navigation />
-        <HashAware>
-          {(hash: string) => {
-            if (hash.indexOf("#projects") === 0) {
-              return (
-                <ProjectsPage
-                  projects={me.projects()}
-                  selectedProjectTitle={projectRoute.nameFromHash(hash)}
-                />
-              );
-            } else if (hash.indexOf("#technologies") === 0) {
-              return (
-                <TechnologiesPage
-                  technologies={me.technologies()}
-                  selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
-                />
-              );
-            } else if (hash.indexOf("#timeline") === 0) {
-              return <TimelinePage me={me} />;
-            } else if (hash.indexOf("#projecttable") === 0) {
-              return <ProjectTablePage me={me} />;
-            } else {
-              return <HomePAge />;
-            }
-          }}
-        </HashAware>
-      </ProjectColorContext.Provider>
-    </div>
-  );
+export default class App extends React.Component<
+  AppProps,
+  { selectedTechnologies: Technology[]; yearFrom: number }
+> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.technologies = props.me.technologies();
+
+    this.state = {
+      selectedTechnologies: this.technologies,
+      yearFrom: this.technologies.reduce(
+        (prev, current) => min(prev, current.monthStart.year),
+        Number.MAX_VALUE
+      )
+    };
+
+    this.handleFiltersChage = this.handleFiltersChage.bind(this);
+  }
+
+  private technologies: Technology[];
+
+  render() {
+    return (
+      <div className={mainContainer}>
+        <ProjectColorContext.Provider
+          value={(title: string) => this.colorForProject(title) || "cyan"}
+        >
+          <Navigation />
+          <HashAware>
+            {(hash: string) => {
+              if (hash.indexOf("#projects") === 0) {
+                return (
+                  <ProjectsPage
+                    projects={this.projects()}
+                    selectedProjectTitle={projectRoute.nameFromHash(hash)}
+                  />
+                );
+              } else if (hash.indexOf("#technologies") === 0) {
+                return (
+                  <TechnologiesPage
+                    technologies={this.state.selectedTechnologies}
+                    selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
+                  />
+                );
+              } else if (hash.indexOf("#timeline") === 0) {
+                return (
+                  <TimelinePage
+                    projects={this.projects()}
+                    technologies={this.state.selectedTechnologies}
+                    certificates={this.props.me.certificates()}
+                    jobs={this.props.me.jobs()}
+                  />
+                );
+              } else if (hash.indexOf("#projecttable") === 0) {
+                return <ProjectTablePage projects={this.projects()} />;
+              } else {
+                return (
+                  <HomePage
+                    technologies={this.technologies}
+                    selectedTechnologies={this.state.selectedTechnologies}
+                    onFiltersChange={this.handleFiltersChage}
+                    yearFrom={this.state.yearFrom}
+                  />
+                );
+              }
+            }}
+          </HashAware>
+        </ProjectColorContext.Provider>
+      </div>
+    );
+  }
+
+  private handleFiltersChage(technologies: Technology[], yearFrom: number) {
+    this.setState({
+      selectedTechnologies: technologies,
+      yearFrom: yearFrom
+    });
+  }
+
+  private colorForProject = colors(this.props.me.projects().length).keyed;
+
+  private projects() {
+    const techLens = lens(
+        t => t.technologies,
+        (t: ProjectTech[], p: { technologies: ProjectTech[] }) => {
+          p.technologies = t;
+          return p;
+        }
+      ),
+      filterTechs = filter((t: ProjectTech) =>
+        this.state.selectedTechnologies.some(tt => tt.name === t.name)
+      ),
+      overTechs = over(techLens, filterTechs),
+      onlyWithSelectedTechs = (map(overTechs) as any) as (
+        projects: Project[]
+      ) => Project[];
+
+    return onlyWithSelectedTechs(this.props.me.projects()).filter(
+      p =>
+        (p.period.to ? p.period.to.year : new Date().getFullYear()) >=
+          this.state.yearFrom && !!p.technologies.length
+    );
+  }
 }
 
-function Navigation() {
-  return (
-    <div>
-      <nav className="fixed bg-white w-100 z-999 top-0">
-        <ul className="list ph0 ma0">
-          <NavLinkItem href="#projects" text="Projects" />
-          {"\n"}
-          <NavLinkItem href="#technologies" text="Technologies" />
-          {"\n"}
-          <NavLinkItem href="#timeline" text="Timeline" />
-          {"\n"}
-          <NavLinkItem href="#projecttable" text="Project Table" />
-        </ul>
-      </nav>
-      <div className="pv2">&nbsp;</div>
-    </div>
-  );
+interface AppProps {
+  me: Me;
 }
 
-function NavLink({ href, text }: { href: string; text: string }) {
-  return (
-    <Link className={link} href={href} scrollToTop={true}>
-      {text}
-    </Link>
-  );
-}
-
-function NavItem({ children }: any) {
-  return <li className="dib pa2">{children}</li>;
-}
-
-function NavLinkItem({ href, text }: { href: string; text: string }) {
-  return (
-    <NavItem>
-      <NavLink href={href} text={text} />
-    </NavItem>
-  );
+interface ProjectTech {
+  name: string;
+  tasks?: string[];
 }

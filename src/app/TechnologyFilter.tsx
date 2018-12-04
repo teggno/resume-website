@@ -1,39 +1,29 @@
 import React from "react";
 import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
+import { Technology } from "../Model";
 
-export interface TechnologyFilterProps<T> extends CheckboxListProps<T>{
-  isAllNoneButtonAll: boolean
-}
-
-export default class TechnologyFilter<
-  T extends { name: string }
-> extends React.Component<TechnologyFilterProps<T>, { all: boolean }> {
-  constructor(props: TechnologyFilterProps<T>) {
-    super(props);
-
-    this.state = {
-      all: props.isAllNoneButtonAll
-    };
-  }
-
-  render() {
-    return (
-      <fieldset>
-        <legend>Technologies</legend>
-        <button type="button" onClick={this.allNoneClicked.bind(this)}>
-          {this.state.all ? "All" : "None"}
+export default function TechnologyFilter(props: CheckboxListProps<Technology>) {
+  return (
+    <fieldset>
+      <legend>Technologies</legend>
+      <div>
+        <button type="button" onClick={allNoneClicked}>
+          {lessThanHalfChecked() ? "All" : "None"}
         </button>
-        <CheckboxList
-          allItems={this.props.allItems}
-          selectedItems={this.props.selectedItems}
-          selectionChanged={this.props.selectionChanged}
-        />
-      </fieldset>
-    );
+      </div>
+      <CheckboxList
+        allItems={props.allItems}
+        selectedItems={props.selectedItems}
+        selectionChanged={props.selectionChanged}
+      />
+    </fieldset>
+  );
+
+  function allNoneClicked() {
+    props.selectionChanged(lessThanHalfChecked() ? props.allItems : []);
   }
 
-  allNoneClicked() {
-    this.setState({ all: !this.state.all });
-    this.props.selectionChanged(this.state.all ? this.props.allItems : []);
+  function lessThanHalfChecked() {
+    return props.selectedItems.length * 2 < props.allItems.length;
   }
 }

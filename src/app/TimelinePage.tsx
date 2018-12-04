@@ -1,6 +1,5 @@
 import React from "react";
 import TimelineList from "../common/TimelineList";
-import Me from "../Me";
 import { chain, descend } from "ramda";
 import { cardTitle, cardContent, link } from "../css";
 import Month from "../Month";
@@ -12,27 +11,33 @@ import {
   PuzzleIcon,
   ManWithCompanyIcon
 } from "../common/icons/Icons";
+import { Project, Technology, Job, Certificate } from "../Model";
 
-export default function TimelinePage({ me }: { me: Me }) {
-  const projects = me.projects().map(p => ({
+export default function TimelinePage(props: {
+  projects: Project[];
+  technologies: Technology[];
+  jobs: Job[];
+  certificates: Certificate[];
+}) {
+  const projects = props.projects.map(p => ({
       component: () => <ProjectComponent project={p} />,
       from: p.period.from,
       key: p.title
     })),
-    technologies = me.technologies().map(t => ({
+    technologies = props.technologies.map(t => ({
       component: () => <TechnologyComponent technology={t} />,
       from: t.monthStart,
       key: t.name
     })),
     jobTitles = chain(
       j => j.titles.map(t => ({ title: t, job: j })),
-      me.jobs()
+      props.jobs
     ).map(t => ({
       component: () => <JobTitleComponent jobTitle={t} />,
       from: t.title.period.from,
       key: t.title.period.from.totalMonths().toString() + t.title.title
     })),
-    certificates = me.certificates().map(c => ({
+    certificates = props.certificates.map(c => ({
       component: () => <CertificateComponent {...c} />,
       from: Month.parse(c.date.substr(0, 7)),
       key: `Certificate${c.name}`

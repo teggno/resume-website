@@ -1,5 +1,4 @@
 import React from "react";
-import Me from "../Me";
 import TimelineChart from "../common/TimelineChart";
 import Sparkline from "../common/Sparkline";
 import Month from "../Month";
@@ -19,18 +18,18 @@ import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
 import ProjectColorContext from "./ProjectColorContext";
 
-export default function ProjectTablePage({ me }: { me: Me }) {
+export default function ProjectTablePage({
+  projects
+}: {
+  projects: Project[];
+}) {
   const now = new Date(),
-    projects = me
-      .projects()
-      .sort(
-        (a, b) => a.period.from.totalMonths() - b.period.from.totalMonths()
-      );
+    projectsSorted = sortBy(p => p.period.from.totalMonths(), projects);
   return (
     <div>
-      <ProjectTimelineChart projectsSorted={projects} now={now} />
-      <ProjectGanttTable projectsSorted={projects} now={now} />
-      <TermList projects={projects} />
+      <ProjectTimelineChart projectsSorted={projectsSorted} now={now} />
+      <ProjectGanttTable projectsSorted={projectsSorted} now={now} />
+      <TermList projects={projectsSorted} />
     </div>
   );
 }

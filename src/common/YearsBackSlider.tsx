@@ -12,17 +12,18 @@ export default function YearsBackSlider(props: {
   const yearDiff = props.yearTo - props.yearFrom;
   return (
     <>
-      <span>today</span>
+      <span>this year</span>
       <input
         type="range"
         min={0}
         max={yearDiff}
+        value={props.yearTo - props.year}
         onInput={e => {
           if (props.onDragging)
             props.onDragging(props.yearTo - parseInt(e.currentTarget.value));
         }}
       />
-      <span>{yearDiff} years back</span>
+      <span>up to {yearDiff} years back</span>
     </>
   );
 }

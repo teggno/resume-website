@@ -1,4 +1,4 @@
-import { sortBy } from "ramda";
+import { sortBy, min } from "ramda";
 import React from "react";
 import YearsBackSlider from "../common/YearsBackSlider";
 import { Technology } from "../Model";
@@ -6,24 +6,29 @@ import TechnologyFilter from "./TechnologyFilter";
 
 const todaysYear = new Date().getFullYear();
 
-export default class TechnologyFilters extends React.Component<TechnologyFiltersProps, TechnologyFiltersState> {
+export default class TechnologyFilters extends React.Component<
+  TechnologyFiltersProps
+> {
   constructor(props: TechnologyFiltersProps) {
     super(props);
-    this.state = {
-      selectedTechnologies: props.technologies,
-      yearFrom: getWorkYears(props.technologies).min
-    };
+
+    this.periodSliderChanged = this.periodSliderChanged.bind(this);
+    this.techSelectionChanged = this.techSelectionChanged.bind(this);
   }
 
   render() {
     return (
       <div>
         <div style={{ padding: "30px" }}>
+          <div>consider work from</div>
           <YearsBackSlider
-            yearFrom={getWorkYears(this.props.technologies).min}
+            yearFrom={this.props.technologies.reduce(
+              (p, c) => min(p, c.monthStart.year),
+              Number.MAX_VALUE
+            )}
             yearTo={todaysYear}
-            year={this.state.yearFrom}
-            onDragging={this.periodSliderChanged.bind(this)}
+            year={this.props.yearFrom}
+            onDragging={this.periodSliderChanged}
           />
         </div>
         <TechnologyFilter
@@ -32,47 +37,37 @@ export default class TechnologyFilters extends React.Component<TechnologyFilters
             this.filterTechnologiesByYear(this.props.technologies)
           )}
           selectedItems={this.filterTechnologiesByYear(
-            this.state.selectedTechnologies
+            this.props.selectedTechnologies
           )}
-          selectionChanged={this.techSelectionChanged.bind(this)}
-          isAllNoneButtonAll={false}
+          selectionChanged={this.techSelectionChanged}
         />
       </div>
     );
   }
+
   private techSelectionChanged(newSelection: Technology[]) {
-    this.setState({
-      selectedTechnologies: newSelection
-    });
+    if (this.props.onChange) {
+      this.props.onChange(newSelection, this.props.yearFrom);
+    }
   }
 
   private periodSliderChanged(year: number) {
-    this.setState({
-      yearFrom: year
-    });
+    if (this.props.onChange) {
+      this.props.onChange(
+        this.filterTechnologiesByYear(this.props.technologies),
+        year
+      );
+    }
   }
+
   private filterTechnologiesByYear(technologies: Technology[]) {
-    return technologies.filter(t => t.monthEnd.year >= this.state.yearFrom);
+    return technologies.filter(t => t.monthEnd.year >= this.props.yearFrom);
   }
 }
 
-function getWorkYears(technologies: Technology[]) {
-  return technologies.reduce(
-    (prev, current) => {
-      return {
-        min: prev.min < current.monthStart.year ? prev.min : current.monthStart.year,
-        max: prev.max > current.monthEnd.year ? prev.max : current.monthEnd.year
-      };
-    },
-    { min: Number.MAX_VALUE, max: Number.MIN_VALUE }
-  );
-}
-
-interface TechnologyFiltersProps{
-  technologies: Technology[]
-}
-
-interface TechnologyFiltersState {
-  yearFrom: number;
+interface TechnologyFiltersProps {
+  technologies: Technology[];
+  onChange?: (technologies: Technology[], yearFrom: number) => void;
   selectedTechnologies: Technology[];
+  yearFrom: number;
 }

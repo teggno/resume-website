@@ -23,14 +23,26 @@ export interface Project {
 export interface Technology {
   name: string;
   projects: Project[];
-  jobs: Job[];
+  jobs: {
+    company: string;
+    title: string;
+  }[];
   experienceNet: number;
   experienceGross: number;
   monthStart: Month;
   monthEnd: Month;
 }
 
-export interface Job {
+export interface Job{
   company: string;
-  title: string;
+  titles: {
+    title: string;
+    period: Period;
+  }[],
+  period: Period;
+}
+
+export interface Certificate {
+  name: string;
+  date: string;
 }

@@ -1,7 +1,18 @@
-import * as R from "ramda";
 import Month from "./Month";
 import Period from "./Period";
 import MeJson from "./MeJson";
+import {
+  flatten,
+  groupBy,
+  minBy,
+  maxBy,
+  values,
+  innerJoin,
+  mapAccum,
+  descend,
+  sort,
+  propOr
+} from "ramda";
 
 const now = new Date();
 const todaysMonth = new Month(now.getFullYear(), now.getMonth() + 1);
@@ -24,15 +35,15 @@ export default class Me {
   technologies() {
     const projects = this.getProjects();
     const jobs = this.getJobs();
-    const jobsAndTitles = R.flatten(
+    const jobsAndTitles = flatten(
       jobs.map(j => j.titles.map(t => ({ job: j, title: t })))
     );
-    const pairs = R.flatten(
+    const pairs = flatten(
       projects.map(p =>
         p.technologies.map(t => ({ project: p, technology: t }))
       )
     );
-    const grouped = R.groupBy(p => p.technology.name, pairs);
+    const grouped = groupBy(p => p.technology.name, pairs);
     const technologies = Object.keys(grouped).map(name => {
       const pairs = grouped[name];
       const projectsWhereTechWasUsed = pairs.map(g => g.project);
@@ -40,14 +51,14 @@ export default class Me {
         .map(p => p.period.from)
         .reduce(
           (prev, current) =>
-            prev === null ? current : R.minBy(Month.totalMonths, prev, current),
+            prev === null ? current : minBy(Month.totalMonths, prev, current),
           Month.maxValue
         );
       const maxMonth = projectsWhereTechWasUsed
         .map(p => p.period.to || todaysMonth)
         .reduce(
           (prev, current) =>
-            prev === null ? current : R.maxBy(Month.totalMonths, prev, current),
+            prev === null ? current : maxBy(Month.totalMonths, prev, current),
           Month.minValue
         );
 
@@ -61,10 +72,10 @@ export default class Me {
             .reduce((prev, current) => prev + current, 0) / 12,
         experienceGross: Month.diff(minMonth, maxMonth) / 12,
         projects: projectsWhereTechWasUsed,
-        jobs: R.values(
-          R.groupBy(
+        jobs: values(
+          groupBy(
             jt => jt.job.company,
-            R.innerJoin(
+            innerJoin(
               (jt, p) => jt.title.period.overlaps(p.period),
               jobsAndTitles,
               projectsWhereTechWasUsed
@@ -111,7 +122,7 @@ export default class Me {
   private getJobs() {
     return this.source.jobs.map(j => ({
       company: <string>j.company,
-      titles: R.mapAccum(
+      titles: mapAccum(
         (to, titleItem) => [
           Month.parse(titleItem.from ? titleItem.from : j.period.from).add(-1),
           {
@@ -123,7 +134,7 @@ export default class Me {
           }
         ],
         j.period.to ? Month.parse(j.period.to) : undefined,
-        R.sort(R.descend(<any>R.propOr("", "from")), j.titles)
+        sort(descend(<any>propOr("", "from")), j.titles)
       )[1],
       period: new Period(
         Month.parse(j.period.from),
