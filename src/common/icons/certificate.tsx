@@ -6,9 +6,9 @@ const certificateIcon = (
   <svg
     version="1.1"
     viewBox="0 0 241.933 241.933"
-    preserveAspectRatio="true"
     width="100%"
     height="100%"
+    preserveAspectRatio="xMidYMid meet"
   >
     <g>
       <path

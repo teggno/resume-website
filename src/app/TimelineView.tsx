@@ -134,9 +134,9 @@ function TimelineCard({
 
 function IconHeader({ title, children }: { title: string; children: any }) {
   return (
-    <div>
-      <div className="h1 h2-ns dib ph1 ph2-ns v-mid">{children}</div>
-      {title}
+    <div className="tc">
+      <div className="h1 h2-ns w1 w2-ns dib v-mid">{children}</div>
+      <div className="ph1 ph2-ns dib v-mid">{title}</div>
     </div>
   );
 }

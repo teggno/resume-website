@@ -8,7 +8,7 @@ const manWithCompanyIcon = (
     width="100%"
     height="100%"
     viewBox="0 0 572.426 572.426"
-    preserveAspectRatio="true"
+    preserveAspectRatio="xMidYMid meet"
   >
     <g>
       <g>

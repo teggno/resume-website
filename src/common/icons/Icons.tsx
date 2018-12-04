@@ -15,7 +15,7 @@ export function ArrowDown(props: IconProps) {
       viewBox={`${
         props.addPaddingLeft ? 0 : 10
       } 0 40 40`}
-      preserveAspectRatio="true"
+      preserveAspectRatio="xMidYMid meet"
       className={icon}
     >
       {/* Created with Method Draw - http://github.com/duopixel/Method-Draw/  */}
@@ -41,7 +41,7 @@ export function ArrowUp(props: IconProps) {
       viewBox={`${
         props.addPaddingLeft ? 0 : 10
       } 0 40 40`}
-      preserveAspectRatio="true"
+      preserveAspectRatio="xMidYMid meet"
       className={icon}
     >
       {/* Created with Method Draw - http://github.com/duopixel/Method-Draw/  */}
