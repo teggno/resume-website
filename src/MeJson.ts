@@ -4,6 +4,7 @@ export default interface MeJson {
   jobs: Job[];
   projects: Project[];
   certificates?: Certificate[];
+  technologyGroups?: TechnologyGroup[];
 }
 
 interface Job {
@@ -37,4 +38,9 @@ interface Period {
 interface Certificate {
   date: string;
   name: string;
+}
+
+interface TechnologyGroup {
+  groupName: string;
+  technologies: string[];
 }

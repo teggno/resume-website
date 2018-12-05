@@ -110,6 +110,46 @@
         }
       }
     },
+    "technologyGroups": {
+      "$id": "#/properties/technologyGroups",
+      "type": "array",
+      "title": "Technologies",
+      "items": {
+        "$id": "#/properties/technologyGroups/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "groupName",
+          "technologies"
+        ],
+        "properties": {
+          "groupName": {
+            "$id": "#/properties/technologyGroups/items/properties/groupName",
+            "type": "string",
+            "title": "Name of the group",
+            "default": "",
+            "examples": ["Frontend"],
+            "pattern": "^(.*)$"
+          },
+          "technologies": {
+            "$id": "#/properties/technologyGroups/items/properties/technologies",
+            "type": "array",
+            "title": "Technologies",
+            "items": {
+              "$id": "#/properties/technologyGroups/items/properties/technologies/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "c#",
+                "JavaScript"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        }
+      }
+    },
     "projects": {
       "$id": "#/properties/projects",
       "type": "array",

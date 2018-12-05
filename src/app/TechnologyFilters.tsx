@@ -1,7 +1,7 @@
 import { sortBy, min } from "ramda";
 import React from "react";
 import YearsBackSlider from "../common/YearsBackSlider";
-import { Technology } from "../Model";
+import { Technology, TechnologyGroup } from "../Model";
 import TechnologyFilter from "./TechnologyFilter";
 
 const todaysYear = new Date().getFullYear();
@@ -40,6 +40,7 @@ export default class TechnologyFilters extends React.Component<
             this.props.selectedTechnologies
           )}
           onChange={this.techSelectionChanged}
+          technologyGroups={this.props.technologyGroups}
         />
       </div>
     );
@@ -70,4 +71,5 @@ interface TechnologyFiltersProps {
   onChange?: (technologies: Technology[], yearFrom: number) => void;
   selectedTechnologies: Technology[];
   yearFrom: number;
+  technologyGroups?: TechnologyGroup[];
 }

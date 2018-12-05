@@ -77,6 +77,7 @@ export default class App extends React.Component<
                     selectedTechnologies={this.state.selectedTechnologies}
                     onFiltersChange={this.handleFiltersChage}
                     yearFrom={this.state.yearFrom}
+                    technologyGroups={this.props.me.technologyGroups()}
                   />
                 );
               }

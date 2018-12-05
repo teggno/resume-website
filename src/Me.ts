@@ -32,6 +32,10 @@ export default class Me {
     return this.source.certificates || [];
   }
 
+  technologyGroups() {
+    return this.source.technologyGroups || [];
+  }
+
   technologies() {
     const projects = this.getProjects(),
       jobs = this.getJobs(),

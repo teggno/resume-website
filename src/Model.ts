@@ -46,3 +46,8 @@ export interface Certificate {
   name: string;
   date: string;
 }
+
+export interface TechnologyGroup {
+  groupName: string;
+  technologies: string[];
+}

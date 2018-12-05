@@ -1,26 +1,17 @@
 import React from "react";
 import TechnologyFilters from "./TechnologyFilters";
-import { Technology } from "../Model";
+import { Technology, TechnologyGroup } from "../Model";
 
-export default function HomePage({
-  technologies,
-  onFiltersChange,
-  selectedTechnologies,
-  yearFrom
-}: {
+export default function HomePage(props: {
   technologies: Technology[];
   onFiltersChange?: (technologies: Technology[], yearFrom: number) => void;
   selectedTechnologies: Technology[];
   yearFrom: number;
+  technologyGroups?: TechnologyGroup[];
 }) {
   return (
     <div>
-      <TechnologyFilters
-        technologies={technologies}
-        onChange={onFiltersChange}
-        selectedTechnologies={selectedTechnologies}
-        yearFrom={yearFrom}
-      />
+      <TechnologyFilters onChange={props.onFiltersChange} {...props} />
     </div>
   );
 }
