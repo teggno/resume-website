@@ -54,14 +54,14 @@ export default class TechnologyFilters extends React.Component<
   private periodSliderChanged(year: number) {
     if (this.props.onChange) {
       this.props.onChange(
-        this.filterTechnologiesByYear(this.props.technologies),
+        this.filterTechnologiesByYear(this.props.technologies, year),
         year
       );
     }
   }
 
-  private filterTechnologiesByYear(technologies: Technology[]) {
-    return technologies.filter(t => t.monthEnd.year >= this.props.yearFrom);
+  private filterTechnologiesByYear(technologies: Technology[], year?: number) {
+    return technologies.filter(t => t.monthEnd.year >= (year || this.props.yearFrom));
   }
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
 import { Technology } from "../Model";
-import { deemphasizedButton, list } from "../css";
+import { deemphasizedButton } from "../css";
 import { filter, union } from "ramda";
 import AllNone from "../common/AllNone";
 
