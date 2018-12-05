@@ -39,7 +39,7 @@ export default class TechnologyFilters extends React.Component<
           selectedItems={this.filterTechnologiesByYear(
             this.props.selectedTechnologies
           )}
-          selectionChanged={this.techSelectionChanged}
+          onChange={this.techSelectionChanged}
         />
       </div>
     );
