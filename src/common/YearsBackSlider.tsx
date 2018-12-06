@@ -11,22 +11,33 @@ export default function YearsBackSlider(props: {
 }) {
   const yearDiff = props.yearTo - props.yearFrom;
   return (
-    <>
-      <div className="dib v-mid">this year</div>
-      {"\n"}
+    <div className="flex mw7-l">
+      <div className="v-mid">this year</div>
       <input
         type="range"
         min={0}
         max={yearDiff}
         value={props.yearTo - props.year}
-        onInput={e => {
-          if (props.onDragging)
-            props.onDragging(props.yearTo - parseInt(e.currentTarget.value));
-        }}
-        className="dib v-mid w5-ns"
+        onInput={onChange}
+        className="v-mid ph2"
+        style={{ flex: 1 }}
       />
-      {"\n"}
-      <div className="dib v-mid">up to {yearDiff} years back</div>
-    </>
+      <input
+        className="w2 mr2 tr"
+        value={props.yearTo - props.year}
+        onChange={onChange}
+        type="number"
+        max={yearDiff}
+      />
+      <div className="v-mid"> years back</div>
+    </div>
   );
+
+  function calcYear(value: string) {
+    return props.yearTo - parseInt(value);
+  }
+
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (props.onDragging) props.onDragging(calcYear(e.currentTarget.value));
+  }
 }

@@ -26,9 +26,15 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
             <div className="ph2">
               <button
                 onClick={handleToggleClick}
-                className={deemphasizedButton + " w4"}
+                className={deemphasizedButton + " w5"}
               >
-                {moreThanHalf ? "Select none" : "Select all"}
+                {moreThanHalf
+                  ? `Select none (${props.selectedItems.length}/${
+                      props.allItems.length
+                    })`
+                  : `Select all (${props.selectedItems.length}/${
+                      props.allItems.length
+                    })`}
               </button>
             </div>
 
@@ -81,7 +87,9 @@ function Grouped(
                   className={deemphasizedButton + " w-100 dib"}
                   onClick={handleToggleClick}
                 >
-                  {g.groupName}
+                  {`${g.groupName} (${p.selectedItems.length}/${
+                    p.allItems.length
+                  })`}
                 </button>
                 <CheckboxList {...p} />
               </div>
