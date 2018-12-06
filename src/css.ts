@@ -31,7 +31,7 @@ export const dl = "ma0";
 export const dt = "fw6 mt2";
 export const dd = "ml0 pv2";
 
-const button = "f6 link dim br1 ph3 pv2 mb2 dib tc";
+const button = "f6 link dim br1 ph3 pv2 dib tc";
 export const normalButton = `${button} ${blueBackground} white`;
 export const clickedButton = `${button} ${lightBlueBackground} white`;
 export const deemphasizedButton = `${button} ba ${fontColor}`;
@@ -53,6 +53,7 @@ export const sparklineContainer = `w-30 dib relative h1 v-btm`;
 export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBackground}`;
 
 export const grid2 = `grid2-l ${list}`;
+export const grid4 = `grid4-l grid2-m ${list}`;
 export const gridItem = "pa2 mw6";
 export const gridCard = `h-100 ${card}`
 

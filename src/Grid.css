@@ -9,4 +9,18 @@
     display: grid;
     grid-template-columns: 50% 50%;
   }
+  /* Grid with 4 columns */
+  .grid4-l {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
+
+/* NOTE: the query below is the same as tachyons' -m module's */
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  /* Grid with 2 columns */
+  .grid2-m {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
 }

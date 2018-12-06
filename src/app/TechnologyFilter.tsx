@@ -1,7 +1,7 @@
 import React from "react";
 import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
 import { Technology, TechnologyGroup } from "../Model";
-import { deemphasizedButton } from "../css";
+import { deemphasizedButton, grid4 } from "../css";
 import { filter, union } from "ramda";
 import AllNone from "../common/AllNone";
 
@@ -19,31 +19,30 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
       : groups;
   }
   return (
-    <fieldset className="bn">
-      <legend className="fw7 mb2">Technologies</legend>
-      <AllNone {...props}>
-        {(handleToggleClick, moreThanHalf) => {
-          return (
-            <>
-              <div>
-                <button
-                  onClick={handleToggleClick}
-                  className={deemphasizedButton + " w3"}
-                >
-                  {moreThanHalf ? "None" : "All"}
-                </button>
-              </div>
+    <AllNone {...props}>
+      {(handleToggleClick, moreThanHalf) => {
+        return (
+          <>
+            <div className="ph2">
+              <button
+                onClick={handleToggleClick}
+                className={deemphasizedButton + " w4"}
+              >
+                {moreThanHalf ? "Select none" : "Select all"}
+              </button>
+            </div>
 
+            <div className={grid4}>
               {allGroups ? (
-                grouped(allGroups, props)
+                <Grouped {...props} allGroups={allGroups} />
               ) : (
-                <CheckboxList {...props} />
+                <Ungrouped {...props} />
               )}
-            </>
-          );
-        }}
-      </AllNone>
-    </fieldset>
+            </div>
+          </>
+        );
+      }}
+    </AllNone>
   );
 }
 
@@ -51,34 +50,47 @@ interface TechnologyFilterProps extends CheckboxListProps<Technology> {
   technologyGroups?: TechnologyGroup[];
 }
 
-function grouped(allGroups: TechnologyGroup[], props: TechnologyFilterProps) {
-  return allGroups.map(g => {
-    const techsOfGroup = filter<Technology>(i =>
-        g.technologies.some(ii => ii === i.name)
-      ),
-      techsNotInGroup = filter<Technology>(
-        i => !g.technologies.some(ii => ii === i.name)
-      ),
-      p = {
-        allItems: techsOfGroup(props.allItems),
-        selectedItems: techsOfGroup(props.selectedItems),
-        onChange: (newSelection: Technology[]) => {
-          newSelection = union(
-            techsNotInGroup(props.selectedItems),
-            newSelection
-          );
-          props.onChange(newSelection);
-        }
-      };
-    return (
-      <AllNone key={g.groupName} {...p}>
-        {handleToggleClick => (
-          <>
-            <button onClick={handleToggleClick}>{g.groupName}</button>
-            <CheckboxList {...p} />
-          </>
-        )}
-      </AllNone>
-    );
-  });
+function Grouped(
+  props: { allGroups: TechnologyGroup[] } & TechnologyFilterProps
+) {
+  return (
+    <>
+      {props.allGroups.map(g => {
+        const techsOfGroup = filter<Technology>(i =>
+            g.technologies.some(ii => ii === i.name)
+          ),
+          techsNotInGroup = filter<Technology>(
+            i => !g.technologies.some(ii => ii === i.name)
+          ),
+          p = {
+            allItems: techsOfGroup(props.allItems),
+            selectedItems: techsOfGroup(props.selectedItems),
+            onChange: (newSelection: Technology[]) => {
+              newSelection = union(
+                techsNotInGroup(props.selectedItems),
+                newSelection
+              );
+              props.onChange(newSelection);
+            }
+          };
+        return (
+          <AllNone key={g.groupName} {...p}>
+            {handleToggleClick => (
+              <div className="pa2">
+                <button
+                  className={deemphasizedButton + " w-100 dib"}
+                  onClick={handleToggleClick}
+                >
+                  {g.groupName}
+                </button>
+                <CheckboxList {...p} />
+              </div>
+            )}
+          </AllNone>
+        );
+      })}
+    </>
+  );
 }
+
+const Ungrouped = CheckboxList;

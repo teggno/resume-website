@@ -1,5 +1,5 @@
 import React from "react";
-import TechnologyFilters from "./TechnologyFilters";
+import Filters from "./Filters";
 import { Technology, TechnologyGroup } from "../Model";
 
 export default function HomePage(props: {
@@ -11,7 +11,7 @@ export default function HomePage(props: {
 }) {
   return (
     <div>
-      <TechnologyFilters onChange={props.onFiltersChange} {...props} />
+      <Filters onChange={props.onFiltersChange} {...props} />
     </div>
   );
 }

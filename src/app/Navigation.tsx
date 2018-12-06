@@ -6,7 +6,7 @@ export default function Navigation() {
   return (
     <div>
       <nav className="fixed bg-white w-100 z-999 top-0">
-        <ul className="list ph0 ma0">
+        <ul className="list ph0 ma0 nowrap">
           <NavLinkItem href="#" text="Home" />
           {"\n"}
           <NavLinkItem href="#projects" text="Projects" />

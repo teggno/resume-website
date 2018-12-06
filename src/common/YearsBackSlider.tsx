@@ -12,7 +12,8 @@ export default function YearsBackSlider(props: {
   const yearDiff = props.yearTo - props.yearFrom;
   return (
     <>
-      <span>this year</span>
+      <div className="dib v-mid">this year</div>
+      {"\n"}
       <input
         type="range"
         min={0}
@@ -22,8 +23,10 @@ export default function YearsBackSlider(props: {
           if (props.onDragging)
             props.onDragging(props.yearTo - parseInt(e.currentTarget.value));
         }}
+        className="dib v-mid w5-ns"
       />
-      <span>up to {yearDiff} years back</span>
+      {"\n"}
+      <div className="dib v-mid">up to {yearDiff} years back</div>
     </>
   );
 }
