@@ -83,14 +83,16 @@ function Grouped(
           <AllNone key={g.groupName} {...p}>
             {handleToggleClick => (
               <div className="pa2">
-                <button
-                  className={deemphasizedButton + " w-100 dib"}
-                  onClick={handleToggleClick}
-                >
-                  {`${g.groupName} (${p.selectedItems.length}/${
-                    p.allItems.length
-                  })`}
-                </button>
+                <div className="pb1">
+                  <button
+                    className={deemphasizedButton + " w-100 dib"}
+                    onClick={handleToggleClick}
+                  >
+                    {`${g.groupName} (${p.selectedItems.length}/${
+                      p.allItems.length
+                    })`}
+                  </button>
+                </div>
                 <CheckboxList {...p} />
               </div>
             )}

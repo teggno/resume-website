@@ -11,7 +11,7 @@ export default function CheckboxList<T extends { name: string }>(
         <React.Fragment key={item.name}>
           <label className={checkboxListItem + " db lh-copy"}>
             <input
-              className="mr2 dib"
+              className="mr1 mr2-ns dib v-mid"
               type="checkbox"
               checked={props.selectedItems.indexOf(item) !== -1}
               onChange={event => {
@@ -22,7 +22,7 @@ export default function CheckboxList<T extends { name: string }>(
                 );
               }}
             />
-            {item.name}
+            <span className="dib v-mid">{item.name}</span>
           </label>{"\n"/* needed because otherwise the labels don't wrap */}
         </React.Fragment>
       ))}

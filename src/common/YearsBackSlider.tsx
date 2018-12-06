@@ -28,6 +28,7 @@ export default function YearsBackSlider(props: {
         onChange={onChange}
         type="number"
         max={yearDiff}
+        onClick={e => e.currentTarget.select()}
       />
       <div className="v-mid"> years back</div>
     </div>
