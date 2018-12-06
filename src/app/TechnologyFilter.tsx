@@ -7,7 +7,7 @@ import AllNone from "../common/AllNone";
 
 export default function TechnologyFilter(props: TechnologyFilterProps) {
   let allGroups: TechnologyGroup[];
-  if (props.technologyGroups) {
+  if (props.technologyGroups && props.technologyGroups.length) {
     const groups = props.technologyGroups.filter(g =>
         g.technologies.some(t => props.allItems.some(tt => t === tt.name))
       ),
@@ -32,7 +32,7 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
               </button>
             </div>
 
-            <div className={grid4}>
+            <div className={grid4 + (allGroups ? "" : " pa2")}>
               {allGroups ? (
                 <Grouped {...props} allGroups={allGroups} />
               ) : (

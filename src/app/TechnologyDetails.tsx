@@ -1,7 +1,7 @@
 import { sortBy } from "ramda";
 import React from "react";
 import TimelineChart from "../common/TimelineChart";
-import { cardTitle, circle, grid2, gridCard, gridItem } from "../css";
+import { cardTitle, circle, grid2, gridCard, gridItem, list } from "../css";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import { Project, Technology } from "../Model";
 import Month from "../Month";
@@ -99,7 +99,7 @@ function ProjectGrid({
   technologyName: string;
 }) {
   return (
-    <ul className={grid2}>
+    <ul className={grid2 + " " + list}>
       {projects.map((pc, i) =>
         findableCard(i).makeFindable(
           <li key={pc.project.title} className={gridItem + " flashing-card"}>

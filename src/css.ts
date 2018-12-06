@@ -52,8 +52,8 @@ export const listItemSub = `w-70 dib ${normalFontSize}`;
 export const sparklineContainer = `w-30 dib relative h1 v-btm`;
 export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBackground}`;
 
-export const grid2 = `grid2-l ${list}`;
-export const grid4 = `grid4-l grid2-m ${list}`;
+export const grid2 = `grid2-l`;
+export const grid4 = `grid4-l grid2-m`;
 export const gridItem = "pa2 mw6";
 export const gridCard = `h-100 ${card}`
 

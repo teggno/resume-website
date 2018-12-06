@@ -9,7 +9,8 @@ import {
   gridCard,
   cardTitle,
   cardContent,
-  twoColumns
+  twoColumns,
+  list
 } from "../css";
 import StringList from "../common/StringList";
 
@@ -77,7 +78,7 @@ function TechnologyGrid({
   technologies: { name: string; tasks?: string[] }[];
 }) {
   return (
-    <ul className={grid2}>
+    <ul className={grid2 + " " + list}>
       {technologies.map((t, i) => (
         <li key={t.name} className={gridItem}>
           <div className={gridCard}>
