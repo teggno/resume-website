@@ -19,9 +19,8 @@ export default function HomePage(props: {
             Hi, I'm Christian, the software developer you might want to work
             with.
           </h3>
-          <p className="f3 lh-copy pa0 ma0">
-            If you want to find out what I can do for you, you can do so on this
-            site. So please start by specifying what you're interested in.
+          <p className="f3 lh-copy mb0">
+            Use this site to find out what I can do for you. Please start by specifying what you're interested in.
           </p>
         </div>
       </div>

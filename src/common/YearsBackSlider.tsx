@@ -19,6 +19,10 @@ export default function YearsBackSlider(props: {
         max={yearDiff}
         value={props.yearTo - props.year}
         onInput={onChange}
+        onChange={() => {
+          /*this is just here to prevent the warning that an input element
+          should have an onChange handler.*/
+        }}
         className="v-mid ph2"
         style={{ flex: 1 }}
       />

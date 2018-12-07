@@ -17,7 +17,7 @@ export default function ProjectCard({
     <div className={cardContent}>
       {!!technologies.length && technologies.some(t => !!t.tasks) ? (
         <dl className={dl}>
-          <dt className={dt}>Work I did with {technologies[0].name}</dt>
+          {/* <dt className={dt}>Work I did with {technologies[0].name}</dt> */}
           <dd className={dd}>
             <StringList
               items={chain(t => (t.tasks ? t.tasks : []), technologies)}
@@ -26,7 +26,7 @@ export default function ProjectCard({
         </dl>
       ) : null}
       <Expander>
-        <dl className={dl}>
+        <dl className={dl + " pt2"}>
           <dt className={dt}>Project description</dt>
           <dd className={dd}>
             <p className={textParagraph}>{project.description}</p>

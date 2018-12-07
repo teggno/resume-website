@@ -36,9 +36,15 @@ function Toggle(props: ToggleProps) {
         e.preventDefault();
       }}
     >
-      {props.isExpanded ? <ArrowUp addPaddingLeft={false}/> : <ArrowDown addPaddingLeft={false}/>}
+      {props.isExpanded ? (
+        <ArrowUp addPaddingLeft={false} />
+      ) : (
+        <ArrowDown addPaddingLeft={false} />
+      )}
       {/* Added a span and gave it a width to retain the same width no matter the label */}
-      <span className="w2 dib">{props.isExpanded ? expandedHeader : collapsedHeader}</span>
+      <span className="w2 dib">
+        {props.isExpanded ? expandedHeader : collapsedHeader}
+      </span>
     </a>
   );
 }
@@ -47,31 +53,31 @@ class Expandable extends React.Component<ExpanderProps> {
   constructor(props: ExpanderProps) {
     super(props);
 
-    this.ref = React.createRef<{}>();
+    this.ref = React.createRef();
   }
 
   private ref: any;
 
   render() {
     return (
-      <>
-        <div
-          ref={this.ref}
-          style={{
-            height: this.props.isExpanded ? this.ref.current.scrollHeight : 0,
-            overflowY: "hidden",
-            transition: "height .4s"
-          }}
-        >
-          {this.props.children}
-        </div>
-      </>
+      <div
+        ref={this.ref}
+        className={this.props.className}
+        style={{
+          height: this.props.isExpanded ? this.ref.current.scrollHeight : 0,
+          overflowY: "hidden",
+          transition: "height .4s"
+        }}
+      >
+        {this.props.children}
+      </div>
     );
   }
 }
 
 interface ExpanderProps {
   isExpanded?: boolean;
+  className?: string;
 }
 
 interface ToggleProps {

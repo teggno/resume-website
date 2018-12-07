@@ -84,11 +84,11 @@ function Grouped(
               <div className="pa2">
                 <label className="pb1 db">
                   <ThreeStateCheckbox
-                    className="mr1 mr2-ns"
+                    className="mr1 mr2-ns v-mid"
                     status={convertStatus(selectionStatus)}
                     onChange={handleToggleClick}
                   />
-                  <strong>{g.groupName}</strong>
+                  <strong className="v-mid">{g.groupName}</strong>
                 </label>
                 <CheckboxList {...p} />
               </div>

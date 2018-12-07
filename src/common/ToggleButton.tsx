@@ -7,15 +7,14 @@ export default function ToggleButton(props: {
   children: any;
 }) {
   return (
-    <a
+    <button
       onClick={e => {
         if(!props.isOn)props.onChange(true);
         e.preventDefault();
       }}
-      href="#"
       className={props.isOn ? clickedButton : normalButton}
     >
       {props.children}
-    </a>
+    </button>
   );
 }

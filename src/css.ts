@@ -31,10 +31,10 @@ export const dl = "ma0";
 export const dt = "fw6 mt2";
 export const dd = "ml0 pv2";
 
-const button = "f6 link dim br1 ph3 pv2 dib tc";
+const button = "f6 link dim br2 ph3 pv2 dib tc ba";
 export const normalButton = `${button} ${blueBackground} white`;
 export const clickedButton = `${button} ${lightBlueBackground} white`;
-export const deemphasizedButton = `${button} ba ${fontColor}`;
+export const deemphasizedButton = `${button} ${fontColor} ba b--${fontColor}`;
 
 export const checkboxListItem = "nowrap";
 

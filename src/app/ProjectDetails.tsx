@@ -1,5 +1,5 @@
 import React from "react";
-import { Project, Technology } from "../Model";
+import { Project } from "../Model";
 import {
   dd,
   dt,
@@ -19,7 +19,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
   return (
     <>
       <div className="ph2">
-        <h2>{project.title}</h2>
+        <h2 className="f3 b">{project.title}</h2>
       </div>
       <div className={`ph2 ${twoColumns}`}>
         <p className={textParagraph}>{project.description}</p>
@@ -65,7 +65,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
       </div>
       <div>
-        <h3 className="ph2">Project tasks by technology:</h3>
+        <h3 className="f3 normal ph2 pv2 ma0">Project tasks by technology</h3>
         <TechnologyGrid technologies={project.technologies} />
       </div>
     </>

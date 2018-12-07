@@ -3,7 +3,7 @@ import ToggleButton from "./ToggleButton";
 
 export default function ButtonList(props: ButtonListProps) {
   return (
-    <div>
+    <div style={{lineHeight: 1}}>
       {props.buttons.map((b, i) => (
         <React.Fragment key={i}>
           <ToggleButton

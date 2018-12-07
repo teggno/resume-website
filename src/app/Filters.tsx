@@ -18,7 +18,7 @@ export default class Filters extends React.Component<FiltersProps> {
     return (
       <>
         <fieldset className="bn pv0 pa2">
-          <legend className="fw7">View work from</legend>
+          <legend className="f3">View work from</legend>
           <div className="pv2">
             <YearsBackSlider
               yearFrom={this.props.technologies.reduce(
@@ -32,7 +32,7 @@ export default class Filters extends React.Component<FiltersProps> {
           </div>
         </fieldset>
         <fieldset className="bn pa0">
-          <legend className="fw7 ph2 mt2">Technologies</legend>
+          <legend className="f3 ph2 mt2">Technologies</legend>
           <div className="pv2">
             <TechnologyFilter
               allItems={sortBy(
