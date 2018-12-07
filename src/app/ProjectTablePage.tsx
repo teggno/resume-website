@@ -2,7 +2,7 @@ import React from "react";
 import TimelineChart from "../common/TimelineChart";
 import Sparkline from "../common/Sparkline";
 import Month from "../Month";
-import { stripedBackground } from "../css";
+import { stripedBackground, link } from "../css";
 import {
   min,
   max,
@@ -17,6 +17,8 @@ import {
 import { Project } from "../Model";
 import { applyOrDefault } from "../Functional";
 import ProjectColorContext from "./ProjectColorContext";
+import { projectRoute } from "../Routes";
+import Link from "../common/Link";
 
 export default function ProjectTablePage({
   projects
@@ -98,7 +100,15 @@ function ProjectGanttTable({
             (prevTo: null | Month, p) => [
               p.period.to || Month.fromDate(now),
               <tr className={stripedBackground} key={p.title}>
-                <td className="pv2 ph3">{p.title}</td>
+                <td className="pv2 ph3">
+                  <Link
+                    className={link}
+                    href={projectRoute.hashFromName(p.title)}
+                    scrollToTop={true}
+                  >
+                    {p.title}
+                  </Link>
+                </td>
                 <td className="pv2 ph3">{p.company}</td>
                 <td className="pv2 ph3">{p.industry}</td>
                 <td className="pv2 ph3">{p.period.from.toString()}</td>
