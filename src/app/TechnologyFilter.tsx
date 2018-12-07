@@ -3,7 +3,10 @@ import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
 import { Technology, TechnologyGroup } from "../Model";
 import { deemphasizedButton, grid4 } from "../css";
 import { filter, union } from "ramda";
-import AllNone from "../common/AllNone";
+import AllNone, { SelectionStatus } from "../common/AllNone";
+import ThreeStateCheckbox, {
+  ThreeStateCheckboxStatus
+} from "../common/ThreeStateCheckbox";
 
 export default function TechnologyFilter(props: TechnologyFilterProps) {
   let allGroups: TechnologyGroup[];
@@ -20,21 +23,17 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
   }
   return (
     <AllNone {...props}>
-      {(handleToggleClick, moreThanHalf) => {
+      {(handleToggleClick, selectionState) => {
         return (
           <>
             <div className="ph2">
               <button
                 onClick={handleToggleClick}
-                className={deemphasizedButton + " w5"}
+                className={deemphasizedButton + " w4"}
               >
-                {moreThanHalf
-                  ? `Select none (${props.selectedItems.length}/${
-                      props.allItems.length
-                    })`
-                  : `Select all (${props.selectedItems.length}/${
-                      props.allItems.length
-                    })`}
+                {selectionState === SelectionStatus.None
+                  ? `Select all`
+                  : `Select none`}
               </button>
             </div>
 
@@ -81,18 +80,16 @@ function Grouped(
           };
         return (
           <AllNone key={g.groupName} {...p}>
-            {handleToggleClick => (
+            {(handleToggleClick, selectionStatus) => (
               <div className="pa2">
-                <div className="pb1">
-                  <button
-                    className={deemphasizedButton + " w-100 dib"}
-                    onClick={handleToggleClick}
-                  >
-                    {`${g.groupName} (${p.selectedItems.length}/${
-                      p.allItems.length
-                    })`}
-                  </button>
-                </div>
+                <label className="pb1 db">
+                  <ThreeStateCheckbox
+                    className="mr1 mr2-ns"
+                    status={convertStatus(selectionStatus)}
+                    onChange={handleToggleClick}
+                  />
+                  <strong>{g.groupName}</strong>
+                </label>
                 <CheckboxList {...p} />
               </div>
             )}
@@ -104,3 +101,11 @@ function Grouped(
 }
 
 const Ungrouped = CheckboxList;
+
+function convertStatus(selectionStatus: SelectionStatus) {
+  return selectionStatus === SelectionStatus.All
+    ? ThreeStateCheckboxStatus.All
+    : selectionStatus === SelectionStatus.Some
+    ? ThreeStateCheckboxStatus.Some
+    : ThreeStateCheckboxStatus.None;
+}
