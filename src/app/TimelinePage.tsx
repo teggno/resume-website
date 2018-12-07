@@ -42,8 +42,8 @@ export default function TimelinePage(props: {
       from: Month.parse(c.date.substr(0, 7)),
       key: `Certificate${c.name}`
     })),
-    events = projects
-      .concat(technologies)
+    events = technologies
+      .concat(projects)
       .concat(jobTitles)
       .concat(certificates)
       .sort(descend(e => e.from.totalMonths()));
