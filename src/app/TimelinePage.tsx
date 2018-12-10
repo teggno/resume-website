@@ -2,7 +2,7 @@ import React from "react";
 import TimelineList, { TimelineListEvent } from "../common/TimelineList";
 import { chain, descend } from "ramda";
 import { Project, Technology, Job, Certificate } from "../Model";
-import { FunCheckboxList } from "../common/CheckboxList";
+import CheckboxList from "../common/CheckboxList";
 import ProjectEventFactory from "./timelinePage/ProjectEventFactory";
 import CertificateEventFactory from "./timelinePage/CertificateEventFactory";
 import JobEventFactory from "./timelinePage/JobEventFactory";
@@ -12,7 +12,7 @@ export default function TimelinePage(props: TimelinePageProps) {
   return (
     <>
       <div className="pa2">
-        <FunCheckboxList
+        <CheckboxList
           allItems={props.allEventGroups}
           selectedItems={props.selectedEventGroups}
           onChange={props.onEventGroupSelectionChange}
@@ -24,7 +24,7 @@ export default function TimelinePage(props: TimelinePageProps) {
   );
 }
 
-export function timelineEventFactory(props: TimelineSources) {
+export function timelineEventFactory(props: TimelinePageSources) {
   const eventFactories = [
     new TechnologyEventFactory(props.technologies),
     new ProjectEventFactory(props.projects),
@@ -44,7 +44,7 @@ export function timelineEventFactory(props: TimelineSources) {
   };
 }
 
-interface TimelineSources {
+interface TimelinePageSources {
   projects: Project[];
   technologies: Technology[];
   jobs: Job[];

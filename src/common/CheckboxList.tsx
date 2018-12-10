@@ -2,7 +2,7 @@ import * as React from "react";
 import { checkboxListItem } from "../css";
 import { difference } from "ramda";
 
-export function FunCheckboxList<T>(
+export default function CheckboxList<T>(
   props: CheckboxListProps<T> & { nameOf: (item: T) => string }
 ) {
   return (
@@ -29,13 +29,6 @@ export function FunCheckboxList<T>(
       ))}
     </>
   );
-}
-
-export default function CheckboxList<T extends { name: string }>(
-  props: CheckboxListProps<T>
-) {
-  const newProps = { ...props, nameOf: (i: T) => i.name };
-  return <FunCheckboxList {...newProps} />;
 }
 
 export interface CheckboxListProps<T> {

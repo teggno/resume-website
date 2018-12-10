@@ -41,7 +41,7 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
               {allGroups ? (
                 <Grouped {...props} allGroups={allGroups} />
               ) : (
-                <Ungrouped {...props} />
+                <Ungrouped {...props} nameOf={t => t.name} />
               )}
             </div>
           </>
@@ -90,7 +90,7 @@ function Grouped(
                   />
                   <strong className="v-mid">{g.groupName}</strong>
                 </label>
-                <CheckboxList {...p} />
+                <CheckboxList {...p} nameOf={n => n.name} />
               </div>
             )}
           </AllNone>

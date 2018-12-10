@@ -18,7 +18,7 @@ export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
 
-    const technologies = props.me.technologies(),
+    const technologies = (this.technologies = props.me.technologies()),
       eventGroupNames = timelineEventFactory({
         certificates: props.me.certificates(),
         jobs: props.me.jobs(),
@@ -26,11 +26,9 @@ export default class App extends React.Component<AppProps, AppState> {
         technologies: technologies
       }).eventGroupNames;
 
-    this.technologies = technologies;
-
     this.state = {
-      selectedTechnologies: this.technologies,
-      yearFrom: this.technologies.reduce(
+      selectedTechnologies: technologies,
+      yearFrom: technologies.reduce(
         (prev, current) => min(prev, current.monthStart.year),
         Number.MAX_VALUE
       ),
@@ -80,7 +78,9 @@ export default class App extends React.Component<AppProps, AppState> {
                     allEventGroups={tp.eventGroupNames}
                     selectedEventGroups={this.state.selectedEventGroups}
                     events={tp.events(this.state.selectedEventGroups)}
-                    onEventGroupSelectionChange={this.handleEventGroupSelectionChange}
+                    onEventGroupSelectionChange={
+                      this.handleEventGroupSelectionChange
+                    }
                   />
                 );
               } else if (hash.indexOf("#projecttable") === 0) {
