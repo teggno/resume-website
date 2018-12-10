@@ -22,6 +22,11 @@ export default function TimelineList(props: TimelineListProps) {
 }
 
 interface TimelineListProps {
-  events: { key: string | number; component: () => any }[];
+  events: TimelineListEvent[];
   className?: string;
+}
+
+export interface TimelineListEvent {
+  key: string | number;
+  component: () => any;
 }

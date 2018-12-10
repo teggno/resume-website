@@ -3,7 +3,7 @@ import ProjectColorContext from "./app/ProjectColorContext";
 import ProjectsPage from "./app/ProjectsPage";
 import ProjectTablePage from "./app/ProjectTablePage";
 import TechnologiesPage from "./app/TechnologiesPage";
-import TimelinePage from "./app/TimelinePage";
+import TimelinePage, { timelineEventFactory } from "./app/TimelinePage";
 import colors from "./Colors";
 import HashAware from "./common/HashAware";
 import { mainContainer } from "./css";
@@ -14,24 +14,33 @@ import { Technology, Project } from "./Model";
 import { min, lens, over, filter, map } from "ramda";
 import Navigation from "./app/Navigation";
 
-export default class App extends React.Component<
-  AppProps,
-  { selectedTechnologies: Technology[]; yearFrom: number }
-> {
+export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
 
-    this.technologies = props.me.technologies();
+    const technologies = props.me.technologies(),
+      eventGroupNames = timelineEventFactory({
+        certificates: props.me.certificates(),
+        jobs: props.me.jobs(),
+        projects: props.me.projects(),
+        technologies: technologies
+      }).eventGroupNames;
+
+    this.technologies = technologies;
 
     this.state = {
       selectedTechnologies: this.technologies,
       yearFrom: this.technologies.reduce(
         (prev, current) => min(prev, current.monthStart.year),
         Number.MAX_VALUE
-      )
+      ),
+      selectedEventGroups: eventGroupNames
     };
 
     this.handleFiltersChage = this.handleFiltersChage.bind(this);
+    this.handleEventGroupSelectionChange = this.handleEventGroupSelectionChange.bind(
+      this
+    );
   }
 
   private technologies: Technology[];
@@ -60,12 +69,18 @@ export default class App extends React.Component<
                   />
                 );
               } else if (hash.indexOf("#timeline") === 0) {
+                const tp = timelineEventFactory({
+                  projects: this.projects(),
+                  technologies: this.state.selectedTechnologies,
+                  certificates: this.props.me.certificates(),
+                  jobs: this.props.me.jobs()
+                });
                 return (
                   <TimelinePage
-                    projects={this.projects()}
-                    technologies={this.state.selectedTechnologies}
-                    certificates={this.props.me.certificates()}
-                    jobs={this.props.me.jobs()}
+                    allEventGroups={tp.eventGroupNames}
+                    selectedEventGroups={this.state.selectedEventGroups}
+                    events={tp.events(this.state.selectedEventGroups)}
+                    onEventGroupSelectionChange={this.handleEventGroupSelectionChange}
                   />
                 );
               } else if (hash.indexOf("#projecttable") === 0) {
@@ -86,6 +101,10 @@ export default class App extends React.Component<
         </ProjectColorContext.Provider>
       </div>
     );
+  }
+
+  private handleEventGroupSelectionChange(newSelection: string[]) {
+    this.setState({ selectedEventGroups: newSelection });
   }
 
   private handleFiltersChage(technologies: Technology[], yearFrom: number) {
@@ -123,6 +142,12 @@ export default class App extends React.Component<
 
 interface AppProps {
   me: Me;
+}
+
+interface AppState {
+  selectedTechnologies: Technology[];
+  yearFrom: number;
+  selectedEventGroups: string[];
 }
 
 interface ProjectTech {
