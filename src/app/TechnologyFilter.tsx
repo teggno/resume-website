@@ -1,5 +1,5 @@
 import React from "react";
-import CheckboxList, { CheckboxListProps } from "../common/CheckboxList";
+import CheckboxList from "../common/CheckboxList";
 import { Technology, TechnologyGroup } from "../Model";
 import { deemphasizedButton, grid4 } from "../css";
 import { filter, union } from "ramda";
@@ -51,8 +51,11 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
   );
 }
 
-interface TechnologyFilterProps extends CheckboxListProps<Technology> {
+interface TechnologyFilterProps {
   technologyGroups?: TechnologyGroup[];
+  allItems: Technology[];
+  selectedItems: Technology[];
+  onChange: (newSelection: Technology[]) => void;
 }
 
 function Grouped(

@@ -9,7 +9,9 @@ import { technologyRoute } from "../../Routes";
 import { link } from "../../css";
 
 export default class TechnologyEventFactory {
-  constructor(private readonly technologies: Technology[]) {}
+  constructor(
+    private readonly technologies: Technology[]
+  ) {}
 
   public events() {
     return this.technologies.map(t => ({
@@ -23,7 +25,7 @@ export default class TechnologyEventFactory {
     return !!this.technologies.length;
   }
 
-  public readonly name = "Technologies";
+  public static readonly icon = CodeIcon;
 }
 
 function ItemComponent({

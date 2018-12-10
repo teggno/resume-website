@@ -2,13 +2,24 @@ import * as React from "react";
 import { checkboxListItem } from "../css";
 import { difference } from "ramda";
 
-export default function CheckboxList<T>(
-  props: CheckboxListProps<T> & { nameOf: (item: T) => string }
-) {
+export default function CheckboxList<T>(props: CheckboxListProps<T>) {
+  return (
+    <TemplatedCheckboxList
+      allItems={props.allItems}
+      selectedItems={props.selectedItems}
+      onChange={props.onChange}
+      keyOf={props.nameOf}
+    >
+      {props.nameOf}
+    </TemplatedCheckboxList>
+  );
+}
+
+export function TemplatedCheckboxList<T>(props: TemplatedCheckboxListProps<T>) {
   return (
     <>
       {props.allItems.map(item => (
-        <React.Fragment key={props.nameOf(item)}>
+        <React.Fragment key={props.keyOf(item)}>
           <label className={checkboxListItem + " db lh-copy"}>
             <input
               className="mr1 mr2-ns dib v-mid"
@@ -22,7 +33,7 @@ export default function CheckboxList<T>(
                 );
               }}
             />
-            <span className="dib v-mid">{props.nameOf(item)}</span>
+            <span className="dib v-mid">{props.children(item)}</span>
           </label>
           {"\n" /* needed because otherwise the labels don't wrap */}
         </React.Fragment>
@@ -31,8 +42,17 @@ export default function CheckboxList<T>(
   );
 }
 
-export interface CheckboxListProps<T> {
+interface CheckboxListProps<T> {
   allItems: T[];
   selectedItems: T[];
   onChange: (newSelection: T[]) => void;
+  nameOf: (item: T) => string;
+}
+
+interface TemplatedCheckboxListProps<T> {
+  allItems: T[];
+  selectedItems: T[];
+  onChange: (newSelection: T[]) => void;
+  keyOf: (item: T) => string;
+  children: (item: T) => any;
 }

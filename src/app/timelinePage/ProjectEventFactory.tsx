@@ -19,11 +19,11 @@ export default class ProjectEventFactory {
     }));
   }
 
-  public readonly name = "Projects";
-
   public any() {
     return !!this.projects.length;
   }
+
+  public static readonly icon = PuzzleIcon;
 }
 
 function ItemComponent({

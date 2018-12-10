@@ -10,7 +10,7 @@ export default class CertificateEventFactory {
 
   public events() {
     return this.certificates.map(c => ({
-      component: () => <ItemComponent {...c}/>,
+      component: () => <ItemComponent {...c} />,
       from: Month.parse(c.date.substr(0, 7)),
       key: `Certificate${c.name}`
     }));
@@ -18,7 +18,8 @@ export default class CertificateEventFactory {
   public any() {
     return !!this.certificates.length;
   }
-  public readonly name = "Certificates";
+
+  public static readonly icon = CertificateIcon;
 }
 
 function ItemComponent({ date, name }: Certificate) {
