@@ -64,7 +64,7 @@ const now = new Date(),
       sprk: zeroBasedCharts<Project>(totalMonths)
     },
     {
-      label: "End Date",
+      label: "End date",
       name: "enddate",
       sort: sortWith([descend(endMonth), descend(totalMonths)]),
       itemTitle: titleOf,

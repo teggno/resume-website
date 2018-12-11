@@ -4,7 +4,10 @@ import { list } from "../css";
 import SparklineListItem from "../common/SparklineListItem";
 import ListItem from "../common/ListItem";
 
-export default class SortableList<TItem> extends React.Component<SortableListProps<TItem>, { sort: string }> {
+export default class SortableList<TItem> extends React.Component<
+  SortableListProps<TItem>,
+  { sort: string }
+> {
   constructor(props: SortableListProps<TItem>) {
     super(props);
 
