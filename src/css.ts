@@ -60,10 +60,11 @@ export const gridCard = `h-100 ${card}`
 export const chartBackground = nearWhiteBackground;
 
 export const icon = "w1 h1 v-mid-i";
+export const iconInText = "v-mid-i icon-in-text";
 
 export const circle = "dib br4 w1 h1 mr2 v-top";
 
-export const twoColumns = "cc2-l cr1 cr--light-silver"
+export const twoColumns = "cc2-l"
 
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;
 

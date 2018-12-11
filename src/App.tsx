@@ -3,7 +3,7 @@ import ProjectColorContext from "./app/ProjectColorContext";
 import ProjectsPage from "./app/ProjectsPage";
 import ProjectTablePage from "./app/ProjectTablePage";
 import TechnologiesPage from "./app/TechnologiesPage";
-import TimelinePage, { timelineEventFactory } from "./app/TimelinePage";
+import TimelinePage, { timelinePagePropsFactory } from "./app/TimelinePage";
 import colors from "./Colors";
 import HashAware from "./common/HashAware";
 import { mainContainer } from "./css";
@@ -19,7 +19,7 @@ export default class App extends React.Component<AppProps, AppState> {
     super(props);
 
     const technologies = (this.technologies = props.me.technologies()),
-      eventGroupNames = timelineEventFactory({
+      eventGroupNames = timelinePagePropsFactory({
         certificates: props.me.certificates(),
         jobs: props.me.jobs(),
         projects: props.me.projects(),
@@ -67,7 +67,7 @@ export default class App extends React.Component<AppProps, AppState> {
                   />
                 );
               } else if (hash.indexOf("#timeline") === 0) {
-                const tp = timelineEventFactory({
+                const tp = timelinePagePropsFactory({
                   projects: this.projects(),
                   technologies: this.state.selectedTechnologies,
                   certificates: this.props.me.certificates(),

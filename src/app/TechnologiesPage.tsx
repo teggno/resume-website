@@ -61,8 +61,8 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
     {
       itemTitle: nameOf,
       itemSub: subOf,
-      label: "Used most recently",
-      name: "usedRecently",
+      label: "Last used",
+      name: "lastUsed",
       sort: sortWith([descend(monthEnd), descend(experienceGross)]),
       sprk: fromToChart<Technology>(monthStart, monthEnd)
     },

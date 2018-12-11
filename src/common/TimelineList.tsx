@@ -13,7 +13,7 @@ export default function TimelineList(props: TimelineListProps) {
         return (
           <div key={e.key} className={card + " timeline-item"}>
             <ItemComponent />
-            <div className="timeline-item-icon" />
+            <div className="timeline-item-line" />
           </div>
         );
       })}

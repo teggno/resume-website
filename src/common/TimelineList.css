@@ -34,7 +34,7 @@
     margin-left: calc(50% + 1em);
   }
 
-  .timeline-item-icon {
+  .timeline-item-line {
     position: absolute;
     left: calc(100% + 1px);
     border-top: 1px silver solid;
@@ -43,7 +43,7 @@
     top: 2em;
   }
 
-  .timeline-item:nth-child(2n + 1) .timeline-item-icon {
+  .timeline-item:nth-child(2n + 1) .timeline-item-line {
     left: -1em;
   }
 }

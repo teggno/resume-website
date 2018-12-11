@@ -1,6 +1,12 @@
 .v-mid-i {
   position: relative;
-  top: 0.15em;
+  top: 0.17em;
+}
+
+.icon-in-text {
+  width: .9em;
+  height: .9em;
+  display: inline-block;
 }
 
 /* Add the stroke property to Tachyon's color classes*/

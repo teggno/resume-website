@@ -29,11 +29,11 @@ export default function TechnologyDetails({
         return (
           <>
             <div className="ph2 pb2">
-              <h2>My {technology.name} experience</h2>
+              <h2>Projects where I used {technology.name}</h2>
               <ProjectTimeline projects={projectsWithColors} now={now} />
             </div>
             <div>
-              <h3 className="pa2 ma0 normal f3">Projects:</h3>
+              {/* <h3 className="pa2 ma0 normal f3">Projects:</h3> */}
               <ProjectGrid
                 projects={projectsWithColors}
                 technologyName={technology.name}

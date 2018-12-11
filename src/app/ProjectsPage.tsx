@@ -64,21 +64,21 @@ const now = new Date(),
       sprk: zeroBasedCharts<Project>(totalMonths)
     },
     {
-      label: "Most recent",
-      name: "recent",
+      label: "End Date",
+      name: "enddate",
       sort: sortWith([descend(endMonth), descend(totalMonths)]),
       itemTitle: titleOf,
       itemSub: subOf,
       sprk: fromToChart<Project>(startMonth, endMonth)
     },
-    {
-      label: "Technologies used",
-      name: "techsUsed",
-      sort: sortWith([descend(techsUsed), ascend(titleNonCase)]),
-      itemTitle: titleOf,
-      itemSub: subOf,
-      sprk: zeroBasedCharts(techsUsed)
-    },
+    // {
+    //   label: "Technologies used",
+    //   name: "techsUsed",
+    //   sort: sortWith([descend(techsUsed), ascend(titleNonCase)]),
+    //   itemTitle: titleOf,
+    //   itemSub: subOf,
+    //   sprk: zeroBasedCharts(techsUsed)
+    // },
     {
       label: "A...Z",
       name: "alphabetical",

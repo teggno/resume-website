@@ -1,12 +1,13 @@
 import React from "react";
 import TimelineList, { TimelineListEvent } from "../common/TimelineList";
-import { chain, descend, any } from "ramda";
+import { chain, descend } from "ramda";
 import { Project, Technology, Job, Certificate } from "../Model";
 import { TemplatedCheckboxList } from "../common/CheckboxList";
 import ProjectEventFactory from "./timelinePage/ProjectEventFactory";
 import CertificateEventFactory from "./timelinePage/CertificateEventFactory";
 import JobEventFactory from "./timelinePage/JobEventFactory";
 import TechnologyEventFactory from "./timelinePage/TechnologyEventFactory";
+import { iconInText } from "../css";
 
 export default function TimelinePage(props: TimelinePageProps) {
   return (
@@ -21,7 +22,7 @@ export default function TimelinePage(props: TimelinePageProps) {
           {group => (
             <>
               <span>{group}</span>{" "}
-              <span className="w1 h1 mr4 dib relative" style={{top:3}}>{factoryByName(group).icon()}</span>
+              <span className={iconInText + " mr2 mr4-ns"}>{eventGroupByName(group).icon()}</span>
             </>
           )}
         </TemplatedCheckboxList>
@@ -31,45 +32,45 @@ export default function TimelinePage(props: TimelinePageProps) {
   );
 }
 
-const eventFactories = [
+const eventGroups = [
   {
     name: "Technologies",
-    factory: (props: TimelinePageSources) =>
+    eventFactory: (props: TimelinePageSources) =>
       new TechnologyEventFactory(props.technologies),
     icon: TechnologyEventFactory.icon
   },
   {
     name: "Projects",
-    factory: (props: TimelinePageSources) =>
+    eventFactory: (props: TimelinePageSources) =>
       new ProjectEventFactory(props.projects),
     icon: ProjectEventFactory.icon
   },
   {
     name: "Jobs",
-    factory: (props: TimelinePageSources) => new JobEventFactory(props.jobs),
+    eventFactory: (props: TimelinePageSources) => new JobEventFactory(props.jobs),
     icon: JobEventFactory.icon
   },
   {
     name: "Certificates",
-    factory: (props: TimelinePageSources) =>
+    eventFactory: (props: TimelinePageSources) =>
       new CertificateEventFactory(props.certificates),
     icon: CertificateEventFactory.icon
   }
 ];
 
-function factoryByName(name: string) {
-  return eventFactories.filter(f => f.name === name)[0];
+function eventGroupByName(name: string) {
+  return eventGroups.filter(f => f.name === name)[0];
 }
 
-export function timelineEventFactory(props: TimelinePageSources) {
+export function timelinePagePropsFactory(props: TimelinePageSources) {
   return {
-    eventGroupNames: eventFactories
-      .filter(f => f.factory(props).any())
+    eventGroupNames: eventGroups
+      .filter(f => f.eventFactory(props).any())
       .map(f => f.name),
     events: (selectedEventGroups: string[]) =>
       chain(
-        f => f.factory(props).events(),
-        eventFactories.filter(f =>
+        f => f.eventFactory(props).events(),
+        eventGroups.filter(f =>
           selectedEventGroups.some(ii => ii === f.name)
         )
       ).sort(descend(e => e.from.totalMonths()))
