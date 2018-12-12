@@ -12,21 +12,24 @@ export default class SortableList<TItem> extends React.Component<
     super(props);
 
     this.state = {
-      sort: props.buttons[0].name
+      sort: props.sortConfigs[0].name
     };
 
     this.sortChanged = this.sortChanged.bind(this);
   }
 
   render() {
-    const button = this.props.buttons.filter(
+    const button = this.props.sortConfigs.filter(
         b => b.name === this.state.sort
       )[0],
-      sprk = button.sprk ? button.sprk(this.props.items) : null;
+      sprk = button.sparkline ? button.sparkline(this.props.items) : null;
     return (
       <>
         <ButtonList
-          buttons={this.props.buttons}
+          buttons={this.props.sortConfigs.map(c => ({
+            name: c.name,
+            label: c.buttonLabel
+          }))}
           value={this.state.sort}
           changed={this.sortChanged}
         />
@@ -69,13 +72,13 @@ export default class SortableList<TItem> extends React.Component<
 interface SortableListProps<TItem> {
   items: TItem[];
   href: (item: TItem) => string;
-  buttons: {
-    label: string;
+  sortConfigs: {
+    buttonLabel: string;
     name: string;
     sort: (items: TItem[]) => TItem[];
     itemTitle: (item: TItem) => string;
     itemSub: (item: TItem) => string;
-    sprk?: (
+    sparkline?: (
       items: TItem[]
     ) => {
       chartMin: number;

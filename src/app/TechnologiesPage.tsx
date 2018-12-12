@@ -29,7 +29,7 @@ function List({ technologys }: { technologys: Technology[] }) {
   return (
     <SortableList
       items={technologys}
-      buttons={sortButtons}
+      sortConfigs={sortConfigs}
       href={t => technologyRoute.hashFromName(t.name)}
     />
   );
@@ -49,11 +49,11 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
   experienceGross = (t: Technology) => t.experienceGross,
   monthStart = (t: Technology) => t.monthStart.totalMonths(),
   monthEnd = (t: Technology) => t.monthEnd.totalMonths(),
-  sortButtons = [
+  sortConfigs = [
     {
       itemTitle: nameOf,
       itemSub: subOf,
-      label: "Experience",
+      buttonLabel: "Experience",
       name: "byExperience",
       sort: sortWith([descend(experienceGross), ascend(nameOf)]),
       sprk: zeroBasedCharts<Technology>(experienceGross)
@@ -61,7 +61,7 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
     {
       itemTitle: nameOf,
       itemSub: subOf,
-      label: "Last used",
+      buttonLabel: "Last used",
       name: "lastUsed",
       sort: sortWith([descend(monthEnd), descend(experienceGross)]),
       sprk: fromToChart<Technology>(monthStart, monthEnd)
@@ -69,7 +69,7 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
     {
       itemTitle: nameOf,
       itemSub: subOf,
-      label: "A...Z",
+      buttonLabel: "A...Z",
       name: "alphabetical",
       sort: sort(ascend(nameNonCase))
     }

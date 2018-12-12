@@ -30,7 +30,7 @@ function List({ projects }: { projects: Project[] }) {
   return (
     <SortableList
       items={projects}
-      buttons={sortButtons}
+      sortConfigs={sortConfigs}
       href={p => projectRoute.hashFromName(p.title)}
     />
   );
@@ -54,9 +54,9 @@ const now = new Date(),
   startMonth = (p: Project) => p.period.from.totalMonths(),
   endMonth = (p: Project) => (p.period.to || nowMonth).totalMonths(),
   techsUsed = (p: Project) => p.technologies.length,
-  sortButtons = [
+  sortConfigs = [
     {
-      label: "Duration",
+      buttonLabel: "Duration",
       name: "duration",
       sort: sortWith([descend(totalMonths), ascend(titleNonCase)]),
       itemTitle: titleOf,
@@ -64,7 +64,7 @@ const now = new Date(),
       sprk: zeroBasedCharts<Project>(totalMonths)
     },
     {
-      label: "End date",
+      buttonLabel: "End date",
       name: "enddate",
       sort: sortWith([descend(endMonth), descend(totalMonths)]),
       itemTitle: titleOf,
@@ -80,7 +80,7 @@ const now = new Date(),
     //   sprk: zeroBasedCharts(techsUsed)
     // },
     {
-      label: "A...Z",
+      buttonLabel: "A...Z",
       name: "alphabetical",
       sort: sort(ascend(titleNonCase)),
       itemTitle: titleOf,
