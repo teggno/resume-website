@@ -49,8 +49,11 @@ export default class App extends React.Component<AppProps, AppState> {
         <ProjectColorContext.Provider
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
-          <Navigation />
-          <HashAware>
+          <header>
+            <Navigation />
+          </header>
+          <main>
+            <HashAware>
               {(hash: string) => {
                 if (hash.indexOf("#projects") === 0) {
                   return (
@@ -63,7 +66,9 @@ export default class App extends React.Component<AppProps, AppState> {
                   return (
                     <TechnologiesPage
                       technologies={this.state.selectedTechnologies}
-                      selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
+                      selectedTechnologyTitle={technologyRoute.nameFromHash(
+                        hash
+                      )}
                     />
                   );
                 } else if (hash.indexOf("#timeline") === 0) {
@@ -98,6 +103,7 @@ export default class App extends React.Component<AppProps, AppState> {
                 }
               }}
             </HashAware>
+          </main>
         </ProjectColorContext.Provider>
       </div>
     );
