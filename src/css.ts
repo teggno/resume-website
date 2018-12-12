@@ -5,7 +5,8 @@ import "./Columns.css";
 
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
-const normalFontSize = "f6 f5-ns"
+export const normalFontSize = "f5";
+const normalFontSizeResponsive = `f6 ${normalFontSize}-ns`
 
 const nearWhite = "near-white";
 export const stripedBackground = `striped--${nearWhite}`;
@@ -38,7 +39,7 @@ export const deemphasizedButton = `${button} ${fontColor} ba b--${fontColor}`;
 
 export const checkboxListItem = "nowrap";
 
-export const textParagraph = `${normalFontSize} lh-copy ma0`;
+export const textParagraph = `${normalFontSizeResponsive} lh-copy ma0`;
 export const list = "list pa0 ma0";
 export const stripedStringList = `lh-copy pa2 ${stripedBackground}`;
 export const card = `br3 ba ${lightSilverBorder}`;
@@ -48,7 +49,7 @@ export const cardContent = "pa3 bt b--black-10";
 
 export const listItem = `relative bb pa2 ${lightSilverBorder}`;
 export const listItemTitle = "f4 fw6 pb1";
-export const listItemSub = `w-70 dib ${normalFontSize}`;
+export const listItemSub = `w-70 dib ${normalFontSizeResponsive}`;
 export const sparklineContainer = `w-30 dib relative h1 v-btm`;
 export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBackground}`;
 
@@ -66,5 +67,5 @@ export const circle = "dib br4 w1 h1 mr2 v-top";
 
 export const twoColumns = "cc2-l"
 
-export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSize} pv2`;
+export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSizeResponsive} pv2`;
 

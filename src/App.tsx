@@ -50,54 +50,56 @@ export default class App extends React.Component<AppProps, AppState> {
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
           <Navigation />
-          <HashAware>
-            {(hash: string) => {
-              if (hash.indexOf("#projects") === 0) {
-                return (
-                  <ProjectsPage
-                    projects={this.projects()}
-                    selectedProjectTitle={projectRoute.nameFromHash(hash)}
-                  />
-                );
-              } else if (hash.indexOf("#technologies") === 0) {
-                return (
-                  <TechnologiesPage
-                    technologies={this.state.selectedTechnologies}
-                    selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
-                  />
-                );
-              } else if (hash.indexOf("#timeline") === 0) {
-                const tp = timelinePagePropsFactory({
-                  projects: this.projects(),
-                  technologies: this.state.selectedTechnologies,
-                  certificates: this.props.me.certificates(),
-                  jobs: this.props.me.jobs()
-                });
-                return (
-                  <TimelinePage
-                    allEventGroups={tp.eventGroupNames}
-                    selectedEventGroups={this.state.selectedEventGroups}
-                    events={tp.events(this.state.selectedEventGroups)}
-                    onEventGroupSelectionChange={
-                      this.handleEventGroupSelectionChange
-                    }
-                  />
-                );
-              } else if (hash.indexOf("#projecttable") === 0) {
-                return <ProjectTablePage projects={this.projects()} />;
-              } else {
-                return (
-                  <HomePage
-                    technologies={this.technologies}
-                    selectedTechnologies={this.state.selectedTechnologies}
-                    onFiltersChange={this.handleFiltersChage}
-                    yearFrom={this.state.yearFrom}
-                    technologyGroups={this.props.me.technologyGroups()}
-                  />
-                );
-              }
-            }}
-          </HashAware>
+          <div className="mt4 pt1">
+            <HashAware>
+              {(hash: string) => {
+                if (hash.indexOf("#projects") === 0) {
+                  return (
+                    <ProjectsPage
+                      projects={this.projects()}
+                      selectedProjectTitle={projectRoute.nameFromHash(hash)}
+                    />
+                  );
+                } else if (hash.indexOf("#technologies") === 0) {
+                  return (
+                    <TechnologiesPage
+                      technologies={this.state.selectedTechnologies}
+                      selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
+                    />
+                  );
+                } else if (hash.indexOf("#timeline") === 0) {
+                  const tp = timelinePagePropsFactory({
+                    projects: this.projects(),
+                    technologies: this.state.selectedTechnologies,
+                    certificates: this.props.me.certificates(),
+                    jobs: this.props.me.jobs()
+                  });
+                  return (
+                    <TimelinePage
+                      allEventGroups={tp.eventGroupNames}
+                      selectedEventGroups={this.state.selectedEventGroups}
+                      events={tp.events(this.state.selectedEventGroups)}
+                      onEventGroupSelectionChange={
+                        this.handleEventGroupSelectionChange
+                      }
+                    />
+                  );
+                } else if (hash.indexOf("#projecttable") === 0) {
+                  return <ProjectTablePage projects={this.projects()} />;
+                } else {
+                  return (
+                    <HomePage
+                      technologies={this.technologies}
+                      selectedTechnologies={this.state.selectedTechnologies}
+                      onFiltersChange={this.handleFiltersChage}
+                      yearFrom={this.state.yearFrom}
+                      technologyGroups={this.props.me.technologyGroups()}
+                    />
+                  );
+                }
+              }}
+            </HashAware>
+          </div>
         </ProjectColorContext.Provider>
       </div>
     );

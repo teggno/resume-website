@@ -23,7 +23,7 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
         >
           <div className="w-50 w-30-l ph2">{this.props.master}</div>
           <div
-            className={"w-50 w-70-l pl4-ns scroll-hack"}
+            className={"w-50 w-70-l pl4-ns"}
             ref={this.detailsRef}
           >
             {this.props.detailsVisible ? (
@@ -50,9 +50,10 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
     if (!this.props.detailsVisible) return;
     if (isElementTopLeftInViewport(this.detailsRef.current)) return;
 
-    this.detailsRef.current.scrollIntoView({
+    window.scroll({
       behavior: "smooth",
-      block: "start"
+      top: 0,
+      left: 0
     });
   }
 

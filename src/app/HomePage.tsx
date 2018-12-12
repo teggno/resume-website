@@ -15,7 +15,7 @@ export default function HomePage(props: {
     <>
       <div className="bg-near-white pv4 pa5-ns">
         <div className="ph2 tc tj-ns mw6 center ma">
-          <h3 className="f2 fw1 pa0 ma0 lh-copy">
+          <h3 className="f2 normal pa0 ma0 lh-copy">
             Hi, I'm Christian, the software developer you might want to work
             with.
           </h3>
