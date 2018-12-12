@@ -53,7 +53,6 @@ const now = new Date(),
     Month.diff(p.period.from, p.period.to || nowMonth),
   startMonth = (p: Project) => p.period.from.totalMonths(),
   endMonth = (p: Project) => (p.period.to || nowMonth).totalMonths(),
-  techsUsed = (p: Project) => p.technologies.length,
   sortConfigs = [
     {
       buttonLabel: "Duration",
@@ -71,14 +70,6 @@ const now = new Date(),
       itemSub: subOf,
       sprk: fromToChart<Project>(startMonth, endMonth)
     },
-    // {
-    //   label: "Technologies used",
-    //   name: "techsUsed",
-    //   sort: sortWith([descend(techsUsed), ascend(titleNonCase)]),
-    //   itemTitle: titleOf,
-    //   itemSub: subOf,
-    //   sprk: zeroBasedCharts(techsUsed)
-    // },
     {
       buttonLabel: "A...Z",
       name: "alphabetical",
