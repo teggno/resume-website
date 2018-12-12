@@ -67,5 +67,5 @@ export const circle = "dib br4 w1 h1 mr2 v-top";
 
 export const twoColumns = "cc2-l"
 
-export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSizeResponsive} pv2`;
+export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSizeResponsive}`;
 

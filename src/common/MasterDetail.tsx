@@ -15,7 +15,7 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
          otherwise cause horizontal scrollbars */
     }
     return (
-      <div className="overflow-hidden">
+      <div className="overflow-hidden pt2">
         <div
           className={
             "flex offc" + (this.props.detailsVisible ? " off on-ns" : "")

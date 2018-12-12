@@ -50,8 +50,7 @@ export default class App extends React.Component<AppProps, AppState> {
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
           <Navigation />
-          <div className="mt4 pt1">
-            <HashAware>
+          <HashAware>
               {(hash: string) => {
                 if (hash.indexOf("#projects") === 0) {
                   return (
@@ -99,7 +98,6 @@ export default class App extends React.Component<AppProps, AppState> {
                 }
               }}
             </HashAware>
-          </div>
         </ProjectColorContext.Provider>
       </div>
     );

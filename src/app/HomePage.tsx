@@ -1,8 +1,6 @@
 import React from "react";
 import Filters from "./Filters";
 import { Technology, TechnologyGroup } from "../Model";
-import Link from "../common/Link";
-import { link } from "../css";
 
 export default function HomePage(props: {
   technologies: Technology[];
