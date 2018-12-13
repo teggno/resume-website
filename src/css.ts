@@ -6,7 +6,7 @@ import "./Columns.css";
 const fontFamily = "sans-serif";
 const fontColor = "dark-gray";
 export const normalFontSize = "f5";
-const normalFontSizeResponsive = `f6 ${normalFontSize}-ns`
+const normalFontSizeResponsive = `f6 ${normalFontSize}-ns`;
 
 const nearWhite = "near-white";
 export const stripedBackground = `striped--${nearWhite}`;
@@ -24,7 +24,6 @@ const lightestBlueBackground = `bg-${lightestBlue}`;
 const blue = "blue";
 const blueBackground = `bg-${blue}`;
 
-
 export const componentSpacingVertical = "ml4-ns";
 export const link = `${blue} link hover-blue`;
 export const blackLink = `${fontColor} link hover-blue`;
@@ -32,10 +31,15 @@ export const dl = "ma0";
 export const dt = "fw6 mt2";
 export const dd = "ml0 pv2";
 
-const button = "f6 link dim br2 ph3 pv2 dib tc ba";
-export const normalButton = `${button} ${blueBackground} white`;
-export const clickedButton = `${button} ${lightBlueBackground} white`;
-export const deemphasizedButton = `${button} ${fontColor} ba b--${fontColor}`;
+const allButtons = "pointer link dim br2 dib tc ba";
+// normal sized buttons
+const normalSizedButton = `${allButtons} f6 ph3 pv2 `;
+export const normalButton = `${normalSizedButton} white ${blueBackground}`;
+export const clickedButton = `${normalSizedButton} white ${lightBlueBackground}`;
+export const deemphasizedButton = `${normalSizedButton} ${fontColor} b--${fontColor}`;
+
+// big button
+export const bigButton = `${allButtons} ${blueBackground} white f5 ph4 pv3`;
 
 export const checkboxListItem = "nowrap";
 
@@ -56,7 +60,7 @@ export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBack
 export const grid2 = `grid2-l`;
 export const grid4 = `grid4-l grid2-m`;
 export const gridItem = "pa2 mw6";
-export const gridCard = `h-100 ${card}`
+export const gridCard = `h-100 ${card}`;
 
 export const chartBackground = nearWhiteBackground;
 
@@ -65,7 +69,6 @@ export const iconInText = "v-mid-i icon-in-text";
 
 export const circle = "dib br4 w1 h1 mr2 v-top";
 
-export const twoColumns = "cc2-l"
+export const twoColumns = "cc2-l";
 
 export const mainContainer = `${fontFamily} ${fontColor} ${normalFontSizeResponsive}`;
-

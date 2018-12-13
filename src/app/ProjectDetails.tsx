@@ -10,7 +10,8 @@ import {
   cardTitle,
   cardContent,
   twoColumns,
-  list
+  list,
+  normalFontSize
 } from "../css";
 import StringList from "../common/StringList";
 
@@ -65,7 +66,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
       </div>
       <div>
-        <h3 className="f3 normal ph2 pv2 ma0">Project tasks by technology</h3>
+        <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>Project tasks by technology</h3>
         <TechnologyGrid technologies={project.technologies} />
       </div>
     </>

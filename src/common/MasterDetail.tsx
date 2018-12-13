@@ -43,10 +43,10 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
 
   componentDidUpdate() {
     console.debug("MasterDetail.componentDidUpdate");
-    this.scroll();
+    this.scrollTop();
   }
 
-  private scroll() {
+  private scrollTop() {
     if (!this.props.detailsVisible) return;
     if (isElementTopLeftInViewport(this.detailsRef.current)) return;
 

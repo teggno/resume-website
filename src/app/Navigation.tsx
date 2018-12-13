@@ -22,7 +22,7 @@ export default function Navigation() {
           <NavLinkItem href="#projecttable" text="Project Table" />
         </ul>
       </nav>
-      <div style={{height: "2.2rem"}} />
+      <div style={{height: "2.2rem"}} id="navSpacer"/>
     </>
   );
 }
