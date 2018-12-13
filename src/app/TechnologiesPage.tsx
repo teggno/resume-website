@@ -56,7 +56,7 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
       buttonLabel: "Experience",
       name: "byExperience",
       sort: sortWith([descend(experienceGross), ascend(nameOf)]),
-      sprk: zeroBasedCharts<Technology>(experienceGross)
+      sparkline: zeroBasedCharts<Technology>(experienceGross)
     },
     {
       itemTitle: nameOf,
@@ -64,7 +64,7 @@ const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),
       buttonLabel: "Last used",
       name: "lastUsed",
       sort: sortWith([descend(monthEnd), descend(experienceGross)]),
-      sprk: fromToChart<Technology>(monthStart, monthEnd)
+      sparkline: fromToChart<Technology>(monthStart, monthEnd)
     },
     {
       itemTitle: nameOf,

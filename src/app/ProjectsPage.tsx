@@ -60,7 +60,7 @@ const now = new Date(),
       sort: sortWith([descend(totalMonths), ascend(titleNonCase)]),
       itemTitle: titleOf,
       itemSub: subOf,
-      sprk: zeroBasedCharts<Project>(totalMonths)
+      sparkline: zeroBasedCharts<Project>(totalMonths)
     },
     {
       buttonLabel: "End date",
@@ -68,7 +68,7 @@ const now = new Date(),
       sort: sortWith([descend(endMonth), descend(totalMonths)]),
       itemTitle: titleOf,
       itemSub: subOf,
-      sprk: fromToChart<Project>(startMonth, endMonth)
+      sparkline: fromToChart<Project>(startMonth, endMonth)
     },
     {
       buttonLabel: "A...Z",
