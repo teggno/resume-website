@@ -20,7 +20,7 @@ export function TemplatedCheckboxList<T>(props: TemplatedCheckboxListProps<T>) {
     <>
       {props.allItems.map(item => (
         <React.Fragment key={props.keyOf(item)}>
-          <label className={checkboxListItem + " db lh-copy"}>
+          <label className={checkboxListItem + " pointer db lh-copy"}>
             <input
               className="mr1 mr2-ns dib v-mid"
               type="checkbox"

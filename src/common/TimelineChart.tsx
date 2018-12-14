@@ -2,13 +2,16 @@ import React from "react";
 import { chartBackground } from "../css";
 import "./TimelineChart.css";
 import { min, max } from "ramda";
+import { percent } from "../app/format";
 
 export default function TimelineChart(props: TimelineProps) {
   const formatAxisLabel = props.formatAxisLabel || (d => d.toLocaleString()),
     eventsSorted = props.events.sort(
       (a, b) => a.from.valueOf() - b.from.valueOf()
     ),
-    [minFrom, maxTo] = extractMinMax(eventsSorted, props.to);
+    [minFrom, maxTo] = extractMinMax(eventsSorted, props.to),
+    segmentClassName =
+      "bar absolute h1" + (props.onEventClicked ? " pointer" : "");
 
   return (
     <div className={"pa2 " + chartBackground}>
@@ -18,13 +21,13 @@ export default function TimelineChart(props: TimelineProps) {
           {eventsSorted.map((e, i) => (
             <div
               key={i}
-              className="bar absolute h1"
+              className={segmentClassName}
               title={e.label}
               style={{
-                left: dateToFraction(minFrom, maxTo, e.from) * 100 + "%",
-                right:
-                  (1 - dateToFraction(minFrom, maxTo, e.to || props.to)) * 100 +
-                  "%",
+                left: percent(dateToFraction(minFrom, maxTo, e.from)),
+                right: percent(
+                  1 - dateToFraction(minFrom, maxTo, e.to || props.to)
+                ),
                 backgroundColor: e.color
               }}
               onClick={() => {

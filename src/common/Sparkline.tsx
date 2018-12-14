@@ -1,6 +1,7 @@
 import React from "react";
 import { Transition } from "react-transition-group";
 import { sparkline } from "../css";
+import { percent } from "../app/format";
 
 export default function Sparkline(props: SparklineProps) {
   const { from, to, min, max } = props;
@@ -12,11 +13,11 @@ export default function Sparkline(props: SparklineProps) {
           style={{
             left:
               transitionStatus === "entered"
-                ? ((from - min) / (max - min)) * 100 + "%"
+                ? percent((from - min) / (max - min))
                 : 0,
             width:
               transitionStatus === "entered"
-                ? ((to - from) / (max - min)) * 100 + "%"
+                ? percent((to - from) / (max - min))
                 : 0
           }}
         />
