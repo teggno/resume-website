@@ -36,15 +36,16 @@ export default class SortableList<TItem> extends React.Component<
       : null;
     return (
       <>
-        <ButtonList
+        <span className="ph2">Sort by</span><ButtonList
           buttons={this.props.sortConfigs.map(c => ({
             name: c.name,
             label: c.buttonLabel
           }))}
           value={sortConfig.name}
           changed={this.sortChanged}
+          className="dib"
         />
-        <ul className={list}>
+        <ul className={list + " mt1"}>
           {sortConfig
             .sort(this.props.items)
             .map(i =>

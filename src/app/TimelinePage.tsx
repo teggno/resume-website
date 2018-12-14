@@ -12,7 +12,7 @@ import { iconInText } from "../css";
 export default function TimelinePage(props: TimelinePageProps) {
   return (
     <>
-      <div className="pa2 flex">
+      <div className="pa2 pv3 flex">
         <TemplatedCheckboxList
           allItems={props.allEventGroups}
           selectedItems={props.selectedEventGroups}

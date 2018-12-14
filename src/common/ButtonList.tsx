@@ -3,7 +3,7 @@ import ToggleButton from "./ToggleButton";
 
 export default function ButtonList(props: ButtonListProps) {
   return (
-    <div style={{lineHeight: 1}}>
+    <div style={{ lineHeight: 1 }} className={props.className}>
       {props.buttons.map((b, i) => (
         <React.Fragment key={i}>
           <ToggleButton
@@ -26,4 +26,5 @@ export interface ButtonListProps {
     name: string;
   }[];
   changed: (name: string) => void;
+  className?: string;
 }
