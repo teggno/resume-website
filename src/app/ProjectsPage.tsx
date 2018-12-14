@@ -55,20 +55,20 @@ const now = new Date(),
   endMonth = (p: Project) => (p.period.to || nowMonth).totalMonths(),
   sortConfigs = [
     {
-      buttonLabel: "Duration",
-      name: "duration",
-      sort: sortWith([descend(totalMonths), ascend(titleNonCase)]),
-      itemTitle: titleOf,
-      itemSub: subOf,
-      sparkline: zeroBasedCharts<Project>(totalMonths)
-    },
-    {
       buttonLabel: "End date",
       name: "enddate",
       sort: sortWith([descend(endMonth), descend(totalMonths)]),
       itemTitle: titleOf,
       itemSub: subOf,
       sparkline: fromToChart<Project>(startMonth, endMonth)
+    },
+    {
+      buttonLabel: "Duration",
+      name: "duration",
+      sort: sortWith([descend(totalMonths), ascend(titleNonCase)]),
+      itemTitle: titleOf,
+      itemSub: subOf,
+      sparkline: zeroBasedCharts<Project>(totalMonths)
     },
     {
       buttonLabel: "A...Z",
