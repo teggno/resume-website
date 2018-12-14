@@ -15,8 +15,8 @@ export default function HomePage(props: {
   const filterDiv = React.createRef() as any;
   return (
     <>
-      <div className="bg-near-white pv4 pa5-ns" style={{height: window.innerHeight - navBarHeight()}}>
-        <div className="ph2 tc tj-ns mw6 center ma">
+      <div className="bg-near-white pv4 pv6-ns" style={{minHeight: window.innerHeight - navBarHeight()}}>
+        <div className="ph2 tc tj-ns mw6 center">
           <h3 className="f2 normal pa0 ma0 lh-copy">
             Hi, I'm Christian, the software developer you might want to work
             with.
@@ -26,7 +26,7 @@ export default function HomePage(props: {
             well as in data related work. You can use this site to focus on
             what's relevant to you.
           </p>
-          <div className="pt4 tc">
+          <div className="pt5 tc">
             <a
               href="#filterDiv"
               className={bigButton}

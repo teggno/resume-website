@@ -85,14 +85,16 @@ function Grouped(
           <AllNone key={g.groupName} {...p}>
             {(handleToggleClick, selectionStatus) => (
               <div className="pa2">
-                <label className="pb1 db">
-                  <ThreeStateCheckbox
-                    className="mr1 mr2-ns v-mid"
-                    status={convertStatus(selectionStatus)}
-                    onChange={handleToggleClick}
-                  />
-                  <strong className="v-mid">{g.groupName}</strong>
-                </label>
+                <div>
+                  <label className="pb1 pointer">
+                    <ThreeStateCheckbox
+                      className="mr1 mr2-ns v-mid"
+                      status={convertStatus(selectionStatus)}
+                      onChange={handleToggleClick}
+                    />
+                    <strong className="v-mid">{g.groupName}</strong>
+                  </label>
+                </div>
                 <CheckboxList {...p} nameOf={n => n.name} />
               </div>
             )}

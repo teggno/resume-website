@@ -13,6 +13,7 @@ import HomePage from "./app/HomePage";
 import { Technology, Project } from "./Model";
 import { min, lens, over, filter, map } from "ramda";
 import Navigation from "./app/Navigation";
+import "./compatibility.css";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -52,7 +53,7 @@ export default class App extends React.Component<AppProps, AppState> {
           <header>
             <Navigation />
           </header>
-          <main>
+          <main role="main">
             <HashAware>
               {(hash: string) => {
                 if (hash.indexOf("#projects") === 0) {
