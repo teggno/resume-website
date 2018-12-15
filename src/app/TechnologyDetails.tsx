@@ -8,6 +8,7 @@ import Month from "../Month";
 import ProjectCard from "./ProjectCard";
 import ProjectColorContext from "./ProjectColorContext";
 import "./TechnologyDetails.css";
+import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 
 export default function TechnologyDetails({
   technology
@@ -99,24 +100,35 @@ function ProjectGrid({
   technologyName: string;
 }) {
   return (
-    <ul className={grid2 + " " + list}>
-      {projects.map((pc, i) =>
-        findableCard(i).makeFindable(
-          <li key={pc.project.title} className={gridItem + " flashing-card"}>
-            <div className={gridCard}>
-              <h4 className={cardTitle}>
-                <div className={circle} style={{ backgroundColor: pc.color }} />
-                {pc.project.title}
-              </h4>
-              <ProjectCard
-                project={pc.project}
-                technologyName={technologyName}
-              />
-            </div>
-          </li>
-        )
-      )}
-    </ul>
+    <>
+      <GridCellsAutoPlacementCss
+        count={projects.length}
+        cellCssSelector=".cell"
+        defaultColumns={1}
+        defs={[{ columns: 2, query: "screen and (min-width: 60em)" }]}
+      />
+      <ul className={grid2 + " " + list}>
+        {projects.map((pc, i) =>
+          findableCard(i).makeFindable(
+            <li key={pc.project.title} className={gridItem + " flashing-card"}>
+              <div className={gridCard}>
+                <h4 className={cardTitle}>
+                  <div
+                    className={circle}
+                    style={{ backgroundColor: pc.color }}
+                  />
+                  {pc.project.title}
+                </h4>
+                <ProjectCard
+                  project={pc.project}
+                  technologyName={technologyName}
+                />
+              </div>
+            </li>
+          )
+        )}
+      </ul>
+    </>
   );
 }
 

@@ -59,7 +59,7 @@ export const sparkline = `absolute top-0 grow-width move-h h1 ${lightestBlueBack
 
 export const grid2 = `grid2-l`;
 export const grid4 = `grid4-l grid2-m`;
-export const gridItem = "pa2 mw6";
+export const gridItem = "pa2 mw6 cell";
 export const gridCard = `h-100 ${card}`;
 
 export const chartBackground = nearWhiteBackground;

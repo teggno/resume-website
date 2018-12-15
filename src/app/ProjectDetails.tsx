@@ -14,6 +14,7 @@ import {
   normalFontSize
 } from "../css";
 import StringList from "../common/StringList";
+import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const now = new Date();
@@ -66,30 +67,40 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
       </div>
       <div>
-        <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>Project tasks by technology</h3>
+        <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>
+          Project tasks by technology
+        </h3>
         <TechnologyGrid technologies={project.technologies} />
       </div>
     </>
   );
 }
 
-function TechnologyGrid({
-  technologies
-}: {
-  technologies: { name: string; tasks?: string[] }[];
-}) {
+function TechnologyGrid(props: TechnologyGridProps) {
   return (
-    <ul className={grid2 + " " + list}>
-      {technologies.map((t, i) => (
-        <li key={t.name} className={gridItem}>
-          <div className={gridCard}>
-            <h4 className={cardTitle}>{t.name}</h4>
-            <div className={cardContent}>
-              {t.tasks ? <StringList items={t.tasks} /> : null}
+    <>
+      <GridCellsAutoPlacementCss
+        count={props.technologies.length}
+        cellCssSelector=".cell"
+        defaultColumns={1}
+        defs={[{ columns: 2, query: "screen and (min-width: 60em)" }]}
+      />
+      <ul className={grid2 + " " + list}>
+        {props.technologies.map(t => (
+          <li key={t.name} className={gridItem}>
+            <div className={gridCard}>
+              <h4 className={cardTitle}>{t.name}</h4>
+              <div className={cardContent}>
+                {t.tasks ? <StringList items={t.tasks} /> : null}
+              </div>
             </div>
-          </div>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
+    </>
   );
+}
+
+interface TechnologyGridProps {
+  technologies: { name: string; tasks?: string[] }[];
 }

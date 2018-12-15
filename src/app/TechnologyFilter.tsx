@@ -7,6 +7,7 @@ import AllNone, { SelectionStatus } from "../common/AllNone";
 import ThreeStateCheckbox, {
   ThreeStateCheckboxStatus
 } from "../common/ThreeStateCheckbox";
+import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 
 export default function TechnologyFilter(props: TechnologyFilterProps) {
   let allGroups: TechnologyGroup[];
@@ -36,7 +37,6 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
                   : `Select none`}
               </button>
             </div>
-
             <div className={grid4 + (allGroups ? "" : " pa2")}>
               {allGroups ? (
                 <Grouped {...props} allGroups={allGroups} />
@@ -63,6 +63,13 @@ function Grouped(
 ) {
   return (
     <>
+      <GridCellsAutoPlacementCss
+        count={props.allGroups.length}
+        cellCssSelector=".cell"
+        defaultColumns={1}
+        defs={[{ columns: 4, query: "screen and (min-width: 60em)" }]}
+      />
+
       {props.allGroups.map(g => {
         const techsOfGroup = filter<Technology>(i =>
             g.technologies.some(ii => ii === i.name)
@@ -84,7 +91,7 @@ function Grouped(
         return (
           <AllNone key={g.groupName} {...p}>
             {(handleToggleClick, selectionStatus) => (
-              <div className="pa2">
+              <div className="pa2 cell">
                 <div>
                   <label className="pb1 pointer">
                     <ThreeStateCheckbox
