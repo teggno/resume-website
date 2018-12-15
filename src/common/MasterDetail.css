@@ -12,10 +12,10 @@
 /* NOTE: the query below is the same as tachyon's -ns module's */
 @media screen and (min-width: 30em) {
   .offc.on-ns {
-    margin-left: unset;
-    margin-right: unset;
+    margin-left: 0;
+    margin-right: 0;
   }
   .offc:not(.off) {
-    margin-right: unset;
+    margin-right: 0;
   }
 }

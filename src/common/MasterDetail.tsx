@@ -21,9 +21,9 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
             "flex offc" + (this.props.detailsVisible ? " off on-ns" : "")
           }
         >
-          <div className="w-50 w-30-l ph2">{this.props.master}</div>
+          <div className="w-50 w-30-l ph2 flex-none">{this.props.master}</div>
           <div
-            className={"w-50 w-70-l pl4-ns"}
+            className={"w-50 w-70-l pl4-ns flex-none"}
             ref={this.detailsRef}
           >
             {this.props.detailsVisible ? (
