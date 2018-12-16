@@ -14,6 +14,8 @@ export class Expander extends React.Component<ExpanderProps, ExpanderState> {
         <Toggle
           isExpanded={this.state.isExpanded}
           onChange={isExpanded => this.setState({ isExpanded: isExpanded })}
+          expandedHeader={this.props.expandedHeader}
+          collapsedHeader={this.props.collapsedHeader}
         />
         <Expandable isExpanded={this.state.isExpanded}>
           {this.props.children}
@@ -28,13 +30,9 @@ function Toggle(props: ToggleProps) {
     collapsedHeader = props.collapsedHeader || "More";
 
   return (
-    <a
-      href="#"
+    <button
       className={deemphasizedButton + " v-mid"}
-      onClick={e => {
-        props.onChange(!props.isExpanded);
-        e.preventDefault();
-      }}
+      onClick={e => props.onChange(!props.isExpanded)}
     >
       {props.isExpanded ? (
         <ArrowUp addPaddingLeft={false} />
@@ -42,10 +40,10 @@ function Toggle(props: ToggleProps) {
         <ArrowDown addPaddingLeft={false} />
       )}
       {/* Added a span and gave it a width to retain the same width no matter the label */}
-      <span className="w2 dib">
+      <span className="dib">
         {props.isExpanded ? expandedHeader : collapsedHeader}
       </span>
-    </a>
+    </button>
   );
 }
 
@@ -78,6 +76,8 @@ class Expandable extends React.Component<ExpanderProps> {
 interface ExpanderProps {
   isExpanded?: boolean;
   className?: string;
+  expandedHeader?: string;
+  collapsedHeader?: string;
 }
 
 interface ToggleProps {

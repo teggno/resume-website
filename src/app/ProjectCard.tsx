@@ -25,7 +25,7 @@ export default function ProjectCard({
           </dd>
         </dl>
       ) : null}
-      <Expander>
+      <Expander expandedHeader="About the project" collapsedHeader="About the project">
         <dl className={dl + " pt2"}>
           <dt className={dt}>Project description</dt>
           <dd className={dd}>
