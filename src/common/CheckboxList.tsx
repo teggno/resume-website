@@ -9,6 +9,7 @@ export default function CheckboxList<T>(props: CheckboxListProps<T>) {
       selectedItems={props.selectedItems}
       onChange={props.onChange}
       keyOf={props.nameOf}
+      itemClassName={props.itemClassName}
     >
       {props.nameOf}
     </TemplatedCheckboxList>
@@ -25,7 +26,7 @@ export function TemplatedCheckboxList<T>(props: TemplatedCheckboxListProps<T>) {
           This could also be achieved by making the label display:block
           but then the clickable surface of the labels would be too wide.
           */}
-          <div>
+          <div className={props.itemClassName}>
             <label className={checkboxListItem + " pointer lh-copy"}>
               <input
                 className="mr1 mr2-ns dib v-mid"
@@ -49,17 +50,18 @@ export function TemplatedCheckboxList<T>(props: TemplatedCheckboxListProps<T>) {
   );
 }
 
-interface CheckboxListProps<T> {
-  allItems: T[];
-  selectedItems: T[];
-  onChange: (newSelection: T[]) => void;
+interface CheckboxListProps<T> extends CheckboxListPropsBase<T> {
   nameOf: (item: T) => string;
 }
 
-interface TemplatedCheckboxListProps<T> {
+interface TemplatedCheckboxListProps<T> extends CheckboxListPropsBase<T> {
+  keyOf: (item: T) => string;
+  children: (item: T) => any;
+}
+
+interface CheckboxListPropsBase<T> {
   allItems: T[];
   selectedItems: T[];
   onChange: (newSelection: T[]) => void;
-  keyOf: (item: T) => string;
-  children: (item: T) => any;
+  itemClassName?: string;
 }

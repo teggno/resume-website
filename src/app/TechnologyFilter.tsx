@@ -8,10 +8,12 @@ import ThreeStateCheckbox, {
   ThreeStateCheckboxStatus
 } from "../common/ThreeStateCheckbox";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
+import { large, medium } from "../common/MediaQueries";
 
 export default function TechnologyFilter(props: TechnologyFilterProps) {
-  let allGroups: TechnologyGroup[];
-  if (props.technologyGroups && props.technologyGroups.length) {
+  let allGroups: TechnologyGroup[],
+    hasGroups = props.technologyGroups && props.technologyGroups.length;
+  if (hasGroups && props.technologyGroups) {
     const groups = props.technologyGroups.filter(g =>
         g.technologies.some(t => props.allItems.some(tt => t === tt.name))
       ),
@@ -37,13 +39,11 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
                   : `Select none`}
               </button>
             </div>
-            <div className={grid4 + (allGroups ? "" : " pa2")}>
-              {allGroups ? (
-                <Grouped {...props} allGroups={allGroups} />
-              ) : (
-                <Ungrouped {...props} nameOf={t => t.name} />
-              )}
-            </div>
+            {hasGroups ? (
+              <Grouped {...props} allGroups={allGroups} />
+            ) : (
+              <Ungrouped {...props} nameOf={t => t.name} />
+            )}
           </>
         );
       }}
@@ -51,23 +51,16 @@ export default function TechnologyFilter(props: TechnologyFilterProps) {
   );
 }
 
-interface TechnologyFilterProps {
-  technologyGroups?: TechnologyGroup[];
-  allItems: Technology[];
-  selectedItems: Technology[];
-  onChange: (newSelection: Technology[]) => void;
-}
-
 function Grouped(
   props: { allGroups: TechnologyGroup[] } & TechnologyFilterProps
 ) {
   return (
-    <>
+    <div className={grid4}>
       <GridCellsAutoPlacementCss
         count={props.allGroups.length}
         cellCssSelector=".cell"
         defaultColumns={1}
-        defs={[{ columns: 4, query: "screen and (min-width: 60em)" }]}
+        defs={[{ columns: 4, query: large }]}
       />
 
       {props.allGroups.map(g => {
@@ -108,11 +101,25 @@ function Grouped(
           </AllNone>
         );
       })}
-    </>
+    </div>
   );
 }
 
-const Ungrouped = CheckboxList;
+function Ungrouped(
+  props: TechnologyFilterProps & { nameOf: (tech: Technology) => string }
+) {
+  return (
+    <div className={grid4 + " pa2"}>
+      <GridCellsAutoPlacementCss
+        count={props.allItems.length}
+        cellCssSelector=".cell"
+        defaultColumns={1}
+        defs={[{ columns: 4, query: large }, { columns: 2, query: medium }]}
+      />
+      <CheckboxList {...props} itemClassName="cell" />
+    </div>
+  );
+}
 
 function convertStatus(selectionStatus: SelectionStatus) {
   return selectionStatus === SelectionStatus.All
@@ -120,4 +127,11 @@ function convertStatus(selectionStatus: SelectionStatus) {
     : selectionStatus === SelectionStatus.Some
     ? ThreeStateCheckboxStatus.Some
     : ThreeStateCheckboxStatus.None;
+}
+
+interface TechnologyFilterProps {
+  technologyGroups?: TechnologyGroup[];
+  allItems: Technology[];
+  selectedItems: Technology[];
+  onChange: (newSelection: Technology[]) => void;
 }

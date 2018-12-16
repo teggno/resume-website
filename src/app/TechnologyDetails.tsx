@@ -9,6 +9,7 @@ import ProjectCard from "./ProjectCard";
 import ProjectColorContext from "./ProjectColorContext";
 import "./TechnologyDetails.css";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
+import { large } from "../common/MediaQueries";
 
 export default function TechnologyDetails({
   technology
@@ -105,7 +106,7 @@ function ProjectGrid({
         count={projects.length}
         cellCssSelector=".cell"
         defaultColumns={1}
-        defs={[{ columns: 2, query: "screen and (min-width: 60em)" }]}
+        defs={[{ columns: 2, query: large }]}
       />
       <ul className={grid2 + " " + list}>
         {projects.map((pc, i) =>

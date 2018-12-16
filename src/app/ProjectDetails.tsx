@@ -15,6 +15,7 @@ import {
 } from "../css";
 import StringList from "../common/StringList";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
+import { large } from "../common/MediaQueries";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const now = new Date();
@@ -83,7 +84,7 @@ function TechnologyGrid(props: TechnologyGridProps) {
         count={props.technologies.length}
         cellCssSelector=".cell"
         defaultColumns={1}
-        defs={[{ columns: 2, query: "screen and (min-width: 60em)" }]}
+        defs={[{ columns: 2, query: large }]}
       />
       <ul className={grid2 + " " + list}>
         {props.technologies.map(t => (
