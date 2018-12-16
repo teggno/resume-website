@@ -16,6 +16,7 @@ import {
 import StringList from "../common/StringList";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
+import { complement } from "ramda";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const now = new Date();
@@ -68,40 +69,89 @@ export default function ProjectDetails({ project }: { project: Project }) {
         ) : null}
       </div>
       <div>
-        <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>
-          Project tasks by technology
-        </h3>
-        <TechnologyGrid technologies={project.technologies} />
+        <TechnologySection technologies={project.technologies} />
+      </div>
+    </>
+  );
+}
+
+function TechnologySection({ technologies }: { technologies: Technology[] }) {
+  const hasTasks = (t: { tasks?: string[] }) => !!t.tasks && !!t.tasks.length,
+    techsHavingTasks = technologies.filter(hasTasks),
+    techsHavingNoTasks = technologies.filter(complement(hasTasks));
+  return techsHavingTasks.length ? (
+    <>
+      <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>
+        Project tasks by technology
+      </h3>
+      <TechnologyGrid
+        techsHavingTasks={techsHavingTasks}
+        techsHavingNoTasks={techsHavingNoTasks}
+      />
+    </>
+  ) : (
+    <>
+      <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>Technologies used</h3>
+      <div className="ph2 pt2">
+        <StringList items={techsHavingNoTasks.map(t => t.name)} />
       </div>
     </>
   );
 }
 
 function TechnologyGrid(props: TechnologyGridProps) {
+  const { techsHavingTasks, techsHavingNoTasks } = props,
+    cellCount = techsHavingTasks.length + techsHavingNoTasks.length;
   return (
     <>
       <GridCellsAutoPlacementCss
-        cellCount={props.technologies.length}
+        cellCount={cellCount}
         cellCssSelector=".cell"
         defaultColumns={1}
         defs={[{ columns: 2, query: large }]}
       />
       <ul className={grid2 + " " + list}>
-        {props.technologies.map(t => (
-          <li key={t.name} className={gridItem}>
-            <div className={gridCard}>
-              <h4 className={cardTitle}>{t.name}</h4>
-              <div className={cardContent}>
-                {t.tasks ? <StringList items={t.tasks} /> : null}
-              </div>
-            </div>
-          </li>
-        ))}
+        <>
+          {techsHavingTasks.map(t => (
+            <TechnologyGridCell title={t.name} lines={t.tasks || []} />
+          ))}
+          {techsHavingNoTasks.length ? (
+            <TechnologyGridCell
+              title="Other"
+              lines={techsHavingNoTasks.map(t => t.name)}
+            />
+          ) : null}
+        </>
       </ul>
     </>
   );
 }
 
+interface Technology {
+  name: string;
+  tasks?: string[];
+}
+
+function TechnologyGridCell({
+  title,
+  lines
+}: {
+  title: string;
+  lines: string[];
+}) {
+  return (
+    <li key={title} className={gridItem}>
+      <div className={gridCard}>
+        <h4 className={cardTitle}>{title}</h4>
+        <div className={cardContent}>
+          <StringList items={lines} />
+        </div>
+      </div>
+    </li>
+  );
+}
+
 interface TechnologyGridProps {
-  technologies: { name: string; tasks?: string[] }[];
+  techsHavingTasks: { name: string; tasks?: string[] }[];
+  techsHavingNoTasks: { name: string; tasks?: string[] }[];
 }
