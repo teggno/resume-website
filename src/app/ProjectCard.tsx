@@ -16,16 +16,16 @@ export default function ProjectCard({
   return (
     <div className={cardContent}>
       {!!technologies.length && technologies.some(t => !!t.tasks) ? (
-        <dl className={dl}>
-          {/* <dt className={dt}>Work I did with {technologies[0].name}</dt> */}
-          <dd className={dd}>
-            <StringList
-              items={chain(t => (t.tasks ? t.tasks : []), technologies)}
-            />
-          </dd>
-        </dl>
+        <div className="mb3">
+          <StringList
+            items={chain(t => (t.tasks ? t.tasks : []), technologies)}
+          />
+        </div>
       ) : null}
-      <Expander expandedHeader="About the project" collapsedHeader="About the project">
+      <Expander
+        expandedHeader="About the project"
+        collapsedHeader="About the project"
+      >
         <dl className={dl + " pt2"}>
           <dt className={dt}>Project description</dt>
           <dd className={dd}>
