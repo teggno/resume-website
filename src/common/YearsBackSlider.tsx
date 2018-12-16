@@ -14,24 +14,21 @@ export default function YearsBackSlider(props: {
     <div className="flex mw7-l">
       <div className="v-mid">this year</div>
       <input
+        className="v-mid ph2 pv0" // <-- the pv0 is for IE11
         type="range"
         min={0}
         max={yearDiff}
         value={props.yearTo - props.year}
-        onInput={onChange}
-        onChange={() => {
-          /*this is just here to prevent the warning that an input element
-          should have an onChange handler.*/
-        }}
-        className="v-mid ph2"
+        onChange={onChange}
         style={{ flex: 1 }}
       />
       <input
         className="w2 mr2 tr"
+        type="number"
+        min={0}
+        max={yearDiff}
         value={props.yearTo - props.year}
         onChange={onChange}
-        type="number"
-        max={yearDiff}
         onClick={e => e.currentTarget.select()}
       />
       <div className="v-mid"> years back</div>
