@@ -103,7 +103,7 @@ function ProjectGrid({
   return (
     <>
       <GridCellsAutoPlacementCss
-        count={projects.length}
+        cellCount={projects.length}
         cellCssSelector=".cell"
         defaultColumns={1}
         defs={[{ columns: 2, query: large }]}

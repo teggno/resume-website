@@ -57,7 +57,7 @@ function Grouped(
   return (
     <div className={grid4}>
       <GridCellsAutoPlacementCss
-        count={props.allGroups.length}
+        cellCount={props.allGroups.length}
         cellCssSelector=".cell"
         defaultColumns={1}
         defs={[{ columns: 4, query: large }]}
@@ -111,7 +111,7 @@ function Ungrouped(
   return (
     <div className={grid4 + " pa2"}>
       <GridCellsAutoPlacementCss
-        count={props.allItems.length}
+        cellCount={props.allItems.length}
         cellCssSelector=".cell"
         defaultColumns={1}
         defs={[{ columns: 4, query: large }, { columns: 2, query: medium }]}

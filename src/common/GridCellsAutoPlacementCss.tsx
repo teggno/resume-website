@@ -14,6 +14,10 @@ export default class GridCellsAutoPlacementCss extends React.Component<
   }
   private style: HTMLStyleElement;
 
+  static defaultProps: Partial<GridCellsAutoPlacementCssProps> = {
+    defs: []
+  };
+
   componentDidMount() {
     document.head.appendChild(this.style);
     this.style.innerHTML = this.css();
@@ -33,15 +37,17 @@ export default class GridCellsAutoPlacementCss extends React.Component<
   private css() {
     return [this.cssRules(this.props.defaultColumns)]
       .concat(
-        this.props.defs.map(
-          d => `@media ${d.query}{${this.cssRules(d.columns)}}`
-        )
+        this.props.defs
+          ? this.props.defs.map(
+              d => `@media ${d.query}{${this.cssRules(d.columns)}}`
+            )
+          : []
       )
       .join("");
   }
 
   private cssRules(columns: number) {
-    return cssRules(this.props.count, this.props.cellCssSelector, columns);
+    return cssRules(this.props.cellCount, this.props.cellCssSelector, columns);
   }
 
   private createStyleSheet() {
@@ -59,10 +65,10 @@ export default class GridCellsAutoPlacementCss extends React.Component<
 }
 
 interface GridCellsAutoPlacementCssProps {
-  count: number;
+  cellCount: number;
   cellCssSelector: string;
   defaultColumns: number;
-  defs: {
+  defs?: {
     query: string;
     columns: number;
   }[];
@@ -73,7 +79,7 @@ const rowProperties = ["-ms-grid-row"];
 
 /**
  * @returns Contents for a CSS style sheet like
- ```
+ ```css
   .theCell:nth-child(1){
     -ms-grid-column:1;
     -ms-grid-row:1;

@@ -81,7 +81,7 @@ function TechnologyGrid(props: TechnologyGridProps) {
   return (
     <>
       <GridCellsAutoPlacementCss
-        count={props.technologies.length}
+        cellCount={props.technologies.length}
         cellCssSelector=".cell"
         defaultColumns={1}
         defs={[{ columns: 2, query: large }]}
