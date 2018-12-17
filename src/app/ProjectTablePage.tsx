@@ -15,7 +15,6 @@ import {
   pipe
 } from "ramda";
 import { Project } from "../Model";
-import { applyOrDefault } from "../Functional";
 import ProjectColorContext from "./ProjectColorContext";
 import { projectRoute } from "../Routes";
 import Link from "../common/Link";
@@ -43,8 +42,6 @@ function ProjectTimelineChart({
   projectsSorted: Project[];
   now: Date;
 }) {
-  const endTimeOrNow = (month?: Month) =>
-    applyOrDefault(m => m.endTime(), month, now);
   return (
     <ProjectColorContext.Consumer>
       {colorByKey => (
@@ -52,15 +49,23 @@ function ProjectTimelineChart({
           to={now}
           events={projectsSorted.map(p => ({
             from: p.period.from.startTime(),
-            to: endTimeOrNow(p.period.to),
-            label: p.title,
+            to: endTimeOrNow(now, p.period.to),
+            label: `${p.company ? p.company + "\n" : ""}${
+              p.title
+            }\n${p.period.from.nameYearShort()}-${formatDateAsMonth(
+              endTimeOrNow(now, p.period.to)
+            )}`,
             color: colorByKey(p.title)
           }))}
-          formatAxisLabel={() => ""}
+          formatAxisLabel={formatDateAsMonth}
         />
       )}
     </ProjectColorContext.Consumer>
   );
+}
+
+function formatDateAsMonth(date: Date) {
+  return Month.fromDate(date).nameYearShort();
 }
 
 function ProjectGanttTable({
@@ -70,26 +75,24 @@ function ProjectGanttTable({
   projectsSorted: Project[];
   now: Date;
 }) {
-  const endTimeOrNow = (month?: Month) =>
-      applyOrDefault(m => m.endTime(), month, now),
-    [minFrom, maxTo] = projectsSorted.reduce(
-      (prev, current) => [
-        min(prev[0], current.period.from.startTime()),
-        max(prev[1], endTimeOrNow(current.period.to))
-      ],
-      [now, new Date(0)]
-    );
+  const [minFrom, maxTo] = projectsSorted.reduce(
+    (prev, current) => [
+      min(prev[0], current.period.from.startTime().valueOf()),
+      max(prev[1], endTimeOrNow(now, current.period.to).valueOf())
+    ],
+    [now.valueOf(), new Date(0).valueOf()]
+  );
   return (
     <table className="collapse ba br2 b--black-10 pv2 ph3 w-100">
       <thead>
         <tr>
-          <th className="pv2 ph3 tl f6 fw6 ttu">Title</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Company</th>
+          <th className="pv2 ph3 tl f6 fw6 ttu">Project</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Industry</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">From</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">To</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Gap</th>
-          <th className="pv2 ph3 tl f6 fw6 ttu">Months</th>
+          <th className="pv2 ph3 tl f6 fw6 ttu">Mnt</th>
           <th className="pv2 ph3 tl f6 fw6 ttu">Techs</th>
           <th className="pv2 ph3 tl f6 fw6 ttu" />
         </tr>
@@ -100,6 +103,7 @@ function ProjectGanttTable({
             (prevTo: null | Month, p) => [
               p.period.to || Month.fromDate(now),
               <tr className={stripedBackground} key={p.title}>
+                <td className="pv2 ph3">{p.company}</td>
                 <td className="pv2 ph3">
                   <Link
                     className={link}
@@ -109,7 +113,6 @@ function ProjectGanttTable({
                     {p.title}
                   </Link>
                 </td>
-                <td className="pv2 ph3">{p.company}</td>
                 <td className="pv2 ph3">{p.industry}</td>
                 <td className="pv2 ph3">{p.period.from.toString()}</td>
                 <td className="pv2 ph3">
@@ -127,10 +130,10 @@ function ProjectGanttTable({
                 <td className="pv2 ph3" style={{ width: "50%" }}>
                   <div className="relative w-100 h1">
                     <Sparkline
-                      min={minFrom.valueOf()}
+                      min={minFrom}
                       from={p.period.from.startTime().valueOf()}
-                      to={endTimeOrNow(p.period.to).valueOf()}
-                      max={maxTo.valueOf()}
+                      to={endTimeOrNow(now, p.period.to).valueOf()}
+                      max={maxTo}
                     />
                   </div>
                 </td>
@@ -176,4 +179,8 @@ function TermList({ projects }: { projects: Project[] }) {
       )(projects)}
     </ul>
   );
+}
+
+function endTimeOrNow(now: Date, month?: Month) {
+  return month ? month.endTime() : now;
 }

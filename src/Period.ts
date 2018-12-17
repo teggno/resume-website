@@ -3,7 +3,7 @@ import Month from "./Month";
 export default class Period {
   constructor(public readonly from: Month, public readonly to?: Month) {
     if (to && from.totalMonths() > to.totalMonths()) {
-      throw new Error("from must be before or at the same time as to");
+      throw new Error(`from must be before or the same as to ${from.toString()};${to.toString()}`);
     }
   }
 
