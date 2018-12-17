@@ -9,6 +9,7 @@ export default class Month {
   constructor(public readonly year: number, public readonly month: number) {
     if (month < 1 || month > 12)
       throw new Error("Month must be between 1 and 12.");
+    if (year < 0) throw new Error("Year must be 0 or above.");
   }
 
   /**
@@ -33,7 +34,7 @@ export default class Month {
   }
 
   add(months: number) {
-    return Month.fromTotalMonths(this.totalMonths() + months);
+    return Month.fromTotalMonths(this.year * 12 + this.month + months);
   }
 
   monthsUntil(to: Month) {
@@ -49,8 +50,11 @@ export default class Month {
   }
 
   endTime() {
-    const next = this.add(1);
-    return new Date(new Date(next.year, next.month - 1).valueOf() - 1);
+    return new Date(
+      this.add(1)
+        .startTime()
+        .valueOf() - 1
+    );
   }
 
   toString() {
@@ -90,7 +94,7 @@ export default class Month {
 
   static fromTotalMonths(totalMonths: number) {
     return new Month(
-      Math.floor(totalMonths / 12),
+      Math.floor(totalMonths / 12) - (totalMonths % 12 === 0 ? 1 : 0),
       totalMonths % 12 === 0 ? 12 : totalMonths % 12
     );
   }
