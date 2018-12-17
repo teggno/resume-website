@@ -5,8 +5,6 @@ import {
   groupBy,
   minBy,
   maxBy,
-  values,
-  innerJoin,
   mapAccum,
   descend,
   sort,
@@ -38,11 +36,6 @@ export default class Me {
 
   technologies() {
     const projects = this.getProjects(),
-      jobs = this.getJobs(),
-      jobsAndTitles = chain(
-        j => j.titles.map(t => ({ job: j, title: t })),
-        jobs
-      ),
       pairs = chain(
         p => p.technologies.map(t => ({ project: p, technology: t })),
         projects
@@ -71,17 +64,7 @@ export default class Me {
               .map(p => Month.diff(p.period.from, p.period.to || todaysMonth))
               .reduce(add, 0) / 12,
           experienceGross: Month.diff(minMonth, maxMonth) / 12,
-          projects: projectsWhereTechWasUsed,
-          jobs: values(
-            groupBy(
-              jt => jt.job.company,
-              innerJoin(
-                (jt, p) => jt.title.period.overlaps(p.period),
-                jobsAndTitles,
-                projectsWhereTechWasUsed
-              )
-            )
-          ).map(g => ({ company: g[0].job.company, title: g[0].title.title }))
+          projects: projectsWhereTechWasUsed
         };
       });
 
@@ -116,14 +99,14 @@ export default class Me {
 
   private getJobs() {
     return this.source.jobs.map(j => ({
-      company: <string>j.company,
+      company: j.company,
       titles: mapAccum(
         (to, titleItem) => [
-          Month.parse(titleItem.from ? titleItem.from : j.period.from).add(-1),
+          Month.parse(titleItem.from || j.period.from).add(-1),
           {
             title: titleItem.title,
             period: new Period(
-              Month.parse(titleItem.from ? titleItem.from : j.period.from),
+              Month.parse(titleItem.from || j.period.from),
               to
             )
           }

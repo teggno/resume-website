@@ -23,10 +23,6 @@ export interface Project {
 export interface Technology {
   name: string;
   projects: Project[];
-  jobs: {
-    company: string;
-    title: string;
-  }[];
   experienceNet: number;
   experienceGross: number;
   monthStart: Month;
