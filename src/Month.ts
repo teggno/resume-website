@@ -110,6 +110,16 @@ export default class Month {
   static max(a: Month, b: Month) {
     return a.totalMonths() > b.totalMonths() ? a : b;
   }
+
+  static ascending(a: Month, b:Month){
+    const va = a.totalMonths(), vb = b.totalMonths();
+    return va - vb;
+  }
+
+  static descending(a: Month, b:Month){
+    const va = a.totalMonths(), vb = b.totalMonths();
+    return vb - va;
+  }
 }
 
 class MonthNames {

@@ -19,10 +19,10 @@ export default function TechnologyDetails({
   return (
     <ProjectColorContext.Consumer>
       {colorByKey => {
-        const sortByDuration = sortBy<Project>(p =>
-            p.period.from.totalMonths()
-          ),
-          projectsWithColors = sortByDuration(technology.projects).map(p => ({
+        const projectsWithColors = sortBy(
+            p => p.period.from.totalMonths(),
+            technology.projects
+          ).map(p => ({
             project: p,
             color: colorByKey(p.title)
           })),
@@ -35,9 +35,12 @@ export default function TechnologyDetails({
               <ProjectTimeline projects={projectsWithColors} now={now} />
             </div>
             <div>
-              {/* <h3 className="pa2 ma0 normal f3">Projects:</h3> */}
               <ProjectGrid
-                projects={projectsWithColors}
+                projects={projectsWithColors.sort((...pcs) =>
+                  Month.descending.apply(null, pcs.map(
+                    pc => pc.project.period.from
+                  ) as [Month, Month])
+                )}
                 technologyName={technology.name}
               />
             </div>
