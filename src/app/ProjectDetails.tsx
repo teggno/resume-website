@@ -16,7 +16,7 @@ import {
 import StringList from "../common/StringList";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
-import { complement } from "ramda";
+import { partition } from "ramda";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const now = new Date();
@@ -76,9 +76,10 @@ export default function ProjectDetails({ project }: { project: Project }) {
 }
 
 function TechnologySection({ technologies }: { technologies: Technology[] }) {
-  const hasTasks = (t: { tasks?: string[] }) => !!t.tasks && !!t.tasks.length,
-    techsHavingTasks = technologies.filter(hasTasks),
-    techsHavingNoTasks = technologies.filter(complement(hasTasks));
+  const [techsHavingTasks, techsHavingNoTasks] = partition(
+    t => !!t.tasks && !!t.tasks.length,
+    technologies
+  );
   return techsHavingTasks.length ? (
     <>
       <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>
