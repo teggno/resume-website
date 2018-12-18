@@ -79,6 +79,10 @@ export default class Month {
     return `${this.nameShort()} ${this.year}`;
   }
 
+  lt(other: Month){
+    return Month.lt(this, other);
+  }
+
   static duration(from: Month, to: Month) {
     const diff = Month.diff(from, to) + 1;
     return new Duration(Math.floor(diff / 12), diff % 12);
@@ -119,6 +123,10 @@ export default class Month {
   static descending(a: Month, b:Month){
     const va = a.totalMonths(), vb = b.totalMonths();
     return vb - va;
+  }
+
+  static lt(a: Month, b: Month){
+    return a.totalMonths() < b.totalMonths();
   }
 }
 

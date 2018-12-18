@@ -14,6 +14,7 @@ import { Technology, Project } from "./Model";
 import { min, lens, over, filter, map, assoc } from "ramda";
 import Navigation from "./app/Navigation";
 import "./compatibility.css";
+import Month from "./Month";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -158,10 +159,13 @@ export default class App extends React.Component<AppProps, AppState> {
   }
 
   private isProjectInTimeRange(p: Project) {
-    return (
-      (p.period.to ? p.period.to.year : new Date().getFullYear()) >=
-      this.state.yearFrom
+    return this.startMonth().lt(
+      p.period.to ? p.period.to : Month.fromDate(new Date())
     );
+  }
+
+  private startMonth() {
+    return new Month(this.state.yearFrom, new Date().getMonth() + 1);
   }
 }
 
