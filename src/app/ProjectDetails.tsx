@@ -16,7 +16,7 @@ import {
 import StringList from "../common/StringList";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
-import { partition } from "ramda";
+import { partition, sortBy, descend } from "ramda";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const now = new Date();
@@ -113,9 +113,11 @@ function TechnologyGrid(props: TechnologyGridProps) {
       />
       <ul className={grid2 + " " + list}>
         <>
-          {techsHavingTasks.map(t => (
-            <TechnologyGridCell title={t.name} lines={t.tasks || []} />
-          ))}
+          {techsHavingTasks
+            .sort(descend(t => (t.tasks ? t.tasks.length : 0)))
+            .map(t => (
+              <TechnologyGridCell title={t.name} lines={t.tasks || []} />
+            ))}
           {techsHavingNoTasks.length ? (
             <TechnologyGridCell
               title="Other"
