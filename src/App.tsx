@@ -11,7 +11,7 @@ import Me from "./Me";
 import { projectRoute, technologyRoute } from "./Routes";
 import HomePage from "./app/HomePage";
 import { Technology, Project } from "./Model";
-import { min, lens, over, filter, map } from "ramda";
+import { min, lens, over, filter, map, assoc } from "ramda";
 import Navigation from "./app/Navigation";
 import "./compatibility.css";
 
@@ -40,6 +40,7 @@ export default class App extends React.Component<AppProps, AppState> {
     this.handleEventGroupSelectionChange = this.handleEventGroupSelectionChange.bind(
       this
     );
+    this.isProjectInTimeRange = this.isProjectInTimeRange.bind(this);
   }
 
   private technologies: Technology[];
@@ -66,7 +67,7 @@ export default class App extends React.Component<AppProps, AppState> {
                 } else if (hash.indexOf("#technologies") === 0) {
                   return (
                     <TechnologiesPage
-                      technologies={this.state.selectedTechnologies}
+                      technologies={this.technologiesWithFilteredProjects()}
                       selectedTechnologyTitle={technologyRoute.nameFromHash(
                         hash
                       )}
@@ -140,9 +141,26 @@ export default class App extends React.Component<AppProps, AppState> {
       ) => Project[];
 
     return onlyWithSelectedTechs(this.props.me.projects()).filter(
-      p =>
-        (p.period.to ? p.period.to.year : new Date().getFullYear()) >=
-          this.state.yearFrom && !!p.technologies.length
+      p => this.isProjectInTimeRange(p) && !!p.technologies.length
+    );
+  }
+
+  private technologiesWithFilteredProjects() {
+    let projectProp: keyof Technology = "projects";
+    return this.state.selectedTechnologies.map(
+      t =>
+        assoc(
+          projectProp,
+          t.projects.filter(this.isProjectInTimeRange),
+          t
+        ) as Technology
+    );
+  }
+
+  private isProjectInTimeRange(p: Project) {
+    return (
+      (p.period.to ? p.period.to.year : new Date().getFullYear()) >=
+      this.state.yearFrom
     );
   }
 }
