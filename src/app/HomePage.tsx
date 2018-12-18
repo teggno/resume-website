@@ -48,15 +48,15 @@ export default function HomePage(props: {
       >
         <Filters onChange={props.onFiltersChange} {...props} />
         <div className="tc">
+          <Link className={normalButton} href="#projects" scrollToTop={true}>
+            See projects
+          </Link>{" "}
           <Link
             className={normalButton}
             href="#technologies"
             scrollToTop={true}
           >
             See technologies
-          </Link>{" "}
-          <Link className={normalButton} href="#projects" scrollToTop={true}>
-            See projects
           </Link>{" "}
           <Link className={normalButton} href="#timeline" scrollToTop={true}>
             See my timeline
