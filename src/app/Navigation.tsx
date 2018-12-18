@@ -14,8 +14,6 @@ export default function Navigation() {
           <NavLinkItem href="#technologies" text="Technologies" />
           {"\n"}
           <NavLinkItem href="#timeline" text="Timeline" />
-          {"\n"}
-          <NavLinkItem href="#projecttable" text="Project Table" />
         </ul>
       </nav>
       <div style={{ height: "3.2rem" }} id="navSpacer" />
