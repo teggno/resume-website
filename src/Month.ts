@@ -155,7 +155,7 @@ class MonthNames {
     "September",
     "October",
     "November",
-    "September"
+    "December"
   ];
   private static monthNamesShort = [
     "Jan",
@@ -169,6 +169,6 @@ class MonthNames {
     "Sep",
     "Oct",
     "Nov",
-    "Sep"
+    "Dec"
   ];
 }
