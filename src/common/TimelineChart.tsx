@@ -11,13 +11,12 @@ export default function TimelineChart(props: TimelineProps) {
     ),
     [minFrom, maxTo] = extractMinMax(eventsSorted, props.to),
     segmentClassName =
-      "bar absolute h1" + (props.onEventClicked ? " pointer" : "");
+      "bar absolute" + (props.onEventClicked ? " pointer" : "");
 
   return (
     <div className={"pa2 " + chartBackground}>
       <div className="pa2">
-        <div className="relative h1">
-          <div className="absolute ba b--light-silver left-0 right-0 h1" />
+        <div className="ba b--light-silver relative w-100 h1">
           {eventsSorted.map((e, i) => (
             <div
               key={i}
