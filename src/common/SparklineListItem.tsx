@@ -1,7 +1,7 @@
 import React from "react";
 import {
   listItem,
-  blackLink,
+  listLink,
   listItemTitle,
   listItemSub,
   sparklineContainer
@@ -29,7 +29,7 @@ export default function SparklineListItem({
 }: SparklineListItemProps) {
   return (
     <li className={listItem} key={title}>
-      <a href={href} className={blackLink}>
+      <a href={href} className={listLink}>
         <div className={listItemTitle}>{title}</div>
         <div>
           <div className={listItemSub}>{sub}</div>
