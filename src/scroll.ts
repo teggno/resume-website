@@ -8,12 +8,12 @@ export function scrollIntoView(element: HTMLElement) {
 
 export function navBarHeight() {
   let height = 50;
-  const navSpacer = document.getElementById("header");
-  if (navSpacer) {
-    height = navSpacer.offsetHeight;
+  const header = document.getElementById("header");
+  if (header) {
+    height = header.offsetHeight;
   } else {
     console.warn(
-      'Element with id "navSpacer" not found. Assuming default height.'
+      'Element with id "header" not found. Assuming default height.'
     );
   }
   return height;
