@@ -1,0 +1,10 @@
+main {
+  display: block;
+}
+
+@media (min-width: 30em) {
+  body::after {
+    content: "notSmall";
+    display: none;
+  }
+}

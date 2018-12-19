@@ -10,7 +10,7 @@ import ProjectColorContext from "./ProjectColorContext";
 import "./TechnologyDetails.css";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
-import { scrollIntoView } from "../scroll";
+import { scrollIntoView } from "../common/scroll";
 
 export default function TechnologyDetails({
   technology

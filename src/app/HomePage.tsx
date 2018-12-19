@@ -2,7 +2,7 @@ import React from "react";
 import Filters from "./Filters";
 import { Technology, TechnologyGroup } from "../Model";
 import { bigButton, normalButton } from "../css";
-import { scrollIntoView, navBarHeight } from "../scroll";
+import { scrollIntoView, navBarHeight } from "../common/scroll";
 import Link from "../common/Link";
 
 export default function HomePage(props: {

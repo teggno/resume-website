@@ -1,23 +1,23 @@
 import React from "react";
-import ProjectColorContext from "./app/ProjectColorContext";
-import ProjectsPage from "./app/ProjectsPage";
-import ProjectTablePage from "./app/ProjectTablePage";
-import TechnologiesPage from "./app/TechnologiesPage";
-import TimelinePage, { timelinePagePropsFactory } from "./app/TimelinePage";
-import colors from "./Colors";
-import HashAware from "./common/HashAware";
-import { mainContainer } from "./css";
-import Me from "./Me";
-import { projectRoute, technologyRoute } from "./Routes";
-import HomePage from "./app/HomePage";
-import { Technology, Project } from "./Model";
+import ProjectColorContext from "./ProjectColorContext";
+import ProjectsPage from "./ProjectsPage";
+import ProjectTablePage from "./ProjectTablePage";
+import TechnologiesPage from "./TechnologiesPage";
+import TimelinePage, { timelinePagePropsFactory } from "./TimelinePage";
+import colors from "../Colors";
+import HashAware from "../common/HashAware";
+import { mainContainer } from "../css";
+import Me from "../Me";
+import { projectRoute, technologyRoute } from "../Routes";
+import HomePage from "./HomePage";
+import { Technology, Project } from "../Model";
 import { min, lens, over, filter, map, assoc } from "ramda";
-import Navigation from "./app/Navigation";
-import "./compatibility.css";
-import Month from "./Month";
-import LogoAdwise from "./app/LogoAdwise";
-import Link from "./common/Link";
-import { navBarHeight } from "./scroll";
+import Navigation from "./Navigation";
+import "./App.css";
+import Month from "../Month";
+import LogoAdwise from "./LogoAdwise";
+import Link from "../common/Link";
+import { navBarHeight } from "../common/scroll";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {

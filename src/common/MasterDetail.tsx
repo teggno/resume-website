@@ -1,6 +1,7 @@
 import React from "react";
 import { isElementTopLeftInViewport } from "../DomHelpers";
 import "./MasterDetail.css";
+import { scrollBehavior } from "./scroll";
 
 export default class MasterDetail extends React.Component<MasterDetailProps> {
   constructor(props: Readonly<MasterDetailProps>) {
@@ -51,7 +52,7 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
     if (isElementTopLeftInViewport(this.detailsRef.current)) return;
 
     window.scroll({
-      behavior: "smooth",
+      behavior: scrollBehavior(),
       top: 0,
       left: 0
     });
