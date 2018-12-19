@@ -10,6 +10,7 @@ import ProjectColorContext from "./ProjectColorContext";
 import "./TechnologyDetails.css";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
+import { scrollIntoView } from "../scroll";
 
 export default function TechnologyDetails({
   technology
@@ -81,7 +82,7 @@ function ProjectTimeline({
         if (!card) return;
         var flashDelay = 0;
         if (!isElementTopLeftInViewport(card)) {
-          card.scrollIntoView({ behavior: "smooth" });
+          scrollIntoView(card as HTMLElement);
           flashDelay = 500; /* Wait with flashing the card a bit to let the scrolling happen first. */
         }
         setTimeout(() => {

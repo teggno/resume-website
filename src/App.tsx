@@ -15,6 +15,8 @@ import { min, lens, over, filter, map, assoc } from "ramda";
 import Navigation from "./app/Navigation";
 import "./compatibility.css";
 import Month from "./Month";
+import LogoAdwise from "./app/LogoAdwise";
+import Link from "./common/Link";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -52,10 +54,13 @@ export default class App extends React.Component<AppProps, AppState> {
         <ProjectColorContext.Provider
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
-          <header>
+          <header className={"bg-white shadow-1 fixed w-100 z-999 top-0"} id="header">
+            <div className="dib h2 v-mid ml2">
+              <Link href="#"><LogoAdwise /></Link>
+            </div>
             <Navigation />
           </header>
-          <main role="main">
+          <main role="main" style={{ marginTop: "3.2em" }}>
             <HashAware>
               {(hash: string) => {
                 if (hash.indexOf("#projects") === 0) {

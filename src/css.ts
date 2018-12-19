@@ -2,6 +2,9 @@ import "./Icons.css";
 import "./Animations.css";
 import "./Grid.css";
 import "./Columns.css";
+import "./Colors.css";
+
+
 
 const fontFamily = "sans-serif";
 export const normalFontSize = "f5";
@@ -14,17 +17,17 @@ const nearWhiteBackground = `bg-${nearWhite}`;
 // Colors
 const fontColor = "dark-gray";
 
-const bigButtonBackground = "bg-blue";
-const normalButtonBackground = "bg-blue";
-const normalButtonBackgroundClicked = "bg-light-blue";
+const bigButtonBackground = "bg-adwise-red";
+const normalButtonBackground = "bg-darker-green";
+const normalButtonBackgroundClicked = "bg-adwise-green";
 
-const sparklineBackground = "bg-lightest-blue";
+const sparklineBackground = "bg-light-darker-green";
 
-const linkColor = "blue";
-const linkColorHover = "hover-light-blue";
+const linkColor = "darker-green";
+const linkColorHover = "hover-darker-green";
 
 const listLinkColor = fontColor;
-const listLinkColorHover = "hover-blue";
+const listLinkColorHover = "hover-darker-green";
 
 const lightSilver = "light-silver";
 const lightSilverBorder = `b--${lightSilver}`;

@@ -1,0 +1,39 @@
+.bg-adwise-green {
+  background-color: #7fba00;
+}
+
+.bg-darker-green {
+  background-color: #679800;
+}
+
+.b--darker-green {
+  border-color: #679800;
+}
+
+.darker-green {
+  color: #679800;
+}
+
+.hover-darker-green:hover {
+  color: #679800;
+}
+
+.bg-adwise-red {
+  background-color: #c40e79;
+}
+
+.b--adwise-red {
+  border-color: #c40e79;
+}
+
+.adwise-red {
+  color: #c40e79;
+}
+
+.bg-light-adwise-red {
+  background-color: #c93a8e;
+}
+
+.hover-adwise-red:hover {
+  color: #c93a8e;
+}
