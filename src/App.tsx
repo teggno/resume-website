@@ -17,6 +17,7 @@ import "./compatibility.css";
 import Month from "./Month";
 import LogoAdwise from "./app/LogoAdwise";
 import Link from "./common/Link";
+import { navBarHeight } from "./scroll";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -55,12 +56,12 @@ export default class App extends React.Component<AppProps, AppState> {
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
           <header className={"bg-white shadow-1 fixed w-100 z-999 top-0"} id="header">
-            <div className="dib h2 v-mid ml2">
+            <div className="dib h2 w2 v-mid ml2">
               <Link href="#"><LogoAdwise /></Link>
             </div>
             <Navigation />
           </header>
-          <main role="main" style={{ marginTop: "3.2em" }}>
+          <main role="main" style={{ marginTop: navBarHeight() }}>
             <HashAware>
               {(hash: string) => {
                 if (hash.indexOf("#projects") === 0) {
