@@ -1,0 +1,22 @@
+input[type=range]::-ms-track {
+  background-color: #aaa; /*light-silver*/
+  border: 0 none;
+  border-radius: 0.15rem;
+}
+
+input[type=range]::-ms-fill-lower {
+  background-color: #679800;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: -1px 1px 4px 0px rgba(51, 51, 51, .9);
+  border-radius: 0.15rem;
+  height: 1rem;
+  border: 0px none;
+  background: #7fba00;
+  margin: 0 .25rem;
+}
+input[type=range]:focus::-ms-thumb {
+  border: 0px none;
+  background: #BFDC80; /*same as a normal hovered/focused button*/
+}
