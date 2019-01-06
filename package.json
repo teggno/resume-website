@@ -20,9 +20,9 @@
   "dependencies": {
     "ramda": "^0.25.0",
     "randomcolor": "^0.5.3",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-transition-group": "^2.5.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-transition-group": "^2.5.2",
     "smoothscroll-polyfill": "^0.4.3",
     "tachyons": "^4.11.1"
   },
@@ -31,9 +31,9 @@
     "@types/mocha": "^5.2.5",
     "@types/ramda": "github:types/npm-ramda#dist",
     "@types/randomcolor": "^0.5.0",
-    "@types/react": "^16.7.17",
+    "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
-    "@types/react-transition-group": "^2.0.14",
+    "@types/react-transition-group": "^2.0.15",
     "@types/sinon": "^5.0.7",
     "awesome-typescript-loader": "^5.2.1",
     "chai": "^4.2.0",
@@ -54,9 +54,9 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "typescript": "^3.2.2",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
-    "webpack-merge": "^4.1.5"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
   }
 }

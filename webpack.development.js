@@ -8,10 +8,7 @@ module.exports = merge(common, {
   devServer: {
     compress: true,
     port: 8080,
-    host: "127.0.0.1",
-    headers: {
-      "Access-Control-Allow-Origin": "*"
-    }
+    host: "127.0.0.1"
   },
   plugins: [
     new HtmlWebPackPlugin({

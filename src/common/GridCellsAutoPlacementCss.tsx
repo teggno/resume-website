@@ -21,17 +21,14 @@ export default class GridCellsAutoPlacementCss extends React.Component<
   componentDidMount() {
     document.head.appendChild(this.style);
     this.style.innerHTML = this.css();
-    console.debug("added style");
   }
 
   componentWillUnmount() {
     document.head.removeChild(this.style);
-    console.debug("removed style");
   }
 
   componentDidUpdate() {
     this.style.innerHTML = this.css();
-    console.debug("filled style");
   }
 
   private css() {
