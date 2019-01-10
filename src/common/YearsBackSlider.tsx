@@ -15,7 +15,7 @@ export default function YearsBackSlider(props: {
   return (
     <div className="flex mw7-l">
       <input
-        className="v-mid pa0" // <-- the pv0 is for IE11
+        className="v-mid pa0" // <-- the pa0 is for IE11
         type="range"
         min={1}
         max={yearDiff}
@@ -24,7 +24,7 @@ export default function YearsBackSlider(props: {
         style={{ flex: 1 }}
       />
       <input
-        className="w2 mh2 tr br2 ba b--light-silver"
+        className="w2 w3-ns mh2 tr br2 ba b--light-silver years"
         type="number"
         min={1}
         max={yearDiff}

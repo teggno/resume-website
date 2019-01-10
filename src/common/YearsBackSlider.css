@@ -20,3 +20,26 @@ input[type=range]:focus::-ms-thumb {
   border: 0px none;
   background: #BFDC80; /*same as a normal hovered/focused button*/
 }
+
+input[type=number].years {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button.years,
+input[type=number]::-webkit-outer-spin-button.years {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Same as Tachyon's -ns */
+@media screen and (min-width: 30em){
+  input[type=number].years {
+    -moz-appearance: number-input;
+  }
+
+  input[type=number]::-webkit-inner-spin-button.years,
+  input[type=number]::-webkit-outer-spin-button.years {
+    -webkit-appearance: button;
+    margin: 1em;
+  }
+}
