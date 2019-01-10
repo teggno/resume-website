@@ -1,5 +1,5 @@
 import React from "react";
-import { isElementTopLeftInViewport } from "../DomHelpers";
+import { isElementTopLeftInViewport } from "./DomHelpers";
 import "./MasterDetail.css";
 import { scrollBehavior } from "./scroll";
 

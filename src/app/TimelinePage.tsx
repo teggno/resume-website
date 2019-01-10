@@ -1,7 +1,7 @@
 import React from "react";
 import TimelineList, { TimelineListEvent } from "../common/TimelineList";
 import { chain, descend } from "ramda";
-import { Project, Technology, Job, Certificate } from "../Model";
+import { Project, Technology, Job, Certificate } from "./Model";
 import { TemplatedCheckboxList } from "../common/CheckboxList";
 import ProjectEventFactory from "./timelinePage/ProjectEventFactory";
 import CertificateEventFactory from "./timelinePage/CertificateEventFactory";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Transition } from "react-transition-group";
 import { sparkline } from "../css";
-import { percent } from "../format";
+import { percent } from "./format";
 
 export default function Sparkline(props: SparklineProps) {
   const { from, to, min } = props,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Project } from "../Model";
+import { Project } from "./Model";
 import { chain } from "ramda";
 import { textParagraph, dt, dd, cardContent, dl } from "../css";
 import { Expander } from "../common/Expandable";

@@ -1,4 +1,4 @@
-import Month from "../src/Month";
+import Month from "../src/app/Month";
 import { expect } from "chai";
 
 describe("Month", () => {

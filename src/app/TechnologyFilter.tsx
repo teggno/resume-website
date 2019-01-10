@@ -1,6 +1,6 @@
 import React from "react";
 import CheckboxList from "../common/CheckboxList";
-import { Technology, TechnologyGroup } from "../Model";
+import { Technology, TechnologyGroup } from "./Model";
 import { deemphasizedButton, grid4 } from "../css";
 import { filter, union } from "ramda";
 import AllNone, { SelectionStatus } from "../common/AllNone";

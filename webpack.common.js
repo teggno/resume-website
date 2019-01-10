@@ -1,7 +1,7 @@
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/app/index.ts",
   output: {
-    filename: "bundle" + new Date().valueOf() + ".js",
+    filename: "resume-website-" + new Date().valueOf() + ".js",
     path: __dirname + "/dist"
   },
 

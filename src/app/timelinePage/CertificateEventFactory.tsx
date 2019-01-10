@@ -1,5 +1,5 @@
-import Month from "../../Month";
-import { Certificate } from "../../Model";
+import Month from "../Month";
+import { Certificate } from "../Model";
 import React from "react";
 import { CertificateIcon } from "../../common/icons/Icons";
 import IconHeader from "./IconHeader";

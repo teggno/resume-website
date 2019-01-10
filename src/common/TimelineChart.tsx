@@ -2,7 +2,7 @@ import React from "react";
 import { chartBackground } from "../css";
 import "./TimelineChart.css";
 import { min, max } from "ramda";
-import { percent } from "../format";
+import { percent } from "./format";
 
 export default function TimelineChart(props: TimelineProps) {
   const formatAxisLabel = props.formatAxisLabel || (d => d.toLocaleString()),

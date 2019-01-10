@@ -1,4 +1,4 @@
-import { Job } from "../../Model";
+import { Job } from "../Model";
 import React from "react";
 import { ManWithCompanyIcon } from "../../common/icons/Icons";
 import IconHeader from "./IconHeader";

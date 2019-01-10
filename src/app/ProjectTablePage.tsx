@@ -1,7 +1,7 @@
 import React from "react";
 import TimelineChart from "../common/TimelineChart";
 import Sparkline from "../common/Sparkline";
-import Month from "../Month";
+import Month from "./Month";
 import { stripedBackground, link } from "../css";
 import {
   min,
@@ -14,9 +14,9 @@ import {
   values,
   pipe
 } from "ramda";
-import { Project } from "../Model";
+import { Project } from "./Model";
 import ProjectColorContext from "./ProjectColorContext";
-import { projectRoute } from "../Routes";
+import { projectRoute } from "../demo/Routes";
 import Link from "../common/Link";
 
 export default function ProjectTablePage({

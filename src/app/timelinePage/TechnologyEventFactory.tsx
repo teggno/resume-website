@@ -1,11 +1,11 @@
-import Month from "../../Month";
-import { Technology } from "../../Model";
+import Month from "../Month";
+import { Technology } from "../Model";
 import React from "react";
 import { CodeIcon } from "../../common/icons/Icons";
 import IconHeader from "./IconHeader";
 import TimelineCard from "./TimelineCard";
 import Link from "../../common/Link";
-import { technologyRoute } from "../../Routes";
+import { technologyRoute } from "../../demo/Routes";
 import { link } from "../../css";
 
 export default class TechnologyEventFactory {

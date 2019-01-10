@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import Period from "../src/Period";
-import Month from "../src/Month";
+import Period from "../src/app/Period";
+import Month from "../src/app/Month";
 
 describe("Period", () => {
   it("should initialize from calling the constructor with from and to", () => {

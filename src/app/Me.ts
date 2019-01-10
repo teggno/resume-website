@@ -15,7 +15,7 @@ import {
 
 const todaysMonth = Month.fromDate(new Date());
 
-export default class Me {
+export default class Mrefere {
   constructor(private source: MeJson) {}
 
   projects() {

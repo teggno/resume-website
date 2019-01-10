@@ -1,4 +1,4 @@
-import Month from "../../Month";
+import Month from "../Month";
 import React from "react";
 import { cardTitle, cardContent } from "../../css";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Project } from "../Model";
+import { Project } from "./Model";
 import {
   dd,
   dt,

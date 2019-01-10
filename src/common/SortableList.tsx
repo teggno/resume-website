@@ -1,8 +1,8 @@
 import React from "react";
-import ButtonList from "../common/ButtonList";
+import ButtonList from "./ButtonList";
 import { list } from "../css";
-import SparklineListItem from "../common/SparklineListItem";
-import ListItem from "../common/ListItem";
+import SparklineListItem from "./SparklineListItem";
+import ListItem from "./ListItem";
 import { find, isEmpty } from "ramda";
 
 export default class SortableList<TItem> extends React.Component<

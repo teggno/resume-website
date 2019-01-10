@@ -3,9 +3,9 @@ import React from "react";
 import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 import MasterDetail from "../common/MasterDetail";
 import SortableList from "../common/SortableList";
-import { Project } from "../Model";
-import Month from "../Month";
-import { projectRoute } from "../Routes";
+import { Project } from "./Model";
+import Month from "./Month";
+import { projectRoute } from "../demo/Routes";
 import ProjectDetails from "./ProjectDetails";
 
 export default function ProjectsPage({

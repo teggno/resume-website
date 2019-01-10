@@ -1,7 +1,7 @@
 import { sortBy, min } from "ramda";
 import React from "react";
 import YearsBackSlider from "../common/YearsBackSlider";
-import { Technology, TechnologyGroup } from "../Model";
+import { Technology, TechnologyGroup } from "./Model";
 import TechnologyFilter from "./TechnologyFilter";
 
 const todaysYear = new Date().getFullYear();

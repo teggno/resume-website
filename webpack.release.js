@@ -7,7 +7,7 @@ module.exports = merge(common, {
   devtool: "source-map",
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./src/demo/index.html",
       filename: "./index.html",
       templateParameters: {
         scripts: {

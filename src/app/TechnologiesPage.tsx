@@ -3,8 +3,8 @@ import React from "react";
 import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 import MasterDetail from "../common/MasterDetail";
 import SortableList from "../common/SortableList";
-import { Technology } from "../Model";
-import { technologyRoute } from "../Routes";
+import { Technology } from "./Model";
+import { technologyRoute } from "../demo/Routes";
 import TechnologyDetails from "./TechnologyDetails";
 
 export default function TechnologiesPage({

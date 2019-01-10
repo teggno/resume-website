@@ -1,12 +1,12 @@
-import { Project } from "../../Model";
+import { Project } from "../Model";
 import React from "react";
 import { PuzzleIcon } from "../../common/icons/Icons";
 import IconHeader from "./IconHeader";
 import TimelineCard from "./TimelineCard";
 import Link from "../../common/Link";
 import { link } from "../../css";
-import { projectRoute } from "../../Routes";
-import Period from "../../Period";
+import { projectRoute } from "../../demo/Routes";
+import Period from "../Period";
 
 export default class ProjectEventFactory {
   constructor(private readonly projects: Project[]) {}
