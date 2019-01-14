@@ -1,9 +1,9 @@
 import React from "react";
-import Filters from "../app/Filters";
-import { Technology, TechnologyGroup } from "../app/Model";
-import { bigButton, normalButton } from "../css";
-import { scrollIntoView, navBarHeight } from "../common/scroll";
-import Link from "../common/Link";
+import Filters from "../../src/app/Filters";
+import { Technology, TechnologyGroup } from "../../src/app/Model";
+import { bigButton, normalButton } from "../../src/css";
+import { scrollIntoView, navBarHeight } from "../../src/common/scroll";
+import Link from "../../src/common/Link";
 
 export default function HomePage(props: {
   technologies: Technology[];

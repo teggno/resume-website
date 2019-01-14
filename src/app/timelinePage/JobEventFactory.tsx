@@ -1,6 +1,6 @@
 import { Job } from "../Model";
 import React from "react";
-import { ManWithCompanyIcon } from "../../common/icons/Icons";
+import JobIcon from "./JobIcon";
 import IconHeader from "./IconHeader";
 import TimelineCard from "./TimelineCard";
 import { chain } from "ramda";
@@ -21,13 +21,13 @@ export default class JobEventFactory {
     return !!this.jobs.length;
   }
 
-  public static readonly icon = ManWithCompanyIcon;
+  public static readonly icon = JobIcon;
 }
 
 function JobTitleComponent({ jobTitle }: { jobTitle: any }) {
   const header = (
     <IconHeader title="New job title">
-      <ManWithCompanyIcon />
+      <JobIcon />
     </IconHeader>
   );
   return (

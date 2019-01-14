@@ -1,49 +1,48 @@
 import React from "react";
-import ProjectColorContext from "../app/ProjectColorContext";
-import ProjectsPage from "../app/ProjectsPage";
-import ProjectTablePage from "../app/ProjectTablePage";
-import TechnologiesPage from "../app/TechnologiesPage";
-import TimelinePage, { timelinePagePropsFactory } from "../app/TimelinePage";
-import colors from "../Colors";
+import ProjectColorContext from "../../src/app/ProjectColorContext";
+import ProjectsPage from "../../src/app/ProjectsPage";
+import ProjectTablePage from "../../src/app/ProjectTablePage";
+import TechnologiesPage from "../../src/app/TechnologiesPage";
+import colors from "../../src/Colors";
 import HashAware from "./HashAware";
-import { mainContainer } from "../css";
-import Me from "../app/Me";
+import { mainContainer } from "../../src/css";
+import Me from "../../src/app/Me";
 import { projectRoute, technologyRoute } from "./Routes";
 import HomePage from "./HomePage";
-import { Technology, Project } from "../app/Model";
+import { Technology, Project } from "../../src/app/Model";
 import { min, lens, over, filter, map, assoc } from "ramda";
 import Navigation from "./Navigation";
 import "./App.css";
-import Month from "../app/Month";
+import Month from "../../src/app/Month";
 import LogoAdwise from "./LogoAdwise";
-import Link from "../common/Link";
-import { navBarHeight } from "../common/scroll";
+import Link from "../../src/common/Link";
+import { navBarHeight } from "../../src/common/scroll";
 
 export default class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
 
-    const technologies = (this.technologies = props.me.technologies()),
-      eventGroupNames = timelinePagePropsFactory({
-        certificates: props.me.certificates(),
-        jobs: props.me.jobs(),
-        projects: props.me.projects(),
-        technologies: technologies
-      }).eventGroupNames;
+    const technologies = (this.technologies = props.me.technologies());
+    // eventGroupNames = timelinePagePropsFactory({
+    //   certificates: props.me.certificates(),
+    //   jobs: props.me.jobs(),
+    //   projects: props.me.projects(),
+    //   technologies: technologies
+    // }).eventGroupNames;
 
     this.state = {
       selectedTechnologies: technologies,
       yearFrom: technologies.reduce(
         (prev, current) => min(prev, current.monthStart.year),
         Number.MAX_VALUE
-      ),
-      selectedEventGroups: eventGroupNames
+      )
+      //selectedEventGroups: eventGroupNames
     };
 
     this.handleFiltersChage = this.handleFiltersChage.bind(this);
-    this.handleEventGroupSelectionChange = this.handleEventGroupSelectionChange.bind(
-      this
-    );
+    // this.handleEventGroupSelectionChange = this.handleEventGroupSelectionChange.bind(
+    //   this
+    // );
     this.isProjectInTimeRange = this.isProjectInTimeRange.bind(this);
   }
 
@@ -55,9 +54,14 @@ export default class App extends React.Component<AppProps, AppState> {
         <ProjectColorContext.Provider
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
-          <header className={"bg-white shadow-1 fixed w-100 z-999 top-0"} id="header">
+          <header
+            className={"bg-white shadow-1 fixed w-100 z-999 top-0"}
+            id="header"
+          >
             <div className="dib h2 w2 v-mid ml2">
-              <Link href="#"><LogoAdwise /></Link>
+              <Link href="#">
+                <LogoAdwise />
+              </Link>
             </div>
             <Navigation />
           </header>
@@ -69,6 +73,7 @@ export default class App extends React.Component<AppProps, AppState> {
                     <ProjectsPage
                       projects={this.projects()}
                       selectedProjectTitle={projectRoute.nameFromHash(hash)}
+                      urlOfProject={projectRoute.hashFromName}
                     />
                   );
                 } else if (hash.indexOf("#technologies") === 0) {
@@ -78,27 +83,34 @@ export default class App extends React.Component<AppProps, AppState> {
                       selectedTechnologyTitle={technologyRoute.nameFromHash(
                         hash
                       )}
+                      urlOfTechnology={technologyRoute.hashFromName}
                     />
                   );
                 } else if (hash.indexOf("#timeline") === 0) {
-                  const tp = timelinePagePropsFactory({
-                    projects: this.projects(),
-                    technologies: this.state.selectedTechnologies,
-                    certificates: this.props.me.certificates(),
-                    jobs: this.props.me.jobs()
-                  });
+                  // const tp = timelinePagePropsFactory({
+                  //   projects: this.projects(),
+                  //   technologies: this.state.selectedTechnologies,
+                  //   certificates: this.props.me.certificates(),
+                  //   jobs: this.props.me.jobs()
+                  // });
+                  return null;
+                  // return (
+                  //   <TimelinePage
+                  //     allEventGroups={tp.eventGroupNames}
+                  //     selectedEventGroups={this.state.selectedEventGroups}
+                  //     events={tp.events(this.state.selectedEventGroups)}
+                  //     onEventGroupSelectionChange={
+                  //       this.handleEventGroupSelectionChange
+                  //     }
+                  //   />
+                  // );
+                } else if (hash.indexOf("#projecttable") === 0) {
                   return (
-                    <TimelinePage
-                      allEventGroups={tp.eventGroupNames}
-                      selectedEventGroups={this.state.selectedEventGroups}
-                      events={tp.events(this.state.selectedEventGroups)}
-                      onEventGroupSelectionChange={
-                        this.handleEventGroupSelectionChange
-                      }
+                    <ProjectTablePage
+                      projects={this.projects()}
+                      urlOfProject={projectRoute.hashFromName}
                     />
                   );
-                } else if (hash.indexOf("#projecttable") === 0) {
-                  return <ProjectTablePage projects={this.projects()} />;
                 } else {
                   return (
                     <HomePage
@@ -118,9 +130,9 @@ export default class App extends React.Component<AppProps, AppState> {
     );
   }
 
-  private handleEventGroupSelectionChange(newSelection: string[]) {
-    this.setState({ selectedEventGroups: newSelection });
-  }
+  // private handleEventGroupSelectionChange(newSelection: string[]) {
+  //   this.setState({ selectedEventGroups: newSelection });
+  // }
 
   private handleFiltersChage(technologies: Technology[], yearFrom: number) {
     this.setState({
@@ -182,7 +194,7 @@ interface AppProps {
 interface AppState {
   selectedTechnologies: Technology[];
   yearFrom: number;
-  selectedEventGroups: string[];
+  // selectedEventGroups: string[];
 }
 
 interface ProjectTech {

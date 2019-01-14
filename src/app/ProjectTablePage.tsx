@@ -16,20 +16,21 @@ import {
 } from "ramda";
 import { Project } from "./Model";
 import ProjectColorContext from "./ProjectColorContext";
-import { projectRoute } from "../demo/Routes";
 import Link from "../common/Link";
 
 export default function ProjectTablePage({
-  projects
+  projects,
+  urlOfProject
 }: {
   projects: Project[];
+  urlOfProject: StringInOut;
 }) {
   const now = new Date(),
     projectsSorted = sortBy(p => p.period.from.totalMonths(), projects);
   return (
     <div>
       <ProjectTimelineChart projectsSorted={projectsSorted} now={now} />
-      <ProjectGanttTable projectsSorted={projectsSorted} now={now} />
+      <ProjectGanttTable projectsSorted={projectsSorted} now={now} urlOfProject={urlOfProject}/>
       <TermList projects={projectsSorted} />
     </div>
   );
@@ -70,10 +71,12 @@ function formatDateAsMonth(date: Date) {
 
 function ProjectGanttTable({
   projectsSorted,
-  now
+  now,
+  urlOfProject
 }: {
   projectsSorted: Project[];
   now: Date;
+  urlOfProject: StringInOut;
 }) {
   const [minFrom, maxTo] = projectsSorted.reduce(
     (prev, current) => [
@@ -107,7 +110,7 @@ function ProjectGanttTable({
                 <td className="pv2 ph3">
                   <Link
                     className={link}
-                    href={projectRoute.hashFromName(p.title)}
+                    href={urlOfProject(p.title)}
                     scrollToTop={true}
                   >
                     {p.title}
@@ -183,4 +186,8 @@ function TermList({ projects }: { projects: Project[] }) {
 
 function endTimeOrNow(now: Date, month?: Month) {
   return month ? month.endTime() : now;
+}
+
+interface StringInOut {
+  (name: string): string;
 }

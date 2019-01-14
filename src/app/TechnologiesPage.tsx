@@ -4,12 +4,12 @@ import { fromToChart, zeroBasedCharts } from "../common/ChartConfig";
 import MasterDetail from "../common/MasterDetail";
 import SortableList from "../common/SortableList";
 import { Technology } from "./Model";
-import { technologyRoute } from "../demo/Routes";
 import TechnologyDetails from "./TechnologyDetails";
 
 export default function TechnologiesPage({
   technologies,
-  selectedTechnologyTitle
+  selectedTechnologyTitle,
+  urlOfTechnology
 }: TechnologiesPageProps) {
   console.debug("TechnologiesPage render");
   const selectedTechnology = technologies.filter(
@@ -23,21 +23,22 @@ export default function TechnologiesPage({
       detail={<TechnologyDetails technology={selectedTechnology} />}
     />
   );
-}
 
-function List({ technologys }: { technologys: Technology[] }) {
-  return (
-    <SortableList
-      items={technologys}
-      sortConfigs={sortConfigs}
-      href={t => technologyRoute.hashFromName(t.name)}
-    />
-  );
+  function List({ technologys }: { technologys: Technology[] }) {
+    return (
+      <SortableList
+        items={technologys}
+        sortConfigs={sortConfigs}
+        href={t => urlOfTechnology(t.name)}
+      />
+    );
+  }
 }
 
 interface TechnologiesPageProps {
   technologies: Technology[];
   selectedTechnologyTitle?: string;
+  urlOfTechnology: (name: string) => string;
 }
 
 const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),

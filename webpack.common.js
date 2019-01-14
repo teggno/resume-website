@@ -1,8 +1,11 @@
+var path = require("path");
+
 module.exports = {
   entry: "./src/app/index.ts",
   output: {
+    path: path.resolve(__dirname, "dist"),
     filename: "resume-website-" + new Date().valueOf() + ".js",
-    path: __dirname + "/dist"
+    library: "resumeWebsite"
   },
 
   resolve: {
@@ -29,6 +32,12 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
+    // ramda: {
+    //   commonjs: "ramda",
+    //   commonjs2: "ramda",
+    //   amd: "ramda",
+    //   root: "R"
+    // },
     react: "React",
     "react-dom": "ReactDOM"
   }

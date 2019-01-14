@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "../common/Link";
-import { link } from "../css";
+import Link from "../../src/common/Link";
+import { link } from "../../src/css";
 
 export default function Navigation() {
   return (

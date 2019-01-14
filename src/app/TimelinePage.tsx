@@ -89,4 +89,6 @@ interface TimelinePageProps {
   selectedEventGroups: string[];
   onEventGroupSelectionChange: (newSelection: string[]) => void;
   events: TimelineListEvent[];
+  detailUrlOfProject: (name: string) => string;
+  detailUrlOfTechnology: (name: string) => string;
 }

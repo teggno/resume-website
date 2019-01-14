@@ -1,10 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { icon } from "../../css";
-import certificateIcon from "./certificate";
-import codeIcon from "./code";
-import puzzleIcon from "./puzzle";
-import manWithCompanyIcon from "./manWithCompany";
 
 export function ArrowDown(props: IconProps) {
   return (
@@ -57,11 +53,6 @@ export function ArrowUp(props: IconProps) {
     </svg>
   );
 }
-
-export const CertificateIcon = certificateIcon;
-export const CodeIcon = codeIcon;
-export const PuzzleIcon = puzzleIcon;
-export const ManWithCompanyIcon = manWithCompanyIcon;
 
 export interface IconProps {
   /** If true, there will be no left padding. Comes in handy when the icon is

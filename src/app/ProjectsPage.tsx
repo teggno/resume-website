@@ -5,12 +5,13 @@ import MasterDetail from "../common/MasterDetail";
 import SortableList from "../common/SortableList";
 import { Project } from "./Model";
 import Month from "./Month";
-import { projectRoute } from "../demo/Routes";
 import ProjectDetails from "./ProjectDetails";
+import { string } from "../../demo/node_modules/@types/prop-types";
 
 export default function ProjectsPage({
   projects,
-  selectedProjectTitle
+  selectedProjectTitle,
+  urlOfProject
 }: ProjectsPageProps) {
   console.debug("ProjectsPage render");
   const selectedProject = projects.filter(
@@ -24,21 +25,23 @@ export default function ProjectsPage({
       detail={<ProjectDetails project={selectedProject} />}
     />
   );
+
+  function List({ projects }: { projects: Project[] }) {
+    return (
+      <SortableList
+        items={projects}
+        sortConfigs={sortConfigs}
+        href={p => urlOfProject(p.title)}
+      />
+    );
+  }
 }
 
-function List({ projects }: { projects: Project[] }) {
-  return (
-    <SortableList
-      items={projects}
-      sortConfigs={sortConfigs}
-      href={p => projectRoute.hashFromName(p.title)}
-    />
-  );
-}
 
 interface ProjectsPageProps {
   projects: Project[];
   selectedProjectTitle?: string;
+  urlOfProject: (name: string) => string;
 }
 
 const now = new Date(),

@@ -2,13 +2,12 @@
   "name": "resume-website",
   "version": "1.0.0",
   "description": "A website that can be used to browse resume information that is stored in a JSON file",
-  "main": "bundle.js",
+  "main": "dist/resume-website.js",
   "scripts": {
-    "build": "webpack --config webpack.release.js",
-    "watch": "webpack --watch --config webpack.development.js",
-    "start": "webpack-dev-server --open --config webpack.development.js",
-    "test": "karma start --single-run",
-    "test-watch": "karma start"
+    "release": "webpack --config webpack.release.js",
+    "dev": "webpack --config webpack.development.js",
+    "demo": "cd demo && npm install && webpack && cd ..",
+    "start": "webpack-dev-server --open --config webpack.development.js"
   },
   "keywords": [
     "resume",
