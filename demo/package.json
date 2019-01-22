@@ -4,6 +4,8 @@
   "description": "Demo application for resume-website",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --open --config webpack.config.js",
+    "profile": "webpack --profile",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
@@ -12,8 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "ramda": "^0.25.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1",
     "smoothscroll-polyfill": "^0.4.3",
     "tachyons": "^4.11.1"
   },

@@ -6,49 +6,44 @@ import { isElementTopLeftInViewport } from "../common/DomHelpers";
 import { Project, Technology } from "./Model";
 import Month from "./Month";
 import ProjectCard from "./ProjectCard";
-import ProjectColorContext from "./ProjectColorContext";
 import "./TechnologyDetails.css";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
 import { large } from "../common/MediaQueries";
 import { scrollIntoView } from "../common/scroll";
 
 export default function TechnologyDetails({
-  technology
+  technology,
+  colorOfProject
 }: {
   technology: Technology;
+  colorOfProject: (title: string) => string;
 }) {
-  return (
-    <ProjectColorContext.Consumer>
-      {colorByKey => {
-        const projectsWithColors = sortBy(
-            p => p.period.from.totalMonths(),
-            technology.projects
-          ).map(p => ({
-            project: p,
-            color: colorByKey(p.title)
-          })),
-          now = new Date();
+  const projectsWithColors = sortBy(
+      p => p.period.from.totalMonths(),
+      technology.projects
+    ).map(p => ({
+      project: p,
+      color: colorOfProject(p.title)
+    })),
+    now = new Date();
 
-        return (
-          <>
-            <div className="ph2 pb2">
-              <h2>Projects where I used {technology.name}</h2>
-              <ProjectTimeline projects={projectsWithColors} now={now} />
-            </div>
-            <div>
-              <ProjectGrid
-                projects={projectsWithColors.sort((...pcs) =>
-                  Month.descending.apply(null, pcs.map(
-                    pc => pc.project.period.from
-                  ) as [Month, Month])
-                )}
-                technologyName={technology.name}
-              />
-            </div>
-          </>
-        );
-      }}
-    </ProjectColorContext.Consumer>
+  return (
+    <>
+      <div className="ph2 pb2">
+        <h2>Projects where I used {technology.name}</h2>
+        <ProjectTimeline projects={projectsWithColors} now={now} />
+      </div>
+      <div>
+        <ProjectGrid
+          projects={projectsWithColors.sort((...pcs) =>
+            Month.descending.apply(null, pcs.map(
+              pc => pc.project.period.from
+            ) as [Month, Month])
+          )}
+          technologyName={technology.name}
+        />
+      </div>
+    </>
   );
 }
 

@@ -6,7 +6,7 @@
   "scripts": {
     "release": "webpack --config webpack.release.js",
     "dev": "webpack --config webpack.development.js",
-    "demo": "cd demo && npm install && webpack && cd ..",
+    "demo": "pushd demo && npm install && webpack && popd",
     "start": "webpack-dev-server --open --config webpack.development.js"
   },
   "keywords": [
@@ -19,8 +19,8 @@
   "dependencies": {
     "ramda": "^0.25.0",
     "randomcolor": "^0.5.3",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1",
     "react-transition-group": "^2.5.2",
     "smoothscroll-polyfill": "^0.4.3",
     "tachyons": "^4.11.1"
@@ -52,7 +52,7 @@
     "sinon": "^7.2.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
-    "typescript": "^3.2.2",
+    "typescript": "^3.2.4",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14",

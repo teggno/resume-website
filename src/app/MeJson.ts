@@ -16,7 +16,7 @@ interface Job {
 interface Project {
   title: string;
   description: string;
-  company?: string;
+  company: string | undefined;
   industry?: string;
   tools?: string[];
   tasks: string[];

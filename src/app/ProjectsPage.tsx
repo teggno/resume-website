@@ -6,7 +6,6 @@ import SortableList from "../common/SortableList";
 import { Project } from "./Model";
 import Month from "./Month";
 import ProjectDetails from "./ProjectDetails";
-import { string } from "../../demo/node_modules/@types/prop-types";
 
 export default function ProjectsPage({
   projects,

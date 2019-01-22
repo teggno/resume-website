@@ -4,7 +4,7 @@ import App from "./App";
 import Me from "../../src/app/Me";
 import { get } from "./http";
 
-const url = "my.resume.json";
+const url = "sample.resume.json";
 get(url, (err, responseText) => {
   if (err) {
     render(<FetchError />, document.getElementById("reactContainer"));

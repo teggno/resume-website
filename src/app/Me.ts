@@ -12,29 +12,30 @@ import {
   chain,
   add
 } from "ramda";
+import { Project, Job, Certificate, Technology, TechnologyGroup } from "./Model";
 
 const todaysMonth = Month.fromDate(new Date());
 
 export default class Mrefere {
   constructor(private source: MeJson) {}
 
-  projects() {
+  projects() : Project[] {
     return this.getProjects();
   }
 
-  jobs() {
+  jobs(): Job[] {
     return this.getJobs();
   }
 
-  certificates() {
+  certificates(): Certificate[] {
     return this.source.certificates || [];
   }
 
-  technologyGroups() {
+  technologyGroups(): TechnologyGroup[] {
     return this.source.technologyGroups || [];
   }
 
-  technologies() {
+  technologies(): Technology[] {
     const projects = this.getProjects(),
       pairs = chain(
         p => p.technologies.map(t => ({ project: p, technology: t })),
@@ -75,8 +76,8 @@ export default class Mrefere {
       const period = parse(s.period);
       return {
         period: period,
-        title: <string>s.title,
-        company: <string>s.company,
+        title: s.title,
+        company: s.company,
         industry: s.industry,
         technologies: <{ name: string; tasks?: string[] }[]>(
           s.technologies.map(t =>
@@ -85,8 +86,8 @@ export default class Mrefere {
               : { name: t.name, tasks: t.tasks }
           )
         ),
-        description: <string>s.description,
-        teamSize: <string>s.teamSize,
+        description: s.description,
+        teamSize: s.teamSize,
         achievements: <string[]>s.achievements,
         tasks: <string[]>s.tasks,
         products: <string[]>s.products,

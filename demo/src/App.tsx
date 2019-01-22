@@ -1,8 +1,8 @@
 import React from "react";
-import ProjectColorContext from "../../src/app/ProjectColorContext";
 import ProjectsPage from "../../src/app/ProjectsPage";
 import ProjectTablePage from "../../src/app/ProjectTablePage";
 import TechnologiesPage from "../../src/app/TechnologiesPage";
+import TimelinePage from "../../src/app/TimelinePage";
 import colors from "../../src/Colors";
 import HashAware from "./HashAware";
 import { mainContainer } from "../../src/css";
@@ -17,133 +17,106 @@ import Month from "../../src/app/Month";
 import LogoAdwise from "./LogoAdwise";
 import Link from "../../src/common/Link";
 import { navBarHeight } from "../../src/common/scroll";
+import { useState } from "react";
 
-export default class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-
-    const technologies = (this.technologies = props.me.technologies());
-    // eventGroupNames = timelinePagePropsFactory({
-    //   certificates: props.me.certificates(),
-    //   jobs: props.me.jobs(),
-    //   projects: props.me.projects(),
-    //   technologies: technologies
-    // }).eventGroupNames;
-
-    this.state = {
-      selectedTechnologies: technologies,
-      yearFrom: technologies.reduce(
+export default function(props: AppProps) {
+  const technologies = props.me.technologies(),
+    [selectedTechnologies, setSelectedTechnologies] = useState(technologies),
+    [yearFrom, setYearFrom] = useState(
+      technologies.reduce(
         (prev, current) => min(prev, current.monthStart.year),
         Number.MAX_VALUE
       )
-      //selectedEventGroups: eventGroupNames
-    };
-
-    this.handleFiltersChage = this.handleFiltersChage.bind(this);
-    // this.handleEventGroupSelectionChange = this.handleEventGroupSelectionChange.bind(
-    //   this
-    // );
-    this.isProjectInTimeRange = this.isProjectInTimeRange.bind(this);
-  }
-
-  private technologies: Technology[];
-
-  render() {
-    return (
-      <div className={mainContainer}>
-        <ProjectColorContext.Provider
-          value={(title: string) => this.colorForProject(title) || "cyan"}
-        >
-          <header
-            className={"bg-white shadow-1 fixed w-100 z-999 top-0"}
-            id="header"
-          >
-            <div className="dib h2 w2 v-mid ml2">
-              <Link href="#">
-                <LogoAdwise />
-              </Link>
-            </div>
-            <Navigation />
-          </header>
-          <main role="main" style={{ marginTop: navBarHeight() }}>
-            <HashAware>
-              {(hash: string) => {
-                if (hash.indexOf("#projects") === 0) {
-                  return (
-                    <ProjectsPage
-                      projects={this.projects()}
-                      selectedProjectTitle={projectRoute.nameFromHash(hash)}
-                      urlOfProject={projectRoute.hashFromName}
-                    />
-                  );
-                } else if (hash.indexOf("#technologies") === 0) {
-                  return (
-                    <TechnologiesPage
-                      technologies={this.technologiesWithFilteredProjects()}
-                      selectedTechnologyTitle={technologyRoute.nameFromHash(
-                        hash
-                      )}
-                      urlOfTechnology={technologyRoute.hashFromName}
-                    />
-                  );
-                } else if (hash.indexOf("#timeline") === 0) {
-                  // const tp = timelinePagePropsFactory({
-                  //   projects: this.projects(),
-                  //   technologies: this.state.selectedTechnologies,
-                  //   certificates: this.props.me.certificates(),
-                  //   jobs: this.props.me.jobs()
-                  // });
-                  return null;
-                  // return (
-                  //   <TimelinePage
-                  //     allEventGroups={tp.eventGroupNames}
-                  //     selectedEventGroups={this.state.selectedEventGroups}
-                  //     events={tp.events(this.state.selectedEventGroups)}
-                  //     onEventGroupSelectionChange={
-                  //       this.handleEventGroupSelectionChange
-                  //     }
-                  //   />
-                  // );
-                } else if (hash.indexOf("#projecttable") === 0) {
-                  return (
-                    <ProjectTablePage
-                      projects={this.projects()}
-                      urlOfProject={projectRoute.hashFromName}
-                    />
-                  );
-                } else {
-                  return (
-                    <HomePage
-                      technologies={this.technologies}
-                      selectedTechnologies={this.state.selectedTechnologies}
-                      onFiltersChange={this.handleFiltersChage}
-                      yearFrom={this.state.yearFrom}
-                      technologyGroups={this.props.me.technologyGroups()}
-                    />
-                  );
-                }
-              }}
-            </HashAware>
-          </main>
-        </ProjectColorContext.Provider>
-      </div>
+    ),
+    certificates = props.me.certificates(),
+    projects = filterProjects(),
+    jobs = props.me.jobs(),
+    [selectedEventTypes, setSelectedEventTypes] = useState(
+      TimelinePage.eventTypes({
+        certificates: !!certificates.length,
+        jobs: !!jobs.length,
+        projects: !!projects.length,
+        technologies: !!technologies.length
+      })
     );
+
+  return (
+    <div className={mainContainer}>
+      <header
+        className={"bg-white shadow-1 fixed w-100 z-999 top-0"}
+        id="header"
+      >
+        <div className="dib h2 w2 v-mid ml2">
+          <Link href="#">
+            <LogoAdwise />
+          </Link>
+        </div>
+        <Navigation />
+      </header>
+      <main role="main" style={{ marginTop: navBarHeight() }}>
+        <HashAware>
+          {(hash: string) => {
+            if (hash.indexOf("#projects") === 0) {
+              return (
+                <ProjectsPage
+                  projects={projects}
+                  selectedProjectTitle={projectRoute.nameFromHash(hash)}
+                  urlOfProject={projectRoute.hashFromName}
+                />
+              );
+            } else if (hash.indexOf("#technologies") === 0) {
+              return (
+                <TechnologiesPage
+                  technologies={technologiesWithFilteredProjects()}
+                  selectedTechnologyTitle={technologyRoute.nameFromHash(hash)}
+                  urlOfTechnology={technologyRoute.hashFromName}
+                  colorOfProject={colorForProject}
+                />
+              );
+            } else if (hash.indexOf("#timeline") === 0) {
+              <TimelinePage
+                certificates={certificates}
+                jobs={jobs}
+                projects={projects}
+                technologies={selectedTechnologies}
+                selectedEventTypes={selectedEventTypes}
+                onSelectedEventTypesChanged={setSelectedEventTypes}
+              />;
+            } else if (hash.indexOf("#projecttable") === 0) {
+              return (
+                <ProjectTablePage
+                  projects={projects}
+                  urlOfProject={projectRoute.hashFromName}
+                  colorOfProject={colorForProject}
+                />
+              );
+            } else {
+              return (
+                <HomePage
+                  technologies={technologies}
+                  selectedTechnologies={selectedTechnologies}
+                  onFiltersChange={handleFiltersChage}
+                  yearFrom={yearFrom}
+                  technologyGroups={props.me.technologyGroups()}
+                />
+              );
+            }
+          }}
+        </HashAware>
+      </main>
+    </div>
+  );
+
+  function handleFiltersChage(technologies: Technology[], yearFrom: number) {
+    setSelectedTechnologies(technologies);
+    setYearFrom(yearFrom);
   }
 
-  // private handleEventGroupSelectionChange(newSelection: string[]) {
-  //   this.setState({ selectedEventGroups: newSelection });
-  // }
-
-  private handleFiltersChage(technologies: Technology[], yearFrom: number) {
-    this.setState({
-      selectedTechnologies: technologies,
-      yearFrom: yearFrom
-    });
+  function colorForProject(title: string) {
+    return colors(props.me.projects().length).keyed(title) || "cyan";
   }
 
-  private colorForProject = colors(this.props.me.projects().length).keyed;
-
-  private projects() {
+  function filterProjects() {
     const techLens = lens(
         t => t.technologies,
         (t: ProjectTech[], p: { technologies: ProjectTech[] }) => {
@@ -152,49 +125,43 @@ export default class App extends React.Component<AppProps, AppState> {
         }
       ),
       filterTechs = filter((t: ProjectTech) =>
-        this.state.selectedTechnologies.some(tt => tt.name === t.name)
+        selectedTechnologies.some(tt => tt.name === t.name)
       ),
       overTechs = over(techLens, filterTechs),
       onlyWithSelectedTechs = (map(overTechs) as any) as (
         projects: Project[]
       ) => Project[];
 
-    return onlyWithSelectedTechs(this.props.me.projects()).filter(
-      p => this.isProjectInTimeRange(p) && !!p.technologies.length
+    return onlyWithSelectedTechs(props.me.projects()).filter(
+      p => isProjectInTimeRange(p) && !!p.technologies.length
     );
   }
 
-  private technologiesWithFilteredProjects() {
+  function technologiesWithFilteredProjects() {
     let projectProp: keyof Technology = "projects";
-    return this.state.selectedTechnologies.map(
+    return selectedTechnologies.map(
       t =>
         assoc(
           projectProp,
-          t.projects.filter(this.isProjectInTimeRange),
+          t.projects.filter(isProjectInTimeRange),
           t
         ) as Technology
     );
   }
 
-  private isProjectInTimeRange(p: Project) {
-    return this.startMonth().lt(
+  function isProjectInTimeRange(p: Project) {
+    return startMonth().lt(
       p.period.to ? p.period.to : Month.fromDate(new Date())
     );
   }
 
-  private startMonth() {
-    return new Month(this.state.yearFrom, new Date().getMonth() + 1);
+  function startMonth() {
+    return new Month(yearFrom, new Date().getMonth() + 1);
   }
 }
 
 interface AppProps {
   me: Me;
-}
-
-interface AppState {
-  selectedTechnologies: Technology[];
-  yearFrom: number;
-  // selectedEventGroups: string[];
 }
 
 interface ProjectTech {

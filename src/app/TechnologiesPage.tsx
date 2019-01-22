@@ -9,7 +9,8 @@ import TechnologyDetails from "./TechnologyDetails";
 export default function TechnologiesPage({
   technologies,
   selectedTechnologyTitle,
-  urlOfTechnology
+  urlOfTechnology,
+  colorOfProject
 }: TechnologiesPageProps) {
   console.debug("TechnologiesPage render");
   const selectedTechnology = technologies.filter(
@@ -20,7 +21,7 @@ export default function TechnologiesPage({
       backToListRoute={"#technologies"}
       detailsVisible={!!selectedTechnology}
       master={<List technologys={technologies} />}
-      detail={<TechnologyDetails technology={selectedTechnology} />}
+      detail={<TechnologyDetails technology={selectedTechnology} colorOfProject={colorOfProject}/>}
     />
   );
 
@@ -39,6 +40,7 @@ interface TechnologiesPageProps {
   technologies: Technology[];
   selectedTechnologyTitle?: string;
   urlOfTechnology: (name: string) => string;
+  colorOfProject: (title: string) => string;
 }
 
 const nameNonCase = (tech: Technology) => tech.name.toLowerCase(),

@@ -1,6 +1,5 @@
 import React from "react";
-import TimelineList, { TimelineListEvent } from "../common/TimelineList";
-import { chain, descend } from "ramda";
+import TimelineList from "../common/TimelineList";
 import { Project, Technology, Job, Certificate } from "./Model";
 import { TemplatedCheckboxList } from "../common/CheckboxList";
 import ProjectEventFactory from "./timelinePage/ProjectEventFactory";
@@ -14,81 +13,81 @@ export default function TimelinePage(props: TimelinePageProps) {
     <>
       <div className="pa2 pv3 flex">
         <TemplatedCheckboxList
-          allItems={props.allEventGroups}
-          selectedItems={props.selectedEventGroups}
-          onChange={props.onEventGroupSelectionChange}
+          allItems={TimelinePage.eventTypes({
+            certificates: !!props.certificates.length,
+            jobs: !!props.jobs.length,
+            projects: !!props.projects.length,
+            technologies: !!props.technologies.length
+          })}
+          selectedItems={props.selectedEventTypes}
+          onChange={props.onSelectedEventTypesChanged}
           keyOf={s => s}
         >
           {group => (
             <>
               <span>{group}</span>{" "}
-              <span className={iconInText + " mr2 mr4-ns"}>{eventGroupByName(group).icon()}</span>
+              <span className={iconInText + " mr2 mr4-ns"}>
+                {eventGroups[group].icon()}
+              </span>
             </>
           )}
         </TemplatedCheckboxList>
       </div>
-      <TimelineList className="ph2 mw8" events={props.events} />
+      <TimelineList
+        className="ph2 mw8"
+        events={new CertificateEventFactory(props.certificates).events()}
+      />
     </>
   );
 }
 
-const eventGroups = [
-  {
-    name: "Technologies",
-    eventFactory: (props: TimelinePageSources) =>
-      new TechnologyEventFactory(props.technologies),
-    icon: TechnologyEventFactory.icon
+/**
+ * Returns an array containing the names of event types where the corresponding
+ * field of p is true.
+ */
+TimelinePage.eventTypes = function(p: {
+  certificates: boolean;
+  jobs: boolean;
+  projects: boolean;
+  technologies: boolean;
+}) {
+  const x: EventType[] = [];
+
+  if (p.certificates) x.push(eventGroups.Certificates.name);
+  if (p.jobs) x.push(eventGroups.Jobs.name);
+  if (p.projects) x.push(eventGroups.Projects.name);
+  if (p.technologies) x.push(eventGroups.Technologies.name);
+  return x;
+};
+
+const eventGroups: {
+  [key in EventType]: { name: EventType; icon: () => JSX.Element }
+} = {
+  Certificates: {
+    name: "Certificates",
+    icon: CertificateEventFactory.icon
   },
-  {
-    name: "Projects",
-    eventFactory: (props: TimelinePageSources) =>
-      new ProjectEventFactory(props.projects),
-    icon: ProjectEventFactory.icon
-  },
-  {
+  Jobs: {
     name: "Jobs",
-    eventFactory: (props: TimelinePageSources) => new JobEventFactory(props.jobs),
     icon: JobEventFactory.icon
   },
-  {
-    name: "Certificates",
-    eventFactory: (props: TimelinePageSources) =>
-      new CertificateEventFactory(props.certificates),
-    icon: CertificateEventFactory.icon
+  Projects: {
+    name: "Projects",
+    icon: ProjectEventFactory.icon
+  },
+  Technologies: {
+    name: "Technologies",
+    icon: TechnologyEventFactory.icon
   }
-];
+};
 
-function eventGroupByName(name: string) {
-  return eventGroups.filter(f => f.name === name)[0];
-}
-
-export function timelinePagePropsFactory(props: TimelinePageSources) {
-  return {
-    eventGroupNames: eventGroups
-      .filter(f => f.eventFactory(props).any())
-      .map(f => f.name),
-    events: (selectedEventGroups: string[]) =>
-      chain(
-        f => f.eventFactory(props).events(),
-        eventGroups.filter(f =>
-          selectedEventGroups.some(ii => ii === f.name)
-        )
-      ).sort(descend(e => e.from.totalMonths()))
-  };
-}
-
-interface TimelinePageSources {
-  projects: Project[];
-  technologies: Technology[];
-  jobs: Job[];
-  certificates: Certificate[];
-}
+type EventType = "Certificates" | "Jobs" | "Projects" | "Technologies";
 
 interface TimelinePageProps {
-  allEventGroups: string[];
-  selectedEventGroups: string[];
-  onEventGroupSelectionChange: (newSelection: string[]) => void;
-  events: TimelineListEvent[];
-  detailUrlOfProject: (name: string) => string;
-  detailUrlOfTechnology: (name: string) => string;
+  certificates: Certificate[];
+  jobs: Job[];
+  projects: Project[];
+  technologies: Technology[];
+  selectedEventTypes: EventType[];
+  onSelectedEventTypesChanged: (newSelection: EventType[]) => void;
 }

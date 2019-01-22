@@ -15,22 +15,27 @@ import {
   pipe
 } from "ramda";
 import { Project } from "./Model";
-import ProjectColorContext from "./ProjectColorContext";
 import Link from "../common/Link";
 
 export default function ProjectTablePage({
   projects,
+  colorOfProject,
   urlOfProject
 }: {
   projects: Project[];
+  colorOfProject: (title: string) => string;
   urlOfProject: StringInOut;
 }) {
   const now = new Date(),
     projectsSorted = sortBy(p => p.period.from.totalMonths(), projects);
   return (
     <div>
-      <ProjectTimelineChart projectsSorted={projectsSorted} now={now} />
-      <ProjectGanttTable projectsSorted={projectsSorted} now={now} urlOfProject={urlOfProject}/>
+      <ProjectTimelineChart projectsSorted={projectsSorted} colorOfProject={colorOfProject} now={now} />
+      <ProjectGanttTable
+        projectsSorted={projectsSorted}
+        now={now}
+        urlOfProject={urlOfProject}
+      />
       <TermList projects={projectsSorted} />
     </div>
   );
@@ -38,30 +43,28 @@ export default function ProjectTablePage({
 
 function ProjectTimelineChart({
   projectsSorted,
+  colorOfProject,
   now
 }: {
   projectsSorted: Project[];
+  colorOfProject: (title: string) => string;
   now: Date;
 }) {
   return (
-    <ProjectColorContext.Consumer>
-      {colorByKey => (
-        <TimelineChart
-          to={now}
-          events={projectsSorted.map(p => ({
-            from: p.period.from.startTime(),
-            to: endTimeOrNow(now, p.period.to),
-            label: `${p.company ? p.company + "\n" : ""}${
-              p.title
-            }\n${p.period.from.nameYearShort()}-${formatDateAsMonth(
-              endTimeOrNow(now, p.period.to)
-            )}`,
-            color: colorByKey(p.title)
-          }))}
-          formatAxisLabel={formatDateAsMonth}
-        />
-      )}
-    </ProjectColorContext.Consumer>
+    <TimelineChart
+      to={now}
+      events={projectsSorted.map(p => ({
+        from: p.period.from.startTime(),
+        to: endTimeOrNow(now, p.period.to),
+        label: `${p.company ? p.company + "\n" : ""}${
+          p.title
+        }\n${p.period.from.nameYearShort()}-${formatDateAsMonth(
+          endTimeOrNow(now, p.period.to)
+        )}`,
+        color: colorOfProject(p.title)
+      }))}
+      formatAxisLabel={formatDateAsMonth}
+    />
   );
 }
 
