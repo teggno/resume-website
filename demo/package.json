@@ -17,20 +17,22 @@
     "react": "^16.8.0-alpha.1",
     "react-dom": "^16.8.0-alpha.1",
     "smoothscroll-polyfill": "^0.4.3",
-    "tachyons": "^4.11.1"
+    "tachyons": "^4.11.1",
+    "resume-website": ".."
   },
   "devDependencies": {
     "@types/ramda": "github:types/npm-ramda#dist",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
-    "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
     "typescript": "^3.2.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14"
-  }
+  },
+  "private": true
 }

@@ -1,11 +1,12 @@
 var path = require("path");
 
 module.exports = {
-  entry: "./src/app/index.ts",
+  entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "resume-website-" + new Date().valueOf() + ".js",
-    library: "resumeWebsite"
+    filename: "index.js",
+    library: "resume-website",
+    libraryTarget: "umd"
   },
 
   resolve: {
@@ -16,7 +17,7 @@ module.exports = {
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      { test: /\.tsx?$/, loader: "ts-loader" },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
@@ -38,7 +39,6 @@ module.exports = {
     //   amd: "ramda",
     //   root: "R"
     // },
-    react: "React",
-    "react-dom": "ReactDOM"
+    react: "React"
   }
 };

@@ -8,7 +8,9 @@ import JobEventFactory from "./timelinePage/JobEventFactory";
 import TechnologyEventFactory from "./timelinePage/TechnologyEventFactory";
 import { iconInText } from "../css";
 
-export default function TimelinePage(props: TimelinePageProps) {
+
+
+function TimelinePage(props: TimelinePageProps) {
   return (
     <>
       <div className="pa2 pv3 flex">
@@ -41,24 +43,30 @@ export default function TimelinePage(props: TimelinePageProps) {
   );
 }
 
-/**
- * Returns an array containing the names of event types where the corresponding
- * field of p is true.
- */
-TimelinePage.eventTypes = function(p: {
-  certificates: boolean;
-  jobs: boolean;
-  projects: boolean;
-  technologies: boolean;
-}) {
-  const x: EventType[] = [];
 
-  if (p.certificates) x.push(eventGroups.Certificates.name);
-  if (p.jobs) x.push(eventGroups.Jobs.name);
-  if (p.projects) x.push(eventGroups.Projects.name);
-  if (p.technologies) x.push(eventGroups.Technologies.name);
-  return x;
-};
+namespace TimelinePage {
+  /**
+   * Returns an array containing the names of event types where the corresponding
+   * field of p is true.
+   */
+  export function eventTypes(p: {
+    certificates: boolean;
+    jobs: boolean;
+    projects: boolean;
+    technologies: boolean;
+  }) {
+    const x: EventType[] = [];
+
+    if (p.certificates) x.push(eventGroups.Certificates.name);
+    if (p.jobs) x.push(eventGroups.Jobs.name);
+    if (p.projects) x.push(eventGroups.Projects.name);
+    if (p.technologies) x.push(eventGroups.Technologies.name);
+    return x;
+  }
+}
+
+
+export default TimelinePage;
 
 const eventGroups: {
   [key in EventType]: { name: EventType; icon: () => JSX.Element }

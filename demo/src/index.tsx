@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
 import App from "./App";
-import Me from "../../src/app/Me";
 import { get } from "./http";
+import { Me } from "resume-website";
 
 const url = "sample.resume.json";
 get(url, (err, responseText) => {

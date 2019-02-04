@@ -1,22 +1,24 @@
 import React from "react";
-import ProjectsPage from "../../src/app/ProjectsPage";
-import ProjectTablePage from "../../src/app/ProjectTablePage";
-import TechnologiesPage from "../../src/app/TechnologiesPage";
-import TimelinePage from "../../src/app/TimelinePage";
-import colors from "../../src/Colors";
 import HashAware from "./HashAware";
 import { mainContainer } from "../../src/css";
-import Me from "../../src/app/Me";
 import { projectRoute, technologyRoute } from "./Routes";
 import HomePage from "./HomePage";
-import { Technology, Project } from "../../src/app/Model";
 import { min, lens, over, filter, map, assoc } from "ramda";
 import Navigation from "./Navigation";
 import "./App.css";
-import Month from "../../src/app/Month";
+import {
+  Month,
+  TimelinePage,
+  Me,
+  Project,
+  Technology,
+  ProjectTablePage,
+  TechnologiesPage,
+  ProjectsPage
+} from "resume-website";
 import LogoAdwise from "./LogoAdwise";
-import Link from "../../src/common/Link";
-import { navBarHeight } from "../../src/common/scroll";
+import Link from "./Link";
+import { navBarHeight } from "./scroll";
 import { useState } from "react";
 
 export default function(props: AppProps) {
@@ -74,7 +76,7 @@ export default function(props: AppProps) {
                 />
               );
             } else if (hash.indexOf("#timeline") === 0) {
-              <TimelinePage
+              return <TimelinePage
                 certificates={certificates}
                 jobs={jobs}
                 projects={projects}
@@ -113,7 +115,7 @@ export default function(props: AppProps) {
   }
 
   function colorForProject(title: string) {
-    return colors(props.me.projects().length).keyed(title) || "cyan";
+    return "cyan";
   }
 
   function filterProjects() {

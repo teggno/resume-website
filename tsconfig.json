@@ -8,8 +8,7 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "dist/types"
+    "declaration": true
   },
   "exclude": ["demo", "node_modules", "dist"]
 }

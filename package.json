@@ -1,12 +1,12 @@
 {
   "name": "resume-website",
   "version": "1.0.0",
-  "description": "A website that can be used to browse resume information that is stored in a JSON file",
-  "main": "dist/resume-website.js",
+  "description": "A library with components that display resume information that is stored in a JSON file",
+  "main": "./dist/",
   "scripts": {
     "release": "webpack --config webpack.release.js",
     "dev": "webpack --config webpack.development.js",
-    "demo": "pushd demo && npm install && webpack && popd",
+    "build-demo": "pushd demo && npm install && webpack && popd",
     "start": "webpack-dev-server --open --config webpack.development.js"
   },
   "keywords": [
@@ -18,23 +18,19 @@
   "license": "MIT",
   "dependencies": {
     "ramda": "^0.25.0",
-    "randomcolor": "^0.5.3",
-    "react": "^16.8.0-alpha.1",
-    "react-dom": "^16.8.0-alpha.1",
     "react-transition-group": "^2.5.2",
     "smoothscroll-polyfill": "^0.4.3",
     "tachyons": "^4.11.1"
   },
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
     "@types/ramda": "github:types/npm-ramda#dist",
-    "@types/randomcolor": "^0.5.0",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@types/react-transition-group": "^2.0.15",
     "@types/sinon": "^5.0.7",
-    "awesome-typescript-loader": "^5.2.1",
     "chai": "^4.2.0",
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
@@ -52,10 +48,15 @@
     "sinon": "^7.2.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.2.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1"
   }
 }

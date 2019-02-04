@@ -17,7 +17,6 @@ const nearWhiteBackground = `bg-${nearWhite}`;
 // Colors
 const fontColor = "dark-gray";
 
-const bigButtonBackground = "bg-adwise-red";
 const normalButtonBackground = "bg-darker-green";
 const normalButtonBackgroundClicked = "bg-adwise-green";
 const deemphasizedButtonBackground = "bg-near-white";
@@ -44,12 +43,9 @@ export const dd = "ml0 pv2";
 const allButtons = "pointer link dim br2 dib tc ba";
 // normal sized buttons
 const normalSizedButton = `${allButtons} f6 ph3 pv2 `;
-export const normalButton = `${normalSizedButton} white ${normalButtonBackground} `;
+export const normalButton = `${normalSizedButton} white ${normalButtonBackground}`;
 export const clickedButton = `${normalSizedButton} white ${normalButtonBackgroundClicked}`;
 export const deemphasizedButton = `${normalSizedButton} ${fontColor} b--${fontColor} ${deemphasizedButtonBackground}`;
-
-// big button
-export const bigButton = `${allButtons} ${bigButtonBackground} white f5 ph4 pv3`;
 
 export const checkboxListItem = "nowrap";
 
