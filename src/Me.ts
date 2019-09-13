@@ -101,18 +101,15 @@ export default class Me {
     return this.source.jobs.map(j => ({
       company: j.company,
       titles: mapAccum(
-        (to, titleItem) => [
+        (to, titleItem: { from: string | null; title: string }) => [
           Month.parse(titleItem.from || j.period.from).add(-1),
           {
             title: titleItem.title,
-            period: new Period(
-              Month.parse(titleItem.from || j.period.from),
-              to
-            )
+            period: new Period(Month.parse(titleItem.from || j.period.from), to)
           }
         ],
         j.period.to ? Month.parse(j.period.to) : undefined,
-        sort(descend(<any>propOr("", "from")), j.titles)
+        <any>sort(descend(<any>propOr("", "from")), j.titles)
       )[1],
       period: parse(j.period)
     }));
