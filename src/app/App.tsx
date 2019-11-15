@@ -55,9 +55,16 @@ export default class App extends React.Component<AppProps, AppState> {
         <ProjectColorContext.Provider
           value={(title: string) => this.colorForProject(title) || "cyan"}
         >
-          <header className={"bg-white shadow-1 fixed w-100 z-999 top-0"} id="header">
-            <div className="dib h2 w2 v-mid ml2">
-              <Link href="#"><LogoAdwise /></Link>
+          <header
+            className={
+              "bg-white shadow-1 fixed w-100 z-999 top-0 flex items-center"
+            }
+            id="header"
+          >
+            <div className="h2 w2 ml2">
+              <Link href="#">
+                <LogoAdwise />
+              </Link>
             </div>
             <Navigation />
           </header>
