@@ -76,6 +76,7 @@ export default class Me {
       return {
         period: period,
         title: <string>s.title,
+        url: <string>s.url,
         company: <string>s.company,
         industry: s.industry,
         technologies: <{ name: string; tasks?: string[] }[]>(

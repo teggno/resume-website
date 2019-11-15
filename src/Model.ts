@@ -4,6 +4,7 @@ import Duration from "./Duration";
 
 export interface Project {
   title: string;
+  url?: string;
   description: string;
   period: Period;
   tasks?: string[];
@@ -29,12 +30,12 @@ export interface Technology {
   monthEnd: Month;
 }
 
-export interface Job{
+export interface Job {
   company: string;
   titles: {
     title: string;
     period: Period;
-  }[],
+  }[];
   period: Period;
 }
 

@@ -27,6 +27,20 @@ export default function ProjectDetails({ project }: { project: Project }) {
       </div>
       <div className={`ph2 ${twoColumns}`}>
         <p className={textParagraph}>{project.description}</p>
+        {project.url ? (
+          <div className="noColumnBreak">
+            <div className={dt}>Website</div>
+            <div className={dd}>
+              <a
+                href={project.url}
+                target="_blank"
+                className="link darker-green hover-darker-green"
+              >
+                {project.url}
+              </a>
+            </div>
+          </div>
+        ) : null}
         <div className="noColumnBreak">
           <div className={dt}>Duration</div>
           <div className={dd}>{project.duration(now).text()}</div>

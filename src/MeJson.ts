@@ -15,6 +15,7 @@ interface Job {
 
 interface Project {
   title: string;
+  url?: string;
   description: string;
   company?: string;
   industry?: string;
