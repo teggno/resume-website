@@ -3,6 +3,7 @@ import React from "react";
 import YearsBackSlider from "../common/YearsBackSlider";
 import { Technology, TechnologyGroup } from "../Model";
 import TechnologyFilter from "./TechnologyFilter";
+import Month from "../Month";
 
 const todaysYear = new Date().getFullYear();
 
@@ -37,10 +38,14 @@ export default class Filters extends React.Component<FiltersProps> {
             <TechnologyFilter
               allItems={sortBy(
                 t => t.name.toLowerCase(),
-                this.filterTechnologiesByYear(this.props.technologies)
+                this.filterTechnologiesByMonth(
+                  this.props.technologies,
+                  new Month(this.props.yearFrom, new Date().getMonth() + 1)
+                )
               )}
-              selectedItems={this.filterTechnologiesByYear(
-                this.props.selectedTechnologies
+              selectedItems={this.filterTechnologiesByMonth(
+                this.props.selectedTechnologies,
+                new Month(this.props.yearFrom, new Date().getMonth() + 1)
               )}
               onChange={this.techSelectionChanged}
               technologyGroups={this.props.technologyGroups}
@@ -60,16 +65,17 @@ export default class Filters extends React.Component<FiltersProps> {
   private periodSliderChanged(year: number) {
     if (this.props.onChange) {
       this.props.onChange(
-        this.filterTechnologiesByYear(this.props.technologies, year),
+        this.filterTechnologiesByMonth(
+          this.props.technologies,
+          new Month(year, new Date().getMonth() + 1)
+        ),
         year
       );
     }
   }
 
-  private filterTechnologiesByYear(technologies: Technology[], year?: number) {
-    return technologies.filter(
-      t => t.monthEnd.year >= (year || this.props.yearFrom)
-    );
+  private filterTechnologiesByMonth(technologies: Technology[], month: Month) {
+    return technologies.filter(t => month.lt(t.monthEnd));
   }
 }
 
