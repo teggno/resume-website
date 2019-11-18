@@ -96,9 +96,7 @@ function TechnologySection({ technologies }: { technologies: Technology[] }) {
   );
   return techsHavingTasks.length ? (
     <>
-      <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>
-        Project tasks by technology
-      </h3>
+      <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>My contributions</h3>
       <TechnologyGrid
         techsHavingTasks={techsHavingTasks}
         techsHavingNoTasks={techsHavingNoTasks}
