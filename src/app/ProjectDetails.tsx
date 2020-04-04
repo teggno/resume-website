@@ -11,7 +11,7 @@ import {
   cardContent,
   twoColumns,
   list,
-  normalFontSize
+  normalFontSize,
 } from "../css";
 import StringList from "../common/StringList";
 import GridCellsAutoPlacementCss from "../common/GridCellsAutoPlacementCss";
@@ -91,7 +91,7 @@ export default function ProjectDetails({ project }: { project: Project }) {
 
 function TechnologySection({ technologies }: { technologies: Technology[] }) {
   const [techsHavingTasks, techsHavingNoTasks] = partition(
-    t => !!t.tasks && !!t.tasks.length,
+    (t) => !!t.tasks && !!t.tasks.length,
     technologies
   );
   return techsHavingTasks.length ? (
@@ -106,7 +106,7 @@ function TechnologySection({ technologies }: { technologies: Technology[] }) {
     <>
       <h3 className={normalFontSize + " b ph2 mb0 mt4-l"}>Technologies used</h3>
       <div className="ph2 pt2">
-        <StringList items={techsHavingNoTasks.map(t => t.name)} />
+        <StringList items={techsHavingNoTasks.map((t) => t.name)} />
       </div>
     </>
   );
@@ -126,14 +126,18 @@ function TechnologyGrid(props: TechnologyGridProps) {
       <ul className={grid2 + " " + list}>
         <>
           {techsHavingTasks
-            .sort(descend(t => (t.tasks ? t.tasks.length : 0)))
-            .map(t => (
-              <TechnologyGridCell title={t.name} lines={t.tasks || []} />
+            .sort(descend((t) => (t.tasks ? t.tasks.length : 0)))
+            .map((t) => (
+              <TechnologyGridCell
+                key={t.name}
+                title={t.name}
+                lines={t.tasks || []}
+              />
             ))}
           {techsHavingNoTasks.length ? (
             <TechnologyGridCell
               title="Other"
-              lines={techsHavingNoTasks.map(t => t.name)}
+              lines={techsHavingNoTasks.map((t) => t.name)}
             />
           ) : null}
         </>
@@ -149,7 +153,7 @@ interface Technology {
 
 function TechnologyGridCell({
   title,
-  lines
+  lines,
 }: {
   title: string;
   lines: string[];
