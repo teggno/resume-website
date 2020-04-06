@@ -14,7 +14,8 @@
     column-gap: 3rem;
   }
 
-  .cc2-l .noColumnBreak, .cc2-l .noColumnBreak ul {
-    break-inside: avoid-column;
+  .cc2-l .noColumnBreak,
+  .cc2-l .noColumnBreak ul {
+    break-inside: avoid;
   }
 }
