@@ -2,6 +2,10 @@ main {
   display: block;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 @media (min-width: 30em) {
   body::after {
     content: "notSmall";

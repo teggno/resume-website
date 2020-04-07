@@ -1,0 +1,7 @@
+.welcome-exit-active {
+  transform: translateY(-100%);
+  transition: transform 600ms;
+}
+.welcome-exit-done {
+  display: none;
+}

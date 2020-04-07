@@ -6,7 +6,7 @@ export default class HashAware extends React.Component<{}, { hash: string }> {
 
     this.hashChanged = this.hashChanged.bind(this);
     this.state = {
-      hash: window.location.hash
+      hash: window.location.hash,
     };
   }
 

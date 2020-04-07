@@ -23,17 +23,12 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
           }
         >
           <div className="w-50 w-30-l ph2 flex-none">{this.props.master}</div>
-          <div
-            className={"w-50 w-70-l pl4-ns flex-none"}
-            ref={this.detailsRef}
-          >
+          <div className={"w-50 w-70-l pl4-ns flex-none"} ref={this.detailsRef}>
             {this.props.detailsVisible ? (
               this.props.detail
             ) : (
-              <div className="relative">
-                <div className="f2 fixed mt6 mw6 tc lh-copy">
-                  Click an item in the list for details.
-                </div>
+              <div className="f2 tc lh-copy pr4-ns">
+                Click an item in the list for details.
               </div>
             )}
           </div>
@@ -54,7 +49,7 @@ export default class MasterDetail extends React.Component<MasterDetailProps> {
     window.scroll({
       behavior: scrollBehavior(),
       top: 0,
-      left: 0
+      left: 0,
     });
   }
 

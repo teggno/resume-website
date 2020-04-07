@@ -1,0 +1,22 @@
+.page-enter {
+  opacity: 0;
+}
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 600ms;
+}
+.page-exit {
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 600ms;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
