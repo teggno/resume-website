@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
+
 export function scrollIntoView(element: HTMLElement) {
   window.scroll({
     behavior: "smooth",
     left: 0,
-    top: element.offsetTop - navBarHeight()
+    top: element.offsetTop - navBarHeight(),
   });
 }
 

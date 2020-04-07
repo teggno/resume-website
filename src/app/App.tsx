@@ -32,13 +32,6 @@ export default function App(props: AppProps) {
       <CSSTransition in={welcomeVisible} timeout={600} classNames="welcome">
         <Welcome onHide={() => setWelcomeVisible(false)} />
       </CSSTransition>
-      {/* {welcomeVisible ? (
-        <CSSTransition in={welcomeVisible} timeout={600} classNames="welcome">
-          <Welcome onHide={() => setWelcomeVisible(false)} />
-        </CSSTransition>
-      ) : (
-        <AppContent {...props} />
-      )} */}
     </div>
   );
 }
@@ -93,79 +86,73 @@ class AppContent extends React.Component<AppProps, AppState> {
         </header>
         <main role="main" style={{ paddingTop: navBarHeight() }}>
           <HashAware>
-            {(hash: string) => {
-              return (
-                <TransitionGroup className="relative">
-                  <CSSTransition
-                    key={hash}
-                    classNames="page"
-                    timeout={600}
-                    in={true}
-                  >
-                    {whenFn(
+            {(hash: string) => (
+              <TransitionGroup className="relative">
+                <CSSTransition
+                  key={hash}
+                  classNames="page"
+                  timeout={600}
+                  in={true}
+                >
+                  {whenFn(
+                    () => (
+                      <HomePage
+                        technologies={this.technologies}
+                        selectedTechnologies={this.state.selectedTechnologies}
+                        onFiltersChange={this.handleFiltersChage}
+                        yearFrom={this.state.yearFrom}
+                        technologyGroups={this.props.me.technologyGroups()}
+                      />
+                    ),
+                    [
+                      hash.indexOf("#projects") === 0,
                       () => (
-                        <HomePage
-                          technologies={this.technologies}
-                          selectedTechnologies={this.state.selectedTechnologies}
-                          onFiltersChange={this.handleFiltersChage}
-                          yearFrom={this.state.yearFrom}
-                          technologyGroups={this.props.me.technologyGroups()}
+                        <ProjectsPage
+                          projects={this.projects()}
+                          selectedProjectTitle={projectRoute.nameFromHash(hash)}
                         />
                       ),
-                      [
-                        hash.indexOf("#projects") === 0,
-                        () => (
-                          <ProjectsPage
-                            projects={this.projects()}
-                            selectedProjectTitle={projectRoute.nameFromHash(
-                              hash
-                            )}
+                    ],
+                    [
+                      hash.indexOf("#technologies") === 0,
+                      () => (
+                        <TechnologiesPage
+                          technologies={this.technologiesWithFilteredProjects()}
+                          selectedTechnologyTitle={technologyRoute.nameFromHash(
+                            hash
+                          )}
+                        />
+                      ),
+                    ],
+                    [
+                      hash.indexOf("#timeline") === 0,
+                      () => {
+                        const tp = timelinePagePropsFactory({
+                          projects: this.projects(),
+                          technologies: this.state.selectedTechnologies,
+                          certificates: this.props.me.certificates(),
+                          jobs: this.props.me.jobs(),
+                        });
+                        return (
+                          <TimelinePage
+                            allEventGroups={tp.eventGroupNames}
+                            selectedEventGroups={this.state.selectedEventGroups}
+                            events={tp.events(this.state.selectedEventGroups)}
+                            onEventGroupSelectionChange={
+                              this.handleEventGroupSelectionChange
+                            }
                           />
-                        ),
-                      ],
-                      [
-                        hash.indexOf("#technologies") === 0,
-                        () => (
-                          <TechnologiesPage
-                            technologies={this.technologiesWithFilteredProjects()}
-                            selectedTechnologyTitle={technologyRoute.nameFromHash(
-                              hash
-                            )}
-                          />
-                        ),
-                      ],
-                      [
-                        hash.indexOf("#timeline") === 0,
-                        () => {
-                          const tp = timelinePagePropsFactory({
-                            projects: this.projects(),
-                            technologies: this.state.selectedTechnologies,
-                            certificates: this.props.me.certificates(),
-                            jobs: this.props.me.jobs(),
-                          });
-                          return (
-                            <TimelinePage
-                              allEventGroups={tp.eventGroupNames}
-                              selectedEventGroups={
-                                this.state.selectedEventGroups
-                              }
-                              events={tp.events(this.state.selectedEventGroups)}
-                              onEventGroupSelectionChange={
-                                this.handleEventGroupSelectionChange
-                              }
-                            />
-                          );
-                        },
-                      ],
-                      [
-                        hash.indexOf("#projecttable") === 0,
-                        () => <ProjectTablePage projects={this.projects()} />,
-                      ]
-                    )}
-                  </CSSTransition>
-                </TransitionGroup>
-              );
-            }}
+                        );
+                      },
+                    ],
+                    [
+                      hash.indexOf("#projecttable") === 0,
+                      () => <ProjectTablePage projects={this.projects()} />,
+                    ]
+                  )}
+                </CSSTransition>
+              </TransitionGroup>
+            )}
           </HashAware>
         </main>
       </ProjectColorContext.Provider>
