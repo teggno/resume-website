@@ -12,16 +12,16 @@ import Month from "../Month";
 import { projectRoute, technologyRoute } from "../Routes";
 import "./App.css";
 import HomePage from "./HomePage";
-import LogoAdwise from "./LogoAdwise";
 import Navigation from "./Navigation";
+import "./NavigationTransitions.css";
+import "./PageTransitions.css";
 import ProjectColorContext from "./ProjectColorContext";
 import ProjectsPage from "./ProjectsPage";
 import ProjectTablePage from "./ProjectTablePage";
-import "./PageTransitions.css";
-import "./WelcomeTransitions.css";
 import TechnologiesPage from "./TechnologiesPage";
 import TimelinePage, { timelinePagePropsFactory } from "./TimelinePage";
 import Welcome from "./Welcome";
+import "./WelcomeTransitions.css";
 
 export default function App(props: AppProps) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
@@ -68,25 +68,31 @@ class AppContent extends React.Component<AppProps, AppState> {
 
   render() {
     return (
-      <ProjectColorContext.Provider
-        value={(title: string) => this.colorForProject(title) || "cyan"}
-      >
-        <header
-          className={
-            "bg-white shadow-1 fixed w-100 z-999 top-0 flex items-center"
-          }
-          id="header"
-        >
-          <div className="h2 w2 ml2">
-            <Link href="#">
-              <LogoAdwise />
-            </Link>
-          </div>
-          <Navigation />
-        </header>
-        <main role="main" style={{ paddingTop: navBarHeight() }}>
-          <HashAware>
-            {(hash: string) => (
+      <HashAware>
+        {(hash: string) => (
+          <ProjectColorContext.Provider
+            value={(title: string) => this.colorForProject(title) || "cyan"}
+          >
+            <CSSTransition
+              timeout={600}
+              classNames="home"
+              in={hash.trim() === ""}
+              appear={true}
+            >
+              <header
+                className="fixed bg-white left-0 w-100 z-999 shadow-1"
+                id="header"
+              >
+                {/* <div className="h2 w2 ml2">
+                  <Link href="#">
+                    <LogoAdwise />
+                  </Link>
+                </div> */}
+
+                <Navigation className="navigation" />
+              </header>
+            </CSSTransition>
+            <main role="main">
               <TransitionGroup className="relative">
                 <CSSTransition
                   key={hash}
@@ -102,26 +108,33 @@ class AppContent extends React.Component<AppProps, AppState> {
                         onFiltersChange={this.handleFiltersChage}
                         yearFrom={this.state.yearFrom}
                         technologyGroups={this.props.me.technologyGroups()}
+                        style={{ paddingBottom: navBarHeight() }}
                       />
                     ),
                     [
                       hash.indexOf("#projects") === 0,
                       () => (
-                        <ProjectsPage
-                          projects={this.projects()}
-                          selectedProjectTitle={projectRoute.nameFromHash(hash)}
-                        />
+                        <div style={{ paddingTop: navBarHeight() }}>
+                          <ProjectsPage
+                            projects={this.projects()}
+                            selectedProjectTitle={projectRoute.nameFromHash(
+                              hash
+                            )}
+                          />
+                        </div>
                       ),
                     ],
                     [
                       hash.indexOf("#technologies") === 0,
                       () => (
-                        <TechnologiesPage
-                          technologies={this.technologiesWithFilteredProjects()}
-                          selectedTechnologyTitle={technologyRoute.nameFromHash(
-                            hash
-                          )}
-                        />
+                        <div style={{ paddingTop: navBarHeight() }}>
+                          <TechnologiesPage
+                            technologies={this.technologiesWithFilteredProjects()}
+                            selectedTechnologyTitle={technologyRoute.nameFromHash(
+                              hash
+                            )}
+                          />
+                        </div>
                       ),
                     ],
                     [
@@ -134,14 +147,18 @@ class AppContent extends React.Component<AppProps, AppState> {
                           jobs: this.props.me.jobs(),
                         });
                         return (
-                          <TimelinePage
-                            allEventGroups={tp.eventGroupNames}
-                            selectedEventGroups={this.state.selectedEventGroups}
-                            events={tp.events(this.state.selectedEventGroups)}
-                            onEventGroupSelectionChange={
-                              this.handleEventGroupSelectionChange
-                            }
-                          />
+                          <div style={{ paddingTop: navBarHeight() }}>
+                            <TimelinePage
+                              allEventGroups={tp.eventGroupNames}
+                              selectedEventGroups={
+                                this.state.selectedEventGroups
+                              }
+                              events={tp.events(this.state.selectedEventGroups)}
+                              onEventGroupSelectionChange={
+                                this.handleEventGroupSelectionChange
+                              }
+                            />
+                          </div>
                         );
                       },
                     ],
@@ -152,10 +169,23 @@ class AppContent extends React.Component<AppProps, AppState> {
                   )}
                 </CSSTransition>
               </TransitionGroup>
-            )}
-          </HashAware>
-        </main>
-      </ProjectColorContext.Provider>
+              <CSSTransition
+                timeout={600}
+                appear={true}
+                in={hash.trim() === ""}
+                classNames="fab"
+              >
+                <Link
+                  href="#"
+                  className="pointer h3 w3 br-100 bg-darker-green white f6 fixed bottom-1 flex tc right-1 z-999 items-center pa0 no-underline bn shadow-5"
+                >
+                  <span className="pa2">Start over</span>
+                </Link>
+              </CSSTransition>
+            </main>
+          </ProjectColorContext.Provider>
+        )}
+      </HashAware>
     );
   }
 

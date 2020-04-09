@@ -1,0 +1,88 @@
+.home-enter {
+  transform: translateY(0);
+}
+
+.home-enter .navigation li a {
+  padding: 0;
+  border-radius: 0px;
+}
+
+.home-enter-active {
+  transform: translateY(calc(100vh - 100%));
+  transition: transform 600ms;
+}
+
+.home-enter-active .navigation li a {
+  background-color: #679800;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  transition: all 600ms ease-in-out;
+}
+
+.home-enter-done {
+  bottom: 0;
+}
+
+.home-enter-done .navigation li a {
+  background-color: #679800;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+}
+
+.home-exit {
+  transform: translateY(calc(100vh - 100%));
+}
+
+.home-exit .navigation li a {
+  background-color: #679800;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  transition: all 600ms ease-in-out;
+}
+
+.home-exit-active {
+  transition: transform 600ms;
+  transform: translateY(0);
+}
+
+.home-exit-active .navigation li a {
+  background-color: transparent;
+  color: #679800;
+  padding: 0;
+  border-radius: 0px;
+  transition: all 600ms ease-in-out;
+}
+
+.home-exit-done {
+  top: 0;
+}
+
+.fab-enter {
+  opacity: 1;
+}
+
+.fab-enter-active {
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+
+.fab-enter-done {
+  opacity: 0;
+  display: none;
+}
+
+.fab-exit {
+  opacity: 0;
+}
+
+.fab-exit-active {
+  opacity: 1;
+  transition: opacity 600ms ease-in-out;
+}
+
+.fab-exit-done {
+  opacity: 1;
+}

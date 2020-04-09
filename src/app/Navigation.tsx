@@ -1,13 +1,11 @@
-import React from "react";
+import React, { ComponentProps } from "react";
 import Link from "../common/Link";
 import { link } from "../css";
 
-export default function Navigation() {
+export default function Navigation(props: ComponentProps<"nav">) {
   return (
-    <nav className="flex-auto flex-none-ns">
-      <ul className="list ph0 ma0 nowrap flex justify-around">
-        <NavLinkItem href="#" text="Home" />
-        {"\n"}
+    <nav className="" {...props}>
+      <ul className="list ph0 ma0 nowrap flex justify-around justify-center-ns">
         <NavLinkItem href="#projects" text="Projects" />
         {"\n"}
         <NavLinkItem href="#technologies" text="Technologies" />
@@ -27,7 +25,7 @@ function NavLink({ href, text }: { href: string; text: string }) {
 }
 
 function NavItem({ children }: any) {
-  return <li className="dib pv3 pa3-ns">{children}</li>;
+  return <li className="dib pv3 pa3-ns dim">{children}</li>;
 }
 
 function NavLinkItem({ href, text }: { href: string; text: string }) {
