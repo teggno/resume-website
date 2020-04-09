@@ -11,7 +11,7 @@ import { Project, Technology } from "../Model";
 import Month from "../Month";
 import { projectRoute, technologyRoute } from "../Routes";
 import "./App.css";
-import HomePage from "./HomePage";
+import HomePage from "./FilterPage";
 import Navigation from "./Navigation";
 import "./NavigationTransitions.css";
 import "./PageTransitions.css";
