@@ -22,6 +22,7 @@ import TechnologiesPage from "./TechnologiesPage";
 import TimelinePage, { timelinePagePropsFactory } from "./TimelinePage";
 import Welcome from "./Welcome";
 import "./WelcomeTransitions.css";
+import About from "./About";
 
 export default function App(props: AppProps) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
@@ -29,7 +30,13 @@ export default function App(props: AppProps) {
   return (
     <div className={mainContainer + " relative"}>
       <AppContent {...props} />
-      <CSSTransition in={welcomeVisible} timeout={600} classNames="welcome">
+      {welcomeVisible ? null : <About />}
+      <CSSTransition
+        in={welcomeVisible}
+        timeout={600}
+        classNames="welcome"
+        unmountOnExit={true}
+      >
         <Welcome onHide={() => setWelcomeVisible(false)} />
       </CSSTransition>
     </div>
@@ -80,15 +87,9 @@ class AppContent extends React.Component<AppProps, AppState> {
               appear={true}
             >
               <header
-                className="fixed bg-white left-0 w-100 z-999 shadow-1"
+                className="fixed bg-white left-0 w-100 z-999 shadow-5"
                 id="header"
               >
-                {/* <div className="h2 w2 ml2">
-                  <Link href="#">
-                    <LogoAdwise />
-                  </Link>
-                </div> */}
-
                 <Navigation className="navigation" />
               </header>
             </CSSTransition>

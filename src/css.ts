@@ -4,8 +4,6 @@ import "./Grid.css";
 import "./Columns.css";
 import "./Colors.css";
 
-
-
 const fontFamily = "sans-serif";
 export const normalFontSize = "f5";
 const normalFontSizeResponsive = `f6 ${normalFontSize}-ns`;
@@ -17,11 +15,10 @@ const nearWhiteBackground = `bg-${nearWhite}`;
 // Colors
 const fontColor = "dark-gray";
 
-const bigButtonBackground = "bg-adwise-red";
+export const pinkBackground = "bg-adwise-red";
 const normalButtonBackground = "bg-darker-green";
 const normalButtonBackgroundClicked = "bg-adwise-green";
 const deemphasizedButtonBackground = "bg-near-white";
-
 
 const sparklineBackground = "bg-light-darker-green";
 
@@ -49,7 +46,7 @@ export const clickedButton = `${normalSizedButton} white ${normalButtonBackgroun
 export const deemphasizedButton = `${normalSizedButton} ${fontColor} b--${fontColor} ${deemphasizedButtonBackground}`;
 
 // big button
-export const bigButton = `${allButtons} ${bigButtonBackground} white f5 ph4 pv3`;
+export const bigButton = `${allButtons} ${pinkBackground} white f5 ph4 pv3`;
 
 export const checkboxListItem = "nowrap";
 

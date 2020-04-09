@@ -1,7 +1,9 @@
 import React from "react";
 import { bigButton } from "../css";
+import useYScrollHidden from "../common/useYScrollHidden";
 
 export default function Welcome({ onHide: hidden }: { onHide: () => void }) {
+  useYScrollHidden();
   return (
     <div className="bg-near-white flex vh-100 w-100 items-center justify-center fixed left-0 top-0 z-999">
       <div className="ph2 tc tj-ns mw6">

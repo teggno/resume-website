@@ -1,0 +1,36 @@
+.about {
+  left: 100%;
+  top: 50%;
+  position: fixed;
+  transform: translateY(-50%);
+}
+
+.aboutContent {
+  z-index: 30;
+}
+
+.about-enter {
+  transform: translate(0, -50%);
+}
+
+.about-enter-active {
+  transform: translate(-100%, -50%);
+  transition: transform 600ms;
+}
+
+.about-enter-done {
+  transform: translate(-100%, -50%);
+}
+
+.about-exit {
+  transform: translate(-100%, -50%);
+}
+
+.about-exit-active {
+  transform: translate(0, -50%);
+  transition: transform 600ms;
+}
+
+.about-exit-done {
+  transform: translate(0, -50%);
+}

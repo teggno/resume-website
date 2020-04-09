@@ -1,0 +1,24 @@
+/* .aboutButton {
+  position: fixed;
+  bottom: 50%;
+  right: 0;
+  transform: translateX(50%) rotate(-90deg);
+  transform-origin: bottom center;
+  border-radius: 0.25rem 0.25rem 0 0;
+} */
+
+.aboutButton {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: bottom center;
+  border-radius: 0.25rem 0.25rem 0 0;
+  z-index: 10;
+  /*Shadow is same as tachyon's shadow-5 but because of rotation, the first
+  number is -4px instead of 4px*/
+  box-shadow: -4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.aboutButton:hover {
+}
