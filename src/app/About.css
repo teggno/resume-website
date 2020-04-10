@@ -3,6 +3,7 @@
   top: 50%;
   position: fixed;
   transform: translateY(-50%);
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 .aboutContent {
@@ -15,7 +16,7 @@
 
 .about-enter-active {
   transform: translate(-100%, -50%);
-  transition: transform 600ms;
+  transition: transform 600ms ease-out;
 }
 
 .about-enter-done {
@@ -28,7 +29,7 @@
 
 .about-exit-active {
   transform: translate(0, -50%);
-  transition: transform 600ms;
+  transition: transform 600ms ease-out;
 }
 
 .about-exit-done {

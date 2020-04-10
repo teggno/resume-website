@@ -296,6 +296,32 @@
           }
         }
       }
+    },
+    "about": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactChannels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["url"]
+          }
+        }
+      }
     }
   }
 }

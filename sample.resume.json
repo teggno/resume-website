@@ -1,4 +1,15 @@
 {
+  "about": {
+    "text": [
+      "Hi, I'm Steve.",
+      "Adventures are my passion and I love to tell everybody about it.",
+      "You can book me for motivational speeches."
+    ],
+    "contactChannels": [
+      { "url": "https://linkedin.com/in/badasssteve", "text": "LinkedIn" },
+      { "url": "mailto:info@stevebadass.com", "text": "email" }
+    ]
+  },
   "projects": [
     {
       "title": "Circumnavigating the world",

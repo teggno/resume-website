@@ -26,11 +26,11 @@ import About from "./About";
 
 export default function App(props: AppProps) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
-
+  const about = props.me.about();
   return (
     <div className={mainContainer + " relative"}>
       <AppContent {...props} />
-      {welcomeVisible ? null : <About />}
+      {welcomeVisible || !about ? null : <About content={about} />}
       <CSSTransition
         in={welcomeVisible}
         timeout={600}
